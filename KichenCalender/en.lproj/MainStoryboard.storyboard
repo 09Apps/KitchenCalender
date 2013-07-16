@@ -17,7 +17,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q79-Lq-cda" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1277" y="-172"/>
+            <point key="canvasLocation" x="-1304" y="-186"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="5">
@@ -30,7 +30,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wwi-U8-w1M">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="130" id="Cte-I3-uFs"/>
-                                    <constraint firstAttribute="height" constant="180" id="q77-fg-h3l"/>
+                                    <constraint firstAttribute="height" constant="160" id="cQP-Ee-nNm"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -41,6 +41,9 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="Ntf-Sb-b13" kind="push" id="J2o-gd-dK8"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="60w-QA-etV">
                                 <constraints>
@@ -58,7 +61,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDw-3p-7Cw">
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="180" id="NN2-8l-KDL"/>
+                                    <constraint firstAttribute="height" constant="160" id="36G-DC-buh"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -87,13 +90,13 @@
                             <constraint firstItem="nDw-3p-7Cw" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="05V-L8-0WP"/>
                             <constraint firstItem="LC9-Jv-9Uk" firstAttribute="top" secondItem="nDw-3p-7Cw" secondAttribute="top" type="default" id="06m-0y-FOd"/>
                             <constraint firstItem="nDw-3p-7Cw" firstAttribute="trailing" secondItem="wwi-U8-w1M" secondAttribute="trailing" type="default" id="2aM-Ej-c6r"/>
+                            <constraint firstItem="60w-QA-etV" firstAttribute="top" secondItem="wwi-U8-w1M" secondAttribute="top" type="default" id="5k1-Ss-1Ul"/>
                             <constraint firstAttribute="trailing" secondItem="60w-QA-etV" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="Bg0-tK-YzD"/>
-                            <constraint firstAttribute="bottom" secondItem="nDw-3p-7Cw" secondAttribute="bottom" constant="21" id="EZi-Ht-g1E"/>
+                            <constraint firstItem="nDw-3p-7Cw" firstAttribute="baseline" secondItem="LC9-Jv-9Uk" secondAttribute="baseline" type="default" id="Dih-QE-jQp"/>
+                            <constraint firstItem="wwi-U8-w1M" firstAttribute="top" secondItem="3" secondAttribute="top" constant="58" id="MaN-Qq-3IH"/>
+                            <constraint firstAttribute="bottom" secondItem="nDw-3p-7Cw" secondAttribute="bottom" constant="24" id="Syz-j0-aRd"/>
                             <constraint firstItem="60w-QA-etV" firstAttribute="bottom" secondItem="wwi-U8-w1M" secondAttribute="bottom" type="default" id="Uxt-BJ-eUI"/>
-                            <constraint firstItem="wwi-U8-w1M" firstAttribute="top" secondItem="3" secondAttribute="top" constant="21" id="d9M-AH-a88"/>
                             <constraint firstAttribute="trailing" secondItem="LC9-Jv-9Uk" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="jqj-YI-Msd"/>
-                            <constraint firstItem="60w-QA-etV" firstAttribute="top" secondItem="wwi-U8-w1M" secondAttribute="top" type="default" id="jzi-Mt-tj1"/>
-                            <constraint firstItem="LC9-Jv-9Uk" firstAttribute="bottom" secondItem="nDw-3p-7Cw" secondAttribute="bottom" type="default" id="mcC-8V-lzg"/>
                             <constraint firstItem="LC9-Jv-9Uk" firstAttribute="leading" secondItem="60w-QA-etV" secondAttribute="leading" type="default" id="pz4-Z8-g7y"/>
                             <constraint firstItem="wwi-U8-w1M" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="xRT-Hn-6o5"/>
                         </constraints>
@@ -103,6 +106,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-805" y="-158"/>
+        </scene>
+        <!--Milk View Controller-->
+        <scene sceneID="yN3-sv-Adv">
+            <objects>
+                <tableViewController id="Ntf-Sb-b13" customClass="MilkViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Fb0-M1-DFG">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="4eu-fA-TF5">
+                                <rect key="frame" x="0.0" y="46" width="320" height="46"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Ntf-Sb-b13" id="nIw-0l-zdD"/>
+                            <outlet property="delegate" destination="Ntf-Sb-b13" id="WUu-DL-cgv"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="fxw-AF-E3e"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZF2-vi-zGb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-364" y="-163"/>
         </scene>
     </scenes>
     <resources>
