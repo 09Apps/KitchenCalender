@@ -18,6 +18,11 @@
 		ED0FA8F81792C5A0000D6249 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED0FA8F71792C5A0000D6249 /* Default-568h@2x.png */; };
 		ED0FA8FB1792C5A0000D6249 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED0FA8F91792C5A0000D6249 /* MainStoryboard.storyboard */; };
 		ED0FA8FE1792C5A0000D6249 /* MBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED0FA8FD1792C5A0000D6249 /* MBViewController.m */; };
+		ED0FA90D1792D045000D6249 /* iron.png in Resources */ = {isa = PBXBuildFile; fileRef = ED0FA90C1792D045000D6249 /* iron.png */; };
+		ED0FA90F1792D0F7000D6249 /* milk.png in Resources */ = {isa = PBXBuildFile; fileRef = ED0FA90E1792D0F7000D6249 /* milk.png */; };
+		ED4C4379179504B200AAE35F /* MilkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4C4378179504B200AAE35F /* MilkViewController.m */; };
+		ED93B2FE1793CBD3006CC526 /* newspaper_bw.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ED93B2FD1793CBD3006CC526 /* newspaper_bw.jpg */; };
+		ED93B3041793CF1F006CC526 /* bills.png in Resources */ = {isa = PBXBuildFile; fileRef = ED93B3031793CF1F006CC526 /* bills.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +42,12 @@
 		ED0FA8FA1792C5A0000D6249 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		ED0FA8FC1792C5A0000D6249 /* MBViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBViewController.h; sourceTree = "<group>"; };
 		ED0FA8FD1792C5A0000D6249 /* MBViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBViewController.m; sourceTree = "<group>"; };
+		ED0FA90C1792D045000D6249 /* iron.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iron.png; sourceTree = "<group>"; };
+		ED0FA90E1792D0F7000D6249 /* milk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = milk.png; sourceTree = "<group>"; };
+		ED4C4377179504B200AAE35F /* MilkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MilkViewController.h; sourceTree = "<group>"; };
+		ED4C4378179504B200AAE35F /* MilkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MilkViewController.m; sourceTree = "<group>"; };
+		ED93B2FD1793CBD3006CC526 /* newspaper_bw.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = newspaper_bw.jpg; sourceTree = "<group>"; };
+		ED93B3031793CF1F006CC526 /* bills.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bills.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +99,8 @@
 				ED0FA8F91792C5A0000D6249 /* MainStoryboard.storyboard */,
 				ED0FA8FC1792C5A0000D6249 /* MBViewController.h */,
 				ED0FA8FD1792C5A0000D6249 /* MBViewController.m */,
+				ED4C4377179504B200AAE35F /* MilkViewController.h */,
+				ED4C4378179504B200AAE35F /* MilkViewController.m */,
 				ED0FA8E81792C5A0000D6249 /* Supporting Files */,
 			);
 			path = KichenCalender;
@@ -96,6 +109,10 @@
 		ED0FA8E81792C5A0000D6249 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				ED93B2FD1793CBD3006CC526 /* newspaper_bw.jpg */,
+				ED0FA90E1792D0F7000D6249 /* milk.png */,
+				ED0FA90C1792D045000D6249 /* iron.png */,
+				ED93B3031793CF1F006CC526 /* bills.png */,
 				ED0FA8E91792C5A0000D6249 /* KichenCalender-Info.plist */,
 				ED0FA8EA1792C5A0000D6249 /* InfoPlist.strings */,
 				ED0FA8ED1792C5A0000D6249 /* main.m */,
@@ -164,6 +181,10 @@
 				ED0FA8F61792C5A0000D6249 /* Default@2x.png in Resources */,
 				ED0FA8F81792C5A0000D6249 /* Default-568h@2x.png in Resources */,
 				ED0FA8FB1792C5A0000D6249 /* MainStoryboard.storyboard in Resources */,
+				ED0FA90D1792D045000D6249 /* iron.png in Resources */,
+				ED0FA90F1792D0F7000D6249 /* milk.png in Resources */,
+				ED93B2FE1793CBD3006CC526 /* newspaper_bw.jpg in Resources */,
+				ED93B3041793CF1F006CC526 /* bills.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +198,7 @@
 				ED0FA8EE1792C5A0000D6249 /* main.m in Sources */,
 				ED0FA8F21792C5A0000D6249 /* MBAppDelegate.m in Sources */,
 				ED0FA8FE1792C5A0000D6249 /* MBViewController.m in Sources */,
+				ED4C4379179504B200AAE35F /* MilkViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +321,7 @@
 				ED0FA9031792C5A0000D6249 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
