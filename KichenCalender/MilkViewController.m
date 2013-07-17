@@ -32,6 +32,8 @@
     
     [self.view addGestureRecognizer:tap];
     
+    self.milk1 = [[NSMutableDictionary alloc] init];
+    self.milk2 = [[NSMutableDictionary alloc] init];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -77,7 +79,7 @@
     
     int sectionCount = 0;
     
-    if ([indexPath section] == 1)        sectionCount = 10;  // This is to manage tags of the textfields
+    if ([indexPath section] == 1)  sectionCount = 10;  // This is to manage tags of the textfields
     
     
     switch ([indexPath row])
@@ -88,23 +90,30 @@
             self.txtField.returnKeyType = UIReturnKeyNext;
             self.txtField.tag = sectionCount + [indexPath row];
             self.txtField.adjustsFontSizeToFitWidth = YES;
-            self.txtField.text = [[self.milk1 objectAtIndex:[indexPath row]] description];
             
-            NSLog(@"%@",self.txtField.text);
+            if ([indexPath section] == 0)
+                self.txtField.text = [self.milk1 objectForKey:@"Title"];
+            else
+                self.txtField.text = [self.milk2 objectForKey:@"Title"];
 
             cell.textLabel.text = @"Title ";
             cell.accessoryView = self.txtField;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
             break;
-
+        
         case 1:
             self.txtField.placeholder = @"Rs per ltr";
             self.txtField.keyboardType = UIKeyboardTypeDecimalPad;
             self.txtField.returnKeyType = UIReturnKeyNext;
             self.txtField.tag = sectionCount + [indexPath row];
             [self.txtField setEnabled: YES];
-
+            
+            if ([indexPath section] == 0)
+                self.txtField.text = [self.milk1 objectForKey:@"Rate"];
+            else
+                self.txtField.text = [self.milk2 objectForKey:@"Rate"];
+            
             cell.textLabel.text = @"Rate per ltr";
             cell.accessoryView = self.txtField;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -124,6 +133,11 @@
             self.txtField.returnKeyType = UIReturnKeyNext;
             self.txtField.tag = sectionCount + [indexPath row];
             
+            if ([indexPath section] == 0)
+                self.txtField.text = [self.milk1 objectForKey:@"DeliveryCharge"];
+            else
+                self.txtField.text = [self.milk2 objectForKey:@"DeliveryCharge"];
+            
             cell.textLabel.text = @"Delivery Charges";
             cell.accessoryView = self.txtField;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -131,7 +145,6 @@
             break;
 
         case 4:
-
             self.txtField.placeholder = @"effective from date";
             self.txtField.tag = sectionCount + [indexPath row];
                 
@@ -168,28 +181,41 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    // Save the values from textfields.
-    if( textField.tag < 10 )
+    // Save the values from textfields. If Tag is 0 to 9 means it is coming from 1st section
+    // If tag value is more than 10 means it is coming from 2nd section to save it to milk2
+    
+    switch (textField.tag)
     {
-        NSLog(@"Tag %d field %@",textField.tag,textField.text );
-        [self.milk1 replaceObjectAtIndex:textField.tag withObject:(textField.text)];
-        
-    }
-    else
-    {
-        NSLog(@"Tag %d field %@",textField.tag,textField.text );
-        int updTag = textField.tag - 10;
-        [self.milk2 replaceObjectAtIndex:updTag withObject:(textField.text)];
-    }
-
+        case 0:
+            [self.milk1 setValue:textField.text forKey:@"Title"];
+            break;
+                
+        case 1:
+            [self.milk1 setValue:textField.text forKey:@"Rate"];
+            break;
+                
+        case 3:
+            [self.milk1 setValue:textField.text forKey:@"DeliveryCharge"];
+            break;
+                
+        case 10:
+            [self.milk2 setValue:textField.text forKey:@"Title"];
+            break;
+            
+        case 11:
+            [self.milk2 setValue:textField.text forKey:@"Rate"];
+            break;
+            
+        case 13:
+            [self.milk2 setValue:textField.text forKey:@"DeliveryCharge"];
+            break;
+            
+        default:
+            break;
+        }
 }
 
 /*
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    [self.view endEditing:YES];
-}
-
 
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
