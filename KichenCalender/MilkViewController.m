@@ -65,16 +65,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    
-    if (cell == nil)
-    {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
-    }
-        
-    self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
-    self.txtField.delegate = self;
-    
     UIStepper *stepper =[[UIStepper alloc] initWithFrame:CGRectMake(200, 60, 50, 20)];
     
     int sectionCount = 0;
@@ -85,6 +75,11 @@
     switch ([indexPath row])
     {
         case 0:
+            // Cell1 is re-usable cell for textfield based cells
+            self.cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];            
+            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
+            self.txtField.delegate = self;
+            
             self.txtField.placeholder = @"e.g. Amul milk";
             self.txtField.keyboardType = UIKeyboardTypeNamePhonePad;
             self.txtField.returnKeyType = UIReturnKeyNext;
@@ -96,13 +91,17 @@
             else
                 self.txtField.text = [self.milk2 objectForKey:@"Title"];
 
-            cell.textLabel.text = @"Title ";
-            cell.accessoryView = self.txtField;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            self.cell.textLabel.text = @"Title ";
+            self.cell.accessoryView = self.txtField;
+            self.cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
             break;
         
         case 1:
+            self.cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];            
+            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
+            self.txtField.delegate = self;
+            
             self.txtField.placeholder = @"Rs per ltr";
             self.txtField.keyboardType = UIKeyboardTypeDecimalPad;
             self.txtField.returnKeyType = UIReturnKeyNext;
@@ -114,20 +113,25 @@
             else
                 self.txtField.text = [self.milk2 objectForKey:@"Rate"];
             
-            cell.textLabel.text = @"Rate per ltr";
-            cell.accessoryView = self.txtField;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            self.cell.textLabel.text = @"Rate per ltr";
+            self.cell.accessoryView = self.txtField;
+            self.cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
             break;
 
         case 2:
+            self.cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell2"];            
             [stepper setStepValue:0.25];
-            cell.textLabel.text = @"Quantity per day";
-            cell.accessoryView = stepper;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            self.cell.textLabel.text = @"Quantity per day";
+            self.cell.accessoryView = stepper;
+            self.cell.selectionStyle = UITableViewCellSelectionStyleNone;
             break;
 
         case 3:
+            self.cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];            
+            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
+            self.txtField.delegate = self;
+            
             self.txtField.placeholder = @"Rs per month";
             self.txtField.keyboardType = UIKeyboardTypeNumberPad;
             self.txtField.returnKeyType = UIReturnKeyNext;
@@ -138,25 +142,30 @@
             else
                 self.txtField.text = [self.milk2 objectForKey:@"DeliveryCharge"];
             
-            cell.textLabel.text = @"Delivery Charges";
-            cell.accessoryView = self.txtField;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            self.cell.textLabel.text = @"Delivery Charges";
+            self.cell.accessoryView = self.txtField;
+            self.cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             break;
 
         case 4:
+            self.cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];
+            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
+            self.txtField.delegate = self;
+            
             self.txtField.placeholder = @"effective from date";
             self.txtField.tag = sectionCount + [indexPath row];
                 
-            cell.textLabel.text = @"From Date ";
-            cell.accessoryView = self.txtField;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            self.cell.textLabel.text = @"From Date ";
+            self.cell.accessoryView = self.txtField;
+            self.cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             break;
 
         case 5:
-            cell.textLabel.text = @"Add exceptions ";
-            [cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
+            self.cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell3"];            
+            self.cell.textLabel.text = @"Add exceptions ";
+            [self.cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
             break;
 
                 
@@ -164,7 +173,7 @@
             break;
     }
     
-    return cell;
+    return self.cell;
 }
 
 
