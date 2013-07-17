@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MilkViewController : UITableViewController
+@interface MilkViewController : UITableViewController <UITextFieldDelegate>
 
+@property(nonatomic,retain) UITextField* txtField;
 @end
