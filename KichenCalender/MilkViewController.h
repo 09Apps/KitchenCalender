@@ -11,4 +11,6 @@
 @interface MilkViewController : UITableViewController <UITextFieldDelegate>
 
 @property(nonatomic,retain) UITextField* txtField;
+@property(nonatomic,retain) NSMutableArray* milk1;
+@property(nonatomic,retain) NSMutableArray* milk2;
 @end
