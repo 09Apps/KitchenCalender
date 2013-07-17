@@ -19,6 +19,7 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+
     }
     return self;
 }
@@ -26,12 +27,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped)];
+    
+    [self.view addGestureRecognizer:tap];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -63,33 +69,36 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     }
     
-    UITextField *txtField = [[UITextField alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
+    self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
+    
+    self.txtField.delegate = self;
+    
     UIStepper *stepper =[[UIStepper alloc] initWithFrame:CGRectMake(200, 60, 50, 20)];
     
     switch ([indexPath row])
     {
         case 0:
-            txtField.placeholder = @"e.g. Amul milk";
-            txtField.keyboardType = UIKeyboardTypeNamePhonePad;
-            txtField.returnKeyType = UIReturnKeyNext;
-//          txtField.tag = [indexPath row];
-            txtField.adjustsFontSizeToFitWidth = YES;
+            self.txtField.placeholder = @"e.g. Amul milk";
+            self.txtField.keyboardType = UIKeyboardTypeNamePhonePad;
+            self.txtField.returnKeyType = UIReturnKeyNext;
+//          self.txtField.tag = [indexPath row];
+            self.txtField.adjustsFontSizeToFitWidth = YES;
 
             cell.textLabel.text = @"Title ";
-            cell.accessoryView = txtField;
+            cell.accessoryView = self.txtField;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
             break;
 
         case 1:
-            txtField.placeholder = @"Rs per ltr";
-            txtField.keyboardType = UIKeyboardTypeDecimalPad;
-            txtField.returnKeyType = UIReturnKeyNext;
-//          txtField.tag = [indexPath row];
-            [txtField setEnabled: YES];
+            self.txtField.placeholder = @"Rs per ltr";
+            self.txtField.keyboardType = UIKeyboardTypeDecimalPad;
+            self.txtField.returnKeyType = UIReturnKeyNext;
+//          self.txtField.tag = [indexPath row];
+            [self.txtField setEnabled: YES];
 
             cell.textLabel.text = @"Rate per ltr";
-            cell.accessoryView = txtField;
+            cell.accessoryView = self.txtField;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
             break;
@@ -102,24 +111,24 @@
             break;
 
         case 3:
-            txtField.placeholder = @"Rs per month";
-            txtField.keyboardType = UIKeyboardTypeNumberPad;
-            txtField.returnKeyType = UIReturnKeyNext;
-//          txtField.tag = [indexPath row];
+            self.txtField.placeholder = @"Rs per month";
+            self.txtField.keyboardType = UIKeyboardTypeNumberPad;
+            self.txtField.returnKeyType = UIReturnKeyNext;
+//          self.txtField.tag = [indexPath row];
             
             cell.textLabel.text = @"Delivery Charges";
-            cell.accessoryView = txtField;
+            cell.accessoryView = self.txtField;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             break;
 
         case 4:
 
-            txtField.placeholder = @"effective from date";
-//          txtField.tag = [indexPath row];
+            self.txtField.placeholder = @"effective from date";
+//          self.txtField.tag = [indexPath row];
                 
             cell.textLabel.text = @"From Date ";
-            cell.accessoryView = txtField;
+            cell.accessoryView = self.txtField;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             break;
@@ -136,6 +145,31 @@
     
     return cell;
 }
+
+- (void)tapped
+{
+    [self.view endEditing:YES];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self.view endEditing:YES];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+
+
+//- (void)textFieldDidEndEditing:(UITextField *)textField
+//{
+//    [textField resignFirstResponder];
+//    [self.txtField resignFirstResponder];
+//}
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
