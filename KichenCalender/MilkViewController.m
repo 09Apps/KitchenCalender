@@ -71,7 +71,6 @@
     
     if ([indexPath section] == 1)  sectionCount = 10;  // This is to manage tags of the textfields
     
-    
     switch ([indexPath row])
     {
         case 0:
@@ -83,6 +82,7 @@
             self.txtField.placeholder = @"e.g. Amul milk";
             self.txtField.keyboardType = UIKeyboardTypeNamePhonePad;
             self.txtField.returnKeyType = UIReturnKeyNext;
+            self.txtField.textAlignment = NSTextAlignmentRight;
             self.txtField.tag = sectionCount + [indexPath row];
             self.txtField.adjustsFontSizeToFitWidth = YES;
             
@@ -105,6 +105,7 @@
             self.txtField.placeholder = @"Rs per ltr";
             self.txtField.keyboardType = UIKeyboardTypeDecimalPad;
             self.txtField.returnKeyType = UIReturnKeyNext;
+            self.txtField.textAlignment = NSTextAlignmentRight;            
             self.txtField.tag = sectionCount + [indexPath row];
             [self.txtField setEnabled: YES];
             
@@ -124,6 +125,8 @@
             [stepper setStepValue:0.25];
             self.cell.textLabel.text = @"Quantity per day";
             self.cell.accessoryView = stepper;
+            [stepper addTarget:self action:@selector(stepperPressed:) forControlEvents:UIControlEventValueChanged];
+            
             self.cell.selectionStyle = UITableViewCellSelectionStyleNone;
             break;
 
@@ -135,6 +138,7 @@
             self.txtField.placeholder = @"Rs per month";
             self.txtField.keyboardType = UIKeyboardTypeNumberPad;
             self.txtField.returnKeyType = UIReturnKeyNext;
+            self.txtField.textAlignment = NSTextAlignmentRight;            
             self.txtField.tag = sectionCount + [indexPath row];
             
             if ([indexPath section] == 0)
@@ -154,7 +158,9 @@
             self.txtField.delegate = self;
             
             self.txtField.placeholder = @"effective from date";
+            self.txtField.textAlignment = NSTextAlignmentRight;            
             self.txtField.tag = sectionCount + [indexPath row];
+            self.txtField.adjustsFontSizeToFitWidth = YES;            
                 
             self.cell.textLabel.text = @"From Date ";
             self.cell.accessoryView = self.txtField;
@@ -224,45 +230,14 @@
         }
 }
 
-/*
 
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (IBAction)stepperPressed:(UIStepper *)sender
+{    
+    self.cell.textLabel.text = [NSString stringWithFormat:@"%.2f",sender.value];
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 
