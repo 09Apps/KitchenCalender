@@ -31,6 +31,7 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped)];
     
     [self.view addGestureRecognizer:tap];
+    
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -68,12 +69,16 @@
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     }
-    
+        
     self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
-    
     self.txtField.delegate = self;
     
     UIStepper *stepper =[[UIStepper alloc] initWithFrame:CGRectMake(200, 60, 50, 20)];
+    
+    int sectionCount = 0;
+    
+    if ([indexPath section] == 1)        sectionCount = 10;  // This is to manage tags of the textfields
+    
     
     switch ([indexPath row])
     {
@@ -81,8 +86,11 @@
             self.txtField.placeholder = @"e.g. Amul milk";
             self.txtField.keyboardType = UIKeyboardTypeNamePhonePad;
             self.txtField.returnKeyType = UIReturnKeyNext;
-//          self.txtField.tag = [indexPath row];
+            self.txtField.tag = sectionCount + [indexPath row];
             self.txtField.adjustsFontSizeToFitWidth = YES;
+            self.txtField.text = [[self.milk1 objectAtIndex:[indexPath row]] description];
+            
+            NSLog(@"%@",self.txtField.text);
 
             cell.textLabel.text = @"Title ";
             cell.accessoryView = self.txtField;
@@ -94,7 +102,7 @@
             self.txtField.placeholder = @"Rs per ltr";
             self.txtField.keyboardType = UIKeyboardTypeDecimalPad;
             self.txtField.returnKeyType = UIReturnKeyNext;
-//          self.txtField.tag = [indexPath row];
+            self.txtField.tag = sectionCount + [indexPath row];
             [self.txtField setEnabled: YES];
 
             cell.textLabel.text = @"Rate per ltr";
@@ -114,7 +122,7 @@
             self.txtField.placeholder = @"Rs per month";
             self.txtField.keyboardType = UIKeyboardTypeNumberPad;
             self.txtField.returnKeyType = UIReturnKeyNext;
-//          self.txtField.tag = [indexPath row];
+            self.txtField.tag = sectionCount + [indexPath row];
             
             cell.textLabel.text = @"Delivery Charges";
             cell.accessoryView = self.txtField;
@@ -125,7 +133,7 @@
         case 4:
 
             self.txtField.placeholder = @"effective from date";
-//          self.txtField.tag = [indexPath row];
+            self.txtField.tag = sectionCount + [indexPath row];
                 
             cell.textLabel.text = @"From Date ";
             cell.accessoryView = self.txtField;
@@ -146,31 +154,43 @@
     return cell;
 }
 
+
 - (void)tapped
-{
+{  
     [self.view endEditing:YES];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{            
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    // Save the values from textfields.
+    if( textField.tag < 10 )
+    {
+        NSLog(@"Tag %d field %@",textField.tag,textField.text );
+        [self.milk1 replaceObjectAtIndex:textField.tag withObject:(textField.text)];
+        
+    }
+    else
+    {
+        NSLog(@"Tag %d field %@",textField.tag,textField.text );
+        int updTag = textField.tag - 10;
+        [self.milk2 replaceObjectAtIndex:updTag withObject:(textField.text)];
+    }
+
+}
+
+/*
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self.view endEditing:YES];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [textField resignFirstResponder];
-    return YES;
-}
 
-
-
-//- (void)textFieldDidEndEditing:(UITextField *)textField
-//{
-//    [textField resignFirstResponder];
-//    [self.txtField resignFirstResponder];
-//}
-
-/*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
