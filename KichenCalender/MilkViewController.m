@@ -65,7 +65,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIStepper *stepper =[[UIStepper alloc] initWithFrame:CGRectMake(200, 60, 50, 20)];
+    UITableViewCell *cell;
+    UIStepper *stepper;
+    UILabel *quantitylbl;
     
     int sectionCount = 0;
     
@@ -75,7 +77,7 @@
     {
         case 0:
             // Cell1 is re-usable cell for textfield based cells
-            self.cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];            
+            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];            
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
             self.txtField.delegate = self;
             
@@ -87,18 +89,18 @@
             self.txtField.adjustsFontSizeToFitWidth = YES;
             
             if ([indexPath section] == 0)
-                self.txtField.text = [self.milk1 objectForKey:@"Title"];
+                self.txtField.text = [self.milk1 objectForKey:@"title"];
             else
-                self.txtField.text = [self.milk2 objectForKey:@"Title"];
+                self.txtField.text = [self.milk2 objectForKey:@"title"];
 
-            self.cell.textLabel.text = @"Title ";
-            self.cell.accessoryView = self.txtField;
-            self.cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.textLabel.text = @"Title ";
+            [cell setAccessoryView:self.txtField];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
             break;
         
         case 1:
-            self.cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];            
+            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];            
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
             self.txtField.delegate = self;
             
@@ -110,28 +112,42 @@
             [self.txtField setEnabled: YES];
             
             if ([indexPath section] == 0)
-                self.txtField.text = [self.milk1 objectForKey:@"Rate"];
+                self.txtField.text = [self.milk1 objectForKey:@"rate"];
             else
-                self.txtField.text = [self.milk2 objectForKey:@"Rate"];
+                self.txtField.text = [self.milk2 objectForKey:@"rate"];
             
-            self.cell.textLabel.text = @"Rate per ltr";
-            self.cell.accessoryView = self.txtField;
-            self.cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.textLabel.text = @"Rate per ltr";
+            [cell setAccessoryView:self.txtField];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
             break;
 
         case 2:
-            self.cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell2"];            
-            [stepper setStepValue:0.25];
-            self.cell.textLabel.text = @"Quantity per day";
-            self.cell.accessoryView = stepper;
-            [stepper addTarget:self action:@selector(stepperPressed:) forControlEvents:UIControlEventValueChanged];
+            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell2"];
+            cell.textLabel.text = @"Quantity per day";
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            self.cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            stepper =[[UIStepper alloc] initWithFrame:CGRectMake(200, 60, 40, 20)];
+            [stepper setStepValue:0.25];
+            [stepper addTarget:self action:@selector(stepperPressed:) forControlEvents:UIControlEventValueChanged];
+            stepper.tag = indexPath.section;
+            
+            quantitylbl = [[UILabel alloc] initWithFrame:CGRectMake(160, 12, 40, 20)];
+            
+            if ([indexPath section] == 0)
+                quantitylbl.text = [self.milk1 objectForKey:@"quantity"];
+            else
+                quantitylbl.text = [self.milk2 objectForKey:@"quantity"];
+
+            [stepper setValue:[quantitylbl.text doubleValue]];
+            
+            [cell setAccessoryView:stepper];
+            [cell addSubview:quantitylbl];
+
             break;
 
         case 3:
-            self.cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];            
+            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];            
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
             self.txtField.delegate = self;
             
@@ -142,18 +158,18 @@
             self.txtField.tag = sectionCount + [indexPath row];
             
             if ([indexPath section] == 0)
-                self.txtField.text = [self.milk1 objectForKey:@"DeliveryCharge"];
+                self.txtField.text = [self.milk1 objectForKey:@"deliveryCharge"];
             else
-                self.txtField.text = [self.milk2 objectForKey:@"DeliveryCharge"];
+                self.txtField.text = [self.milk2 objectForKey:@"deliveryCharge"];
             
-            self.cell.textLabel.text = @"Delivery Charges";
-            self.cell.accessoryView = self.txtField;
-            self.cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.textLabel.text = @"Delivery Charges";
+            [cell setAccessoryView:self.txtField];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             break;
 
         case 4:
-            self.cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];
+            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
             self.txtField.delegate = self;
             
@@ -162,24 +178,23 @@
             self.txtField.tag = sectionCount + [indexPath row];
             self.txtField.adjustsFontSizeToFitWidth = YES;            
                 
-            self.cell.textLabel.text = @"From Date ";
-            self.cell.accessoryView = self.txtField;
-            self.cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.textLabel.text = @"From Date ";
+            [cell setAccessoryView:self.txtField];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             break;
 
         case 5:
-            self.cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell3"];            
-            self.cell.textLabel.text = @"Add exceptions ";
-            [self.cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
+            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell3"];            
+            cell.textLabel.text = @"Add exceptions ";
+            [cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
             break;
 
-                
         default:
             break;
     }
     
-    return self.cell;
+    return cell;
 }
 
 
@@ -230,11 +245,16 @@
         }
 }
 
-
-
 - (IBAction)stepperPressed:(UIStepper *)sender
-{    
-    self.cell.textLabel.text = [NSString stringWithFormat:@"%.2f",sender.value];
+{
+    NSString* strval = [NSString stringWithFormat:@"%.2f",sender.value];
+    
+    if (sender.tag == 0)
+        [self.milk1 setValue:strval forKey:@"Quantity"];
+    else
+        [self.milk2 setValue:strval forKey:@"Quantity"];
+
+    [self.tableView reloadData];
 }
 
 

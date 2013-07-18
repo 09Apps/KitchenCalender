@@ -10,7 +10,6 @@
 
 @interface MilkViewController : UITableViewController <UITextFieldDelegate>
 
-@property(nonatomic,weak) UITableViewCell *cell;
 @property(nonatomic,retain) UITextField* txtField;
 @property(nonatomic,retain) NSMutableDictionary* milk1;
 @property(nonatomic,retain) NSMutableDictionary* milk2;
