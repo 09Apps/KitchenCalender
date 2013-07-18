@@ -20,6 +20,8 @@
 		ED0FA8FE1792C5A0000D6249 /* MBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED0FA8FD1792C5A0000D6249 /* MBViewController.m */; };
 		ED0FA90D1792D045000D6249 /* iron.png in Resources */ = {isa = PBXBuildFile; fileRef = ED0FA90C1792D045000D6249 /* iron.png */; };
 		ED0FA90F1792D0F7000D6249 /* milk.png in Resources */ = {isa = PBXBuildFile; fileRef = ED0FA90E1792D0F7000D6249 /* milk.png */; };
+		ED3ED10117982A5300C6FA25 /* MBKCModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3ED10017982A5300C6FA25 /* MBKCModel.m */; };
+		ED3F30181798616C000FF701 /* KCPList.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED3F30171798616C000FF701 /* KCPList.plist */; };
 		ED4C4379179504B200AAE35F /* MilkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4C4378179504B200AAE35F /* MilkViewController.m */; };
 		ED93B2FE1793CBD3006CC526 /* newspaper_bw.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ED93B2FD1793CBD3006CC526 /* newspaper_bw.jpg */; };
 		ED93B3041793CF1F006CC526 /* bills.png in Resources */ = {isa = PBXBuildFile; fileRef = ED93B3031793CF1F006CC526 /* bills.png */; };
@@ -44,6 +46,9 @@
 		ED0FA8FD1792C5A0000D6249 /* MBViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBViewController.m; sourceTree = "<group>"; };
 		ED0FA90C1792D045000D6249 /* iron.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iron.png; sourceTree = "<group>"; };
 		ED0FA90E1792D0F7000D6249 /* milk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = milk.png; sourceTree = "<group>"; };
+		ED3ED0FF17982A5300C6FA25 /* MBKCModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBKCModel.h; sourceTree = "<group>"; };
+		ED3ED10017982A5300C6FA25 /* MBKCModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBKCModel.m; sourceTree = "<group>"; };
+		ED3F30171798616C000FF701 /* KCPList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = KCPList.plist; sourceTree = "<group>"; };
 		ED4C4377179504B200AAE35F /* MilkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MilkViewController.h; sourceTree = "<group>"; };
 		ED4C4378179504B200AAE35F /* MilkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MilkViewController.m; sourceTree = "<group>"; };
 		ED93B2FD1793CBD3006CC526 /* newspaper_bw.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = newspaper_bw.jpg; sourceTree = "<group>"; };
@@ -101,6 +106,8 @@
 				ED0FA8FD1792C5A0000D6249 /* MBViewController.m */,
 				ED4C4377179504B200AAE35F /* MilkViewController.h */,
 				ED4C4378179504B200AAE35F /* MilkViewController.m */,
+				ED3ED0FF17982A5300C6FA25 /* MBKCModel.h */,
+				ED3ED10017982A5300C6FA25 /* MBKCModel.m */,
 				ED0FA8E81792C5A0000D6249 /* Supporting Files */,
 			);
 			path = KichenCalender;
@@ -120,6 +127,7 @@
 				ED0FA8F31792C5A0000D6249 /* Default.png */,
 				ED0FA8F51792C5A0000D6249 /* Default@2x.png */,
 				ED0FA8F71792C5A0000D6249 /* Default-568h@2x.png */,
+				ED3F30171798616C000FF701 /* KCPList.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -185,6 +193,7 @@
 				ED0FA90F1792D0F7000D6249 /* milk.png in Resources */,
 				ED93B2FE1793CBD3006CC526 /* newspaper_bw.jpg in Resources */,
 				ED93B3041793CF1F006CC526 /* bills.png in Resources */,
+				ED3F30181798616C000FF701 /* KCPList.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,6 +208,7 @@
 				ED0FA8F21792C5A0000D6249 /* MBAppDelegate.m in Sources */,
 				ED0FA8FE1792C5A0000D6249 /* MBViewController.m in Sources */,
 				ED4C4379179504B200AAE35F /* MilkViewController.m in Sources */,
+				ED3ED10117982A5300C6FA25 /* MBKCModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
