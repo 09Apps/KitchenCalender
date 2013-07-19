@@ -57,4 +57,59 @@
     return dict;
 }
 
+- (void) setMilkDetailsWithMilk1:(NSDictionary*)dict1 AndMilk2:(NSDictionary*)dict2
+{
+    // get paths from root direcory
+    NSArray *paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES);
+    // get documents path
+    NSString *documentsPath = [paths objectAtIndex:0];
+    // get the path to our Data/plist file
+    NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"KCPList.plist"];
+    
+    NSLog(@"plistPath %@",plistPath);
+    
+    // check to see if Data.plist exists in documents
+    if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath])
+    {
+        NSError *err;
+        // if not in documents, get property list from main bundle
+        NSString* pBundlePath = [[NSBundle mainBundle] pathForResource:@"KCPList" ofType:@"plist"];
+        
+        // Copy Plist to document directory
+        NSFileManager* manager = [NSFileManager defaultManager];
+        [manager copyItemAtPath:pBundlePath toPath:plistPath error:&err];
+        
+        if(err)
+        {
+            NSLog(@"Error in saveData: %@", err);
+        }
+
+    }
+    
+
+    
+    NSArray* dictarr = [[NSArray alloc] initWithObjects:self.sections, dict1, dict2, nil];
+    NSArray* keyarr = [[NSArray alloc] initWithObjects:@"sections", @"milk1", @"milk2", nil];
+    
+    NSDictionary* dict = [[NSDictionary alloc] initWithObjects:dictarr forKeys:keyarr];
+    
+    NSString *error = nil;
+    // create NSData from dictionary
+    NSData *plistData = [NSPropertyListSerialization dataFromPropertyList:dict format:NSPropertyListXMLFormat_v1_0 errorDescription:&error];
+    
+    // check is plistData exists
+    if(plistData)
+    {
+        // write plistData to our Data.plist file
+        [plistData writeToFile:plistPath atomically:YES];
+        
+        NSLog(@"plistPath %@",plistPath);
+    }
+    else
+    {
+        NSLog(@"Error in saveData: %@", error);
+    }
+}
+
+
 @end

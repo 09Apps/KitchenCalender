@@ -41,8 +41,11 @@
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSection)];
+    
+    self.navigationItem.rightBarButtonItem = addButton;
+    
+    [self.navigationItem.leftBarButtonItem setTitle:@"Save"];
 
 }
 
@@ -72,7 +75,7 @@
     UIStepper *stepper;
     UILabel *quantitylbl;
     
-    int sectionCount = 0;
+    int sectionCount = 0; 
     
     if ([indexPath section] == 1)  sectionCount = 10;  // This is to manage tags of the textfields
     
@@ -99,7 +102,6 @@
             cell.textLabel.text = @"Title ";
             [cell setAccessoryView:self.txtField];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                
             break;
         
         case 1:
@@ -213,6 +215,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {            
     [textField resignFirstResponder];
+    
     return YES;
 }
 
@@ -224,32 +227,34 @@
     switch (textField.tag)
     {
         case 0:
-            [self.milk1 setValue:textField.text forKey:@"Title"];
+            [self.milk1 setValue:textField.text forKey:@"title"];        
             break;
                 
         case 1:
-            [self.milk1 setValue:textField.text forKey:@"Rate"];
+            [self.milk1 setValue:textField.text forKey:@"rate"];
             break;
                 
         case 3:
-            [self.milk1 setValue:textField.text forKey:@"DeliveryCharge"];
+            [self.milk1 setValue:textField.text forKey:@"deliveryCharge"];
             break;
                 
         case 10:
-            [self.milk2 setValue:textField.text forKey:@"Title"];
+            [self.milk2 setValue:textField.text forKey:@"title"];
             break;
             
         case 11:
-            [self.milk2 setValue:textField.text forKey:@"Rate"];
+            [self.milk2 setValue:textField.text forKey:@"rate"];
             break;
             
         case 13:
-            [self.milk2 setValue:textField.text forKey:@"DeliveryCharge"];
+            [self.milk2 setValue:textField.text forKey:@"deliveryCharge"];
             break;
             
         default:
             break;
         }
+    
+
 }
 
 - (IBAction)stepperPressed:(UIStepper *)sender
@@ -265,7 +270,14 @@
     [self.tableView reloadData];
 }
 
-
+- (void)addSection
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Add Milk" message:@"Do you wish to add one more milk details?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    
+    [alert show];
+    
+    // DO only if users says yes in alert. Check alert's method.
+}
 
 #pragma mark - Table view delegate
 
@@ -278,6 +290,20 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+    {
+        self.model.sections = @"2";
+        self.navigationItem.rightBarButtonItem = nil;
+        [self.tableView reloadData];
+        
+        [self.model setMilkDetailsWithMilk1:self.milk1 AndMilk2:self.milk2];
+    }
+    
+    // Do nothing if users says No to add milk
 }
 
 @end
