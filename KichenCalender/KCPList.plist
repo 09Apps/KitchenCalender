@@ -11,7 +11,7 @@
 		<key>deliveryCharge</key>
 		<string></string>
 		<key>quantity</key>
-		<string></string>
+		<string>0</string>
 		<key>rate</key>
 		<string></string>
 		<key>title</key>
@@ -26,13 +26,13 @@
 		<key>deliveryCharge</key>
 		<string></string>
 		<key>quantity</key>
-		<string></string>
+		<string>0</string>
 		<key>rate</key>
 		<string></string>
 		<key>title</key>
 		<string></string>
 	</dict>
 	<key>sections</key>
-	<integer>0</integer>
+	<integer>1</integer>
 </dict>
 </plist>
