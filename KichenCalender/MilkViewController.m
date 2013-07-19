@@ -28,13 +28,16 @@
 {
     [super viewDidLoad];
     
+    self.model = [[MBKCModel alloc] init];
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped)];
     
     [self.view addGestureRecognizer:tap];
     
-    self.milk1 = [[NSMutableDictionary alloc] init];
-    self.milk2 = [[NSMutableDictionary alloc] init];
+    self.milk1 = [self.model getMilkDetails:1];
+    self.milk2 = [self.model getMilkDetails:2];
 
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -54,7 +57,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 2;
+    return [self.model.sections integerValue];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -135,15 +138,19 @@
             quantitylbl = [[UILabel alloc] initWithFrame:CGRectMake(160, 12, 40, 20)];
             
             if ([indexPath section] == 0)
+            {
                 quantitylbl.text = [self.milk1 objectForKey:@"quantity"];
+            }
             else
+            {
                 quantitylbl.text = [self.milk2 objectForKey:@"quantity"];
+            }
 
             [stepper setValue:[quantitylbl.text doubleValue]];
-            
-            [cell setAccessoryView:stepper];
-            [cell addSubview:quantitylbl];
 
+            [cell addSubview:quantitylbl];            
+            [cell setAccessoryView:stepper];
+            
             break;
 
         case 3:
@@ -247,12 +254,13 @@
 
 - (IBAction)stepperPressed:(UIStepper *)sender
 {
+//    double stepval = sender.value + sender.stepValue;
     NSString* strval = [NSString stringWithFormat:@"%.2f",sender.value];
     
     if (sender.tag == 0)
-        [self.milk1 setValue:strval forKey:@"Quantity"];
+        [self.milk1 setValue:strval forKey:@"quantity"];
     else
-        [self.milk2 setValue:strval forKey:@"Quantity"];
+        [self.milk2 setValue:strval forKey:@"quantity"];
 
     [self.tableView reloadData];
 }

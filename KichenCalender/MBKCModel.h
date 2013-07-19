@@ -12,6 +12,6 @@
 
 @property (nonatomic,retain) NSString* sections;
 
-- (NSDictionary*) getMilkDetails;
+- (NSDictionary*) getMilkDetails:(NSInteger)counter;
 
 @end

@@ -10,7 +10,7 @@
 
 @implementation MBKCModel
 
-- (NSDictionary*) getMilkDetails
+- (NSDictionary*) getMilkDetails:(NSInteger)counter
 {
     // get paths from root direcory
     NSArray *paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES);
@@ -26,8 +26,6 @@
         plistPath = [[NSBundle mainBundle] pathForResource:@"KCPList" ofType:@"plist"];
     }
     
-    NSLog(@"pListPath %@",plistPath);
-    
     // read property list into memory as an NSData object
     NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
     NSString *errorDesc = nil;
@@ -40,25 +38,21 @@
         NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
     }
     
-//    NSArray* arr = [temp allKeys];
-    
-//    for (id obj in arr)
-//		NSLog(@"keys %@",obj);
-    
-    // assign values
     
     self.sections = [temp objectForKey:@"sections"];
+
+    NSDictionary *dict;
     
-    NSDictionary *dict = [temp objectForKey:@"milk1"];
-    if (!dict)
-    {
-        NSLog(@"dict is null");
-    }
+    if(counter == 1)
+        dict = [temp objectForKey:@"milk1"];
     else
-    {
-        NSArray* nsa = [dict allValues];
-        [nsa objectAtIndex:0];
-    }
+        dict = [temp objectForKey:@"milk2"];        
+
+////// Use to debug
+//    NSArray* nsa = [dict allValues];
+//    for (id obj in nsa)
+//		NSLog(@"values %@",obj);
+///////
     
     return dict;
 }
