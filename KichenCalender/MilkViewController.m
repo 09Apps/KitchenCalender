@@ -8,6 +8,9 @@
 
 #import "MilkViewController.h"
 
+#define ADDSECTIONTAG 100
+#define SAVEDATAG 200
+
 @interface MilkViewController ()
 
 @end
@@ -251,11 +254,15 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {            
     [textField resignFirstResponder];
-    
     return YES;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [self saveTextField:textField];
+}
+
+- (void)saveTextField:(UITextField *)textField
 {
     // Save the values from textfields. If Tag is 0 to 9 means it is coming from 1st section
     // If tag value is more than 10 means it is coming from 2nd section to save it to milk2
@@ -263,20 +270,16 @@
     switch (textField.tag)
     {
         case 0:
-            [self.milk1 setValue:textField.text forKey:@"title"];        
+            [self.milk1 setValue:textField.text forKey:@"title"];
             break;
-                
+            
         case 1:
             [self.milk1 setValue:textField.text forKey:@"rate"];
             break;
-                
+            
         case 3:
             [self.milk1 setValue:textField.text forKey:@"deliveryCharge"];
             break;
-
-//        case 4:
-//            [self.milk1 setValue:textField.text forKey:@"fromDate"];
-//            break;
             
         case 10:
             [self.milk2 setValue:textField.text forKey:@"title"];
@@ -289,14 +292,10 @@
         case 13:
             [self.milk2 setValue:textField.text forKey:@"deliveryCharge"];
             break;
-
-//        case 14:
-//            [self.milk1 setValue:textField.text forKey:@"fromDate"];
-//            break;
             
         default:
             break;
-        }
+    }
 }
 
 - (IBAction)stepperPressed:(UIStepper *)sender
@@ -319,11 +318,48 @@
 - (void)addSection
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Add Milk" message:@"Do you wish to add one more milk details?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-    
+    [alert setTag:ADDSECTIONTAG];
     [alert show];
     
     // DO only if users says yes in alert. Check alert's method.
 }
+
+- (void)saveData
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save changes" message:@"Do you wish to save the details?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    [alert setTag:SAVEDATAG];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(alertView.tag == ADDSECTIONTAG)
+    {
+        // This means user is adding one more section
+        if (buttonIndex == 1)
+        {
+            self.model.sections = @"2";
+            self.navigationItem.rightBarButtonItem = nil;
+            
+            [self.view endEditing:YES];
+            [self saveTextField:self.txtField];
+            [self.tableView reloadData];
+        }
+        // Do nothing if users says No to add milk
+    }
+    else
+    {
+        // User is saving data
+        if (buttonIndex == 1)
+        {
+            [self.view endEditing:YES];
+            [self.model setMilkDetailsWithMilk1:self.milk1 AndMilk2:self.milk2];
+        }
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 
 #pragma mark - Table view delegate
 
@@ -336,26 +372,6 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1)
-    {
-        self.model.sections = @"2";
-        self.navigationItem.rightBarButtonItem = nil;
-        
-        [self.model setMilkDetailsWithMilk1:self.milk1 AndMilk2:self.milk2];
-        [self.tableView reloadData];        
-    }
-    
-    // Do nothing if users says No to add milk
-}
-
-- (void)saveData
-{
-    [self.model setMilkDetailsWithMilk1:self.milk1 AndMilk2:self.milk2];
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void) updateDateField:(id)sender
