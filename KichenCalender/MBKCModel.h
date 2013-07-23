@@ -12,7 +12,7 @@
 
 @property (nonatomic,retain) NSString* sections;
 
-- (NSDictionary*) getMilkDetails:(NSInteger)counter;
+- (NSArray*) getMilkDetails;
 - (void) setMilkDetailsWithMilk1:(NSDictionary*)dict1 AndMilk2:(NSDictionary*)dict1;
 
 @end

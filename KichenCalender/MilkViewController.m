@@ -37,10 +37,11 @@
     
     [self.view addGestureRecognizer:tap];
     
-    self.milk1 = [self.model getMilkDetails:1];
-    self.milk2 = [self.model getMilkDetails:2];
-
+    NSArray* milkDict = [self.model getMilkDetails];
     
+    self.milk1 = [milkDict objectAtIndex:0];
+    self.milk2 = [milkDict objectAtIndex:1];
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -245,9 +246,9 @@
     return cell;
 }
 
-
 - (void)tapped
-{  
+{
+    // remove the focus, save value
     [self.view endEditing:YES];
 }
 

@@ -10,7 +10,7 @@
 
 @implementation MBKCModel
 
-- (NSDictionary*) getMilkDetails:(NSInteger)counter
+- (NSArray*) getMilkDetails
 {
     NSString* plistPath = [self getPlistPath];
     
@@ -20,30 +20,26 @@
     NSPropertyListFormat format;
     // convert static property list into dictionary object
     NSDictionary *temp = (NSDictionary *)[NSPropertyListSerialization propertyListFromData:plistXML mutabilityOption:NSPropertyListMutableContainersAndLeaves format:&format errorDescription:&errorDesc];
-
+    
     if (!temp)
     {
         NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
     }
     
-    
     self.sections = [temp objectForKey:@"sections"];
-
-    NSDictionary *dict;
     
-    if(counter == 1)
-        dict = [temp objectForKey:@"milk1"];
-    else
-        dict = [temp objectForKey:@"milk2"];        
-
-////// Use to debug
-//    NSArray* nsa = [dict allValues];
-//    for (id obj in nsa)
-//		NSLog(@"values %@",obj);
-///////
+    NSDictionary* dict1 = [temp objectForKey:@"milk1"];
+    NSDictionary* dict2 = [temp objectForKey:@"milk2"];
     
-    return dict;
+    ////// Use to debug
+    //    NSArray* nsa = [dict1 allValues];
+    //    for (id obj in nsa)
+    //		NSLog(@"model values %@",obj);
+    ///////
+    
+    return [NSArray arrayWithObjects:dict1, dict2, nil];
 }
+
 
 - (void) setMilkDetailsWithMilk1:(NSDictionary*)dict1 AndMilk2:(NSDictionary*)dict2
 {
