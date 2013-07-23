@@ -41,12 +41,17 @@
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSection)];
+    if ([self.model.sections integerValue] == 1)
+    {
+        // Show add button only if currently there is 1 section. As we support only two sections
+        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSection)];
     
-    self.navigationItem.rightBarButtonItem = addButton;
+        self.navigationItem.rightBarButtonItem = addButton;
+    }
     
-    [self.navigationItem.leftBarButtonItem setTitle:@"Save"];
-
+    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(saveData)];
+    
+    self.navigationItem.leftBarButtonItem = saveButton;
 }
 
 - (void)didReceiveMemoryWarning
@@ -178,21 +183,52 @@
             break;
 
         case 4:
-            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];
+        {
+            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell4"];
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
             self.txtField.delegate = self;
-            
             self.txtField.placeholder = @"effective from date";
             self.txtField.textAlignment = NSTextAlignmentRight;            
             self.txtField.tag = sectionCount + [indexPath row];
-            self.txtField.adjustsFontSizeToFitWidth = YES;            
-                
+            self.txtField.adjustsFontSizeToFitWidth = YES;
+
+            UIDatePicker *datePicker = [[UIDatePicker alloc]init];
+            [datePicker setDatePickerMode:UIDatePickerModeDate];
+            
+            NSDateFormatter* dateformat = [[NSDateFormatter alloc] init];
+            [dateformat setDateFormat:@"MMM dd, yyyy"];
+            
+            
+            if ([indexPath section] == 0)
+            {
+                self.txtField.text = [self.milk1 objectForKey:@"fromDate"];
+            }
+            else
+            {
+                self.txtField.text = [self.milk2 objectForKey:@"fromDate"];
+            }
+
+            NSDate* date = [dateformat dateFromString:self.txtField.text];
+            
+            if (date == nil)
+            {
+                [datePicker setDate:[NSDate date]];
+            }
+            else
+            {
+                [datePicker setDate:date];
+            }
+            
+            [datePicker setTag:[indexPath section]];
+            [datePicker addTarget:self action:@selector(updateDateField:) forControlEvents:UIControlEventValueChanged];
+            [self.txtField setInputView:datePicker];
+             
             cell.textLabel.text = @"From Date ";
             [cell setAccessoryView:self.txtField];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             break;
-
+        }
         case 5:
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell3"];            
             cell.textLabel.text = @"Add exceptions ";
@@ -237,7 +273,11 @@
         case 3:
             [self.milk1 setValue:textField.text forKey:@"deliveryCharge"];
             break;
-                
+
+//        case 4:
+//            [self.milk1 setValue:textField.text forKey:@"fromDate"];
+//            break;
+            
         case 10:
             [self.milk2 setValue:textField.text forKey:@"title"];
             break;
@@ -249,12 +289,14 @@
         case 13:
             [self.milk2 setValue:textField.text forKey:@"deliveryCharge"];
             break;
+
+//        case 14:
+//            [self.milk1 setValue:textField.text forKey:@"fromDate"];
+//            break;
             
         default:
             break;
         }
-    
-
 }
 
 - (IBAction)stepperPressed:(UIStepper *)sender
@@ -263,11 +305,15 @@
     NSString* strval = [NSString stringWithFormat:@"%.2f",sender.value];
     
     if (sender.tag == 0)
+    {
         [self.milk1 setValue:strval forKey:@"quantity"];
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    }
     else
+    {
         [self.milk2 setValue:strval forKey:@"quantity"];
-
-    [self.tableView reloadData];
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:2 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
+    }
 }
 
 - (void)addSection
@@ -298,12 +344,42 @@
     {
         self.model.sections = @"2";
         self.navigationItem.rightBarButtonItem = nil;
-        [self.tableView reloadData];
         
         [self.model setMilkDetailsWithMilk1:self.milk1 AndMilk2:self.milk2];
+        [self.tableView reloadData];        
     }
     
     // Do nothing if users says No to add milk
+}
+
+- (void)saveData
+{
+    [self.model setMilkDetailsWithMilk1:self.milk1 AndMilk2:self.milk2];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void) updateDateField:(id)sender
+{
+    UIDatePicker *picker = (UIDatePicker*)sender;
+    
+    NSDateFormatter* dformat = [[NSDateFormatter alloc] init];
+    [dformat setDateFormat:@"MMM dd, yyyy"];
+    
+    self.txtField.text = [NSString stringWithFormat:@"%@",[dformat stringFromDate:picker.date]];
+    
+    if (picker.tag == 0)
+    {
+        [self.milk1 setValue:self.txtField.text forKey:@"fromDate"];
+        
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:4 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    }
+    else
+    {
+        [self.milk2 setValue:self.txtField.text forKey:@"fromDate"];
+        
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:4 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
+    }
+    
 }
 
 @end

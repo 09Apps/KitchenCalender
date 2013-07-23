@@ -66,8 +66,6 @@
     // get the path to our Data/plist file
     NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"KCPList.plist"];
     
-    NSLog(@"plistPath %@",plistPath);
-    
     // check to see if Data.plist exists in documents
     if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath])
     {
@@ -86,8 +84,6 @@
 
     }
     
-
-    
     NSArray* dictarr = [[NSArray alloc] initWithObjects:self.sections, dict1, dict2, nil];
     NSArray* keyarr = [[NSArray alloc] initWithObjects:@"sections", @"milk1", @"milk2", nil];
     
@@ -102,8 +98,6 @@
     {
         // write plistData to our Data.plist file
         [plistData writeToFile:plistPath atomically:YES];
-        
-        NSLog(@"plistPath %@",plistPath);
     }
     else
     {
