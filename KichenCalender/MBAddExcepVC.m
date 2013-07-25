@@ -27,6 +27,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [self.stepper setStepValue:0.25];
 }
 
 - (void)didReceiveMemoryWarning
@@ -35,8 +37,26 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)qtyChanged:(UIStepper *)sender {
+- (IBAction)qtyChanged:(UIStepper *)sender
+{
+    [self.qtylbl setText:[NSString stringWithFormat:@"%.2f",sender.value]];
 }
-- (IBAction)touchedDateFld:(UITextField *)sender {
+
+- (IBAction)touchedDateFld:(UITextField *)sender
+{
+    UIDatePicker *datePicker = [[UIDatePicker alloc]init];
+    [datePicker setDatePickerMode:UIDatePickerModeDate];
+    
+    NSDateFormatter* dateformat = [[NSDateFormatter alloc] init];
+    [dateformat setDateFormat:@"MMM dd, yyyy"];
+    [datePicker setDate:[NSDate date]];
+    [datePicker addTarget:self action:@selector(getDate:) forControlEvents:UIControlEventValueChanged];
+    [sender setInputView:datePicker];
+
 }
+
+-(void) updateDateField:(id)sender
+{
+}
+
 @end

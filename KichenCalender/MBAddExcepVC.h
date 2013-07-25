@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *frmTxt;
 @property (weak, nonatomic) IBOutlet UITextField *toTxt;
 - (IBAction)touchedDateFld:(UITextField *)sender;
+@property (weak, nonatomic) IBOutlet UIStepper *stepper;
 
 @end
