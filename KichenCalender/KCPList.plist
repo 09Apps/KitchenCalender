@@ -34,11 +34,11 @@
 		<array>
 			<dict>
 				<key>quantity</key>
-				<string></string>
+				<string>0.5</string>
 				<key>toDate</key>
-				<string></string>
+				<string>Jul-24-2013</string>
 				<key>fromDate</key>
-				<string></string>
+				<string>Jul-23-2013</string>
 			</dict>
 		</array>
 		<key>toDate</key>

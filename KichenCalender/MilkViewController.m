@@ -7,6 +7,7 @@
 //
 
 #import "MilkViewController.h"
+#import "MBExceptionVC.h"
 
 #define ADDSECTIONTAG 100
 #define SAVEDATAG 200
@@ -359,7 +360,20 @@
     
     if (indexPath.row == 5)
     {
-
+        NSArray* excparr;
+        
+        if (indexPath.section == 0)
+        {
+            excparr = [self.milk1 objectForKey:@"exceptions"];
+        }
+        else
+        {
+            excparr = [self.milk2 objectForKey:@"exceptions"];
+        }
+        
+        MBExceptionVC* exceptionVC = [[MBExceptionVC alloc] initWithException:excparr];
+        
+        [self.navigationController pushViewController:exceptionVC animated:YES];
     }
 }
 
