@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MBAddExcepVC : UIViewController
+@interface MBAddExcepVC : UIViewController <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *qtylbl;
-- (IBAction)qtyChanged:(UIStepper *)sender;
 @property (weak, nonatomic) IBOutlet UITextField *frmTxt;
 @property (weak, nonatomic) IBOutlet UITextField *toTxt;
-- (IBAction)touchedDateFld:(UITextField *)sender;
 @property (weak, nonatomic) IBOutlet UIStepper *stepper;
+
+- (IBAction)qtyChanged:(UIStepper *)sender;
 
 @end

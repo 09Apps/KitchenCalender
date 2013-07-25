@@ -8,6 +8,9 @@
 
 #import "MBAddExcepVC.h"
 
+#define FRMTXTTAG 100
+#define TOTXTTAG 200
+
 @interface MBAddExcepVC ()
 
 @end
@@ -29,6 +32,8 @@
     // Do any additional setup after loading the view from its nib.
     
     [self.stepper setStepValue:0.25];
+    [self.frmTxt setTag:FRMTXTTAG];
+    [self.toTxt setTag:TOTXTTAG];
 }
 
 - (void)didReceiveMemoryWarning
@@ -42,21 +47,41 @@
     [self.qtylbl setText:[NSString stringWithFormat:@"%.2f",sender.value]];
 }
 
-- (IBAction)touchedDateFld:(UITextField *)sender
+- (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     UIDatePicker *datePicker = [[UIDatePicker alloc]init];
     [datePicker setDatePickerMode:UIDatePickerModeDate];
-    
-    NSDateFormatter* dateformat = [[NSDateFormatter alloc] init];
-    [dateformat setDateFormat:@"MMM dd, yyyy"];
     [datePicker setDate:[NSDate date]];
+    
+    [datePicker setTag:textField.tag];
     [datePicker addTarget:self action:@selector(getDate:) forControlEvents:UIControlEventValueChanged];
-    [sender setInputView:datePicker];
-
+    [textField setInputView:datePicker];
 }
 
--(void) updateDateField:(id)sender
+-(void) getDate:(id)sender
 {
+    UIDatePicker* datepicker = (UIDatePicker*) sender;
+    NSDateFormatter* dformat = [[NSDateFormatter alloc] init];
+    [dformat setDateFormat:@"MMM dd, yyyy"];
+
+    if (datepicker.tag == FRMTXTTAG)
+    {
+        self.frmTxt.text = [NSString stringWithFormat:@"%@",[dformat stringFromDate:datepicker.date]];
+    }
+    else
+    {         
+        self.toTxt.text = [NSString stringWithFormat:@"%@",[dformat stringFromDate:datepicker.date]];
+    }
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+}
 @end
