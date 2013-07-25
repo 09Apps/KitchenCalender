@@ -33,10 +33,6 @@
     
     self.model = [[MBKCModel alloc] init];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped)];
-    
-    [self.view addGestureRecognizer:tap];
-    
     NSArray* milkDict = [self.model getMilkDetails];
     
     self.milk1 = [milkDict objectAtIndex:0];
@@ -56,6 +52,7 @@
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(saveData)];
     
     self.navigationItem.leftBarButtonItem = saveButton;
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -235,8 +232,9 @@
         }
         case 5:
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell3"];            
-            cell.textLabel.text = @"Add exceptions ";
+            cell.textLabel.text = @"Exceptions ";
             [cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
+            cell.selectionStyle = UITableViewCellSelectionStyleGray;
             break;
 
         default:
@@ -244,12 +242,6 @@
     }
     
     return cell;
-}
-
-- (void)tapped
-{
-    // remove the focus, save value
-    [self.view endEditing:YES];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -361,18 +353,14 @@
     }
 }
 
-
-#pragma mark - Table view delegate
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    [self.view endEditing:YES];
+    
+    if (indexPath.row == 5)
+    {
+
+    }
 }
 
 -(void) updateDateField:(id)sender

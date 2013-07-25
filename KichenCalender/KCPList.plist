@@ -4,6 +4,17 @@
 <dict>
 	<key>milk2</key>
 	<dict>
+		<key>exceptions</key>
+		<array>
+			<dict>
+				<key>quantity</key>
+				<string></string>
+				<key>toDate</key>
+				<string></string>
+				<key>fromDate</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>toDate</key>
 		<string></string>
 		<key>fromDate</key>
@@ -19,6 +30,17 @@
 	</dict>
 	<key>milk1</key>
 	<dict>
+		<key>exceptions</key>
+		<array>
+			<dict>
+				<key>quantity</key>
+				<string></string>
+				<key>toDate</key>
+				<string></string>
+				<key>fromDate</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>toDate</key>
 		<string></string>
 		<key>fromDate</key>
