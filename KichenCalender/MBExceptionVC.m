@@ -7,6 +7,7 @@
 //
 
 #import "MBExceptionVC.h"
+#import "MBAddExcepVC.h"
 
 @interface MBExceptionVC ()
 
@@ -14,7 +15,7 @@
 
 @implementation MBExceptionVC
 
-- (id)initWithException:(NSArray*) exarray
+- (id)initWithException:(NSMutableArray*) exarray
 {
     self = [super initWithStyle:UITableViewStylePlain];
     if (self)
@@ -72,13 +73,19 @@
     
     NSDictionary* dict = [self.exceptions objectAtIndex:indexPath.row];
     [cell.textLabel setText:[dict objectForKey:@"fromDate"]];
-    [cell.detailTextLabel setText:[dict objectForKey:@"toDate"]];
+    
+    NSString* str = @"Till : ";
+    str = [str stringByAppendingString:[dict objectForKey:@"toDate"]];
+    [cell.detailTextLabel setText:str];
 
     UILabel* quantitylbl = [[UILabel alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
-    quantitylbl.text = [dict objectForKey:@"quantity"];
+    [quantitylbl setTextAlignment:NSTextAlignmentRight];
+    
+    str = [dict objectForKey:@"quantity"];
+    quantitylbl.text = [str stringByAppendingString:@"  Ltr / day"];
     
     cell.accessoryView = quantitylbl;
-    cell.selectionStyle = UITableViewCellSelectionStyleGray;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
@@ -109,7 +116,9 @@
 
 - (void)addExceptionCell
 {
-    
+    MBAddExcepVC* addExceptionVC = [[MBAddExcepVC alloc]init];
+    [addExceptionVC setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+    [self presentViewController:addExceptionVC animated:YES completion:nil];
 }
 
 /*
