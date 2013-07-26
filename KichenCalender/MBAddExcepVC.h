@@ -15,5 +15,6 @@
 @property (weak, nonatomic) IBOutlet UIStepper *stepper;
 
 - (IBAction)qtyChanged:(UIStepper *)sender;
++ (NSInteger)daysBetween:(NSDate *)dt1 and:(NSDate *)dt2;
 
 @end

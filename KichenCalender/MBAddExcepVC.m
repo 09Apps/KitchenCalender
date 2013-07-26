@@ -34,6 +34,10 @@
     [self.stepper setStepValue:0.25];
     [self.frmTxt setTag:FRMTXTTAG];
     [self.toTxt setTag:TOTXTTAG];
+    [self.qtylbl setText:@"0.00"];
+    
+    UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped)] ;
+    [self.view addGestureRecognizer:tap];
 }
 
 - (void)didReceiveMemoryWarning
@@ -83,5 +87,47 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     [textField resignFirstResponder];
+}
+
+- (void)tapped
+{
+    if ([self.frmTxt isEditing])
+    {
+        [self.frmTxt resignFirstResponder];
+    }
+    
+    if ([self.toTxt isEditing])
+    {
+        [self.toTxt resignFirstResponder];
+    }
+}
+
+- (IBAction)cencelAdd:(UIButton *)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+- (IBAction)AddException:(UIButton *)sender
+{
+    NSDateFormatter* dateformat = [[NSDateFormatter alloc] init];
+    [dateformat setDateFormat:@"MMM dd, yyyy"];
+    
+    NSDate* fromDt = [dateformat dateFromString:self.frmTxt.text];
+    NSDate* toDt = [dateformat dateFromString:self.toTxt.text];
+    
+    if([toDt compare:fromDt] == NSOrderedDescending) // if start is later in time than end
+    {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"ToDate should be after FromDate." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
++ (NSInteger)daysBetween:(NSString *)frmDtStr and:(NSString *)toDtStr
+{
+
+
 }
 @end
