@@ -116,7 +116,14 @@
     
     if([toDt compare:fromDt] == NSOrderedDescending) // if start is later in time than end
     {
+        NSDictionary* dict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              self.frmTxt.text, @"fromDate",
+                              self.toTxt.text, @"toDate",
+                              self.qtylbl.text, @"quantity",
+                              nil];
+        
         [self dismissViewControllerAnimated:YES completion:nil];
+        [self.delegate addExceptionVC:self didFinishAddingException:dict];
     }
     else
     {
@@ -125,9 +132,4 @@
     }
 }
 
-+ (NSInteger)daysBetween:(NSString *)frmDtStr and:(NSString *)toDtStr
-{
-
-
-}
 @end
