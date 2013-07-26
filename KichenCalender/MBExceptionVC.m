@@ -7,7 +7,6 @@
 //
 
 #import "MBExceptionVC.h"
-#import "MBAddExcepVC.h"
 
 @interface MBExceptionVC ()
 
@@ -117,8 +116,15 @@
 - (void)addExceptionCell
 {
     MBAddExcepVC* addExceptionVC = [[MBAddExcepVC alloc]init];
+    addExceptionVC.delegate = self;
     [addExceptionVC setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
     [self presentViewController:addExceptionVC animated:YES completion:nil];
+}
+
+- (void)addExceptionVC:(MBAddExcepVC *)controller didFinishAddingException:(NSDictionary *)item
+{
+    [self.exceptions addObject:item];
+    [self.tableView reloadData];
 }
 
 /*

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBAddExcepVC.h"
 
-@interface MBExceptionVC : UITableViewController
+@interface MBExceptionVC : UITableViewController <MBAddExcepVCDelegate>
 
 @property (strong,nonatomic) NSMutableArray* exceptions;
 

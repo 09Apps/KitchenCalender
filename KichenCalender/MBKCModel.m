@@ -67,32 +67,6 @@
     }
 }
 
-- (void) addMilkExceptions:(NSDictionary*)dict
-{
-    
-    NSArray* dictarr = [[NSArray alloc] initWithObjects:self.sections, dict1, dict2, nil];
-    NSArray* keyarr = [[NSArray alloc] initWithObjects:@"sections", @"milk1", @"milk2", nil];
-    
-    NSDictionary* dict = [[NSDictionary alloc] initWithObjects:dictarr forKeys:keyarr];
-    
-    NSString* plistPath = [self getPlistPath];
-    
-    NSString *error = nil;
-    // create NSData from dictionary
-    NSData *plistData = [NSPropertyListSerialization dataFromPropertyList:dict format:NSPropertyListXMLFormat_v1_0 errorDescription:&error];
-    
-    // check is plistData exists
-    if(plistData)
-    {
-        // write plistData to our Data.plist file
-        [plistData writeToFile:plistPath atomically:YES];
-    }
-    else
-    {
-        NSLog(@"Error in saveData: %@", error);
-    }
-}
-
 - (NSString*) getPlistPath
 {
     // get paths from root direcory
