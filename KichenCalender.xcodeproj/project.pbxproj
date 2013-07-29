@@ -20,9 +20,14 @@
 		ED0FA8FE1792C5A0000D6249 /* MBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED0FA8FD1792C5A0000D6249 /* MBViewController.m */; };
 		ED0FA90D1792D045000D6249 /* iron.png in Resources */ = {isa = PBXBuildFile; fileRef = ED0FA90C1792D045000D6249 /* iron.png */; };
 		ED0FA90F1792D0F7000D6249 /* milk.png in Resources */ = {isa = PBXBuildFile; fileRef = ED0FA90E1792D0F7000D6249 /* milk.png */; };
+		ED3C9C9317A29B260067302B /* MBBillViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3C9C9217A29B260067302B /* MBBillViewController.m */; };
 		ED3ED10117982A5300C6FA25 /* MBKCModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ED3ED10017982A5300C6FA25 /* MBKCModel.m */; };
 		ED3F30181798616C000FF701 /* KCPList.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED3F30171798616C000FF701 /* KCPList.plist */; };
 		ED4C4379179504B200AAE35F /* MilkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4C4378179504B200AAE35F /* MilkViewController.m */; };
+		ED68D3B217A0F5E800FB74AB /* MBExceptionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ED68D3B017A0F5E800FB74AB /* MBExceptionVC.m */; };
+		ED68D3B317A0F5E800FB74AB /* MBExceptionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED68D3B117A0F5E800FB74AB /* MBExceptionVC.xib */; };
+		ED68D3B717A12F5F00FB74AB /* MBAddExcepVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ED68D3B517A12F5F00FB74AB /* MBAddExcepVC.m */; };
+		ED68D3B817A12F5F00FB74AB /* MBAddExcepVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED68D3B617A12F5F00FB74AB /* MBAddExcepVC.xib */; };
 		ED93B2FE1793CBD3006CC526 /* newspaper_bw.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ED93B2FD1793CBD3006CC526 /* newspaper_bw.jpg */; };
 		ED93B3041793CF1F006CC526 /* bills.png in Resources */ = {isa = PBXBuildFile; fileRef = ED93B3031793CF1F006CC526 /* bills.png */; };
 /* End PBXBuildFile section */
@@ -46,11 +51,19 @@
 		ED0FA8FD1792C5A0000D6249 /* MBViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBViewController.m; sourceTree = "<group>"; };
 		ED0FA90C1792D045000D6249 /* iron.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iron.png; sourceTree = "<group>"; };
 		ED0FA90E1792D0F7000D6249 /* milk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = milk.png; sourceTree = "<group>"; };
+		ED3C9C9117A29B260067302B /* MBBillViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBBillViewController.h; sourceTree = "<group>"; };
+		ED3C9C9217A29B260067302B /* MBBillViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBBillViewController.m; sourceTree = "<group>"; };
 		ED3ED0FF17982A5300C6FA25 /* MBKCModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBKCModel.h; sourceTree = "<group>"; };
 		ED3ED10017982A5300C6FA25 /* MBKCModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBKCModel.m; sourceTree = "<group>"; };
 		ED3F30171798616C000FF701 /* KCPList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = KCPList.plist; sourceTree = "<group>"; };
 		ED4C4377179504B200AAE35F /* MilkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MilkViewController.h; sourceTree = "<group>"; };
 		ED4C4378179504B200AAE35F /* MilkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MilkViewController.m; sourceTree = "<group>"; };
+		ED68D3AF17A0F5E800FB74AB /* MBExceptionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBExceptionVC.h; sourceTree = "<group>"; };
+		ED68D3B017A0F5E800FB74AB /* MBExceptionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBExceptionVC.m; sourceTree = "<group>"; };
+		ED68D3B117A0F5E800FB74AB /* MBExceptionVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBExceptionVC.xib; sourceTree = "<group>"; };
+		ED68D3B417A12F5F00FB74AB /* MBAddExcepVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAddExcepVC.h; sourceTree = "<group>"; };
+		ED68D3B517A12F5F00FB74AB /* MBAddExcepVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAddExcepVC.m; sourceTree = "<group>"; };
+		ED68D3B617A12F5F00FB74AB /* MBAddExcepVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBAddExcepVC.xib; sourceTree = "<group>"; };
 		ED93B2FD1793CBD3006CC526 /* newspaper_bw.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = newspaper_bw.jpg; sourceTree = "<group>"; };
 		ED93B3031793CF1F006CC526 /* bills.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bills.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -108,6 +121,14 @@
 				ED4C4378179504B200AAE35F /* MilkViewController.m */,
 				ED3ED0FF17982A5300C6FA25 /* MBKCModel.h */,
 				ED3ED10017982A5300C6FA25 /* MBKCModel.m */,
+				ED68D3AF17A0F5E800FB74AB /* MBExceptionVC.h */,
+				ED68D3B017A0F5E800FB74AB /* MBExceptionVC.m */,
+				ED68D3B117A0F5E800FB74AB /* MBExceptionVC.xib */,
+				ED68D3B417A12F5F00FB74AB /* MBAddExcepVC.h */,
+				ED68D3B517A12F5F00FB74AB /* MBAddExcepVC.m */,
+				ED68D3B617A12F5F00FB74AB /* MBAddExcepVC.xib */,
+				ED3C9C9117A29B260067302B /* MBBillViewController.h */,
+				ED3C9C9217A29B260067302B /* MBBillViewController.m */,
 				ED0FA8E81792C5A0000D6249 /* Supporting Files */,
 			);
 			path = KichenCalender;
@@ -194,6 +215,8 @@
 				ED93B2FE1793CBD3006CC526 /* newspaper_bw.jpg in Resources */,
 				ED93B3041793CF1F006CC526 /* bills.png in Resources */,
 				ED3F30181798616C000FF701 /* KCPList.plist in Resources */,
+				ED68D3B317A0F5E800FB74AB /* MBExceptionVC.xib in Resources */,
+				ED68D3B817A12F5F00FB74AB /* MBAddExcepVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +232,9 @@
 				ED0FA8FE1792C5A0000D6249 /* MBViewController.m in Sources */,
 				ED4C4379179504B200AAE35F /* MilkViewController.m in Sources */,
 				ED3ED10117982A5300C6FA25 /* MBKCModel.m in Sources */,
+				ED68D3B217A0F5E800FB74AB /* MBExceptionVC.m in Sources */,
+				ED68D3B717A12F5F00FB74AB /* MBAddExcepVC.m in Sources */,
+				ED3C9C9317A29B260067302B /* MBBillViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

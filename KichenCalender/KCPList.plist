@@ -55,6 +55,6 @@
 		<string></string>
 	</dict>
 	<key>sections</key>
-	<integer>1</integer>
+	<string>1</string>
 </dict>
 </plist>

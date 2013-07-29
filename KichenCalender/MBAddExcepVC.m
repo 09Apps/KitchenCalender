@@ -122,12 +122,12 @@
                               self.qtylbl.text, @"quantity",
                               nil];
         
-        [self dismissViewControllerAnimated:YES completion:nil];
         [self.delegate addExceptionVC:self didFinishAddingException:dict];
+        [self dismissViewControllerAnimated:YES completion:nil];        
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"ToDate should be after FromDate." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"TillDate should be after FromDate." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
 }
