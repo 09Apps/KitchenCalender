@@ -37,7 +37,11 @@
     [self.toDte setTag:TOTXTTAG];
     
     UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped)] ;
-    [self.view addGestureRecognizer:tap]; 
+    [self.view addGestureRecognizer:tap];
+    
+    self.model = [[MBKCModel alloc] init];
+    
+    self.segment = 0; // By default milk is selected on segment bar
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,6 +56,7 @@
     [datePicker setDatePickerMode:UIDatePickerModeDate];
     [datePicker setDate:[NSDate date]];
     [datePicker setTag:textField.tag];
+    self.verified = NO;    
     
     [datePicker addTarget:self action:@selector(getDate:) forControlEvents:UIControlEventValueChanged];
     [textField setInputView:datePicker];
@@ -94,17 +99,56 @@
     NSDate* fromDt = [dateformat dateFromString:self.frmDte.text];
     NSDate* toDt = [dateformat dateFromString:self.toDte.text];
     
+    self.verified = NO;
+    
     if (fromDt != nil && toDt != nil)
     {
         if([toDt compare:fromDt] == NSOrderedDescending) // if start is later in time than end
         {
             NSInteger days = [self getNumberOfDaysFrom:fromDt Till:toDt];
             self.dayslbl.text = [NSString stringWithFormat:@"%d",days];
+            self.verified = YES;
+            [self showBillFrom:fromDt Till:toDt];
         }
         else
         {
+            textField.text = nil;
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"TillDate should be after FromDate." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
+        }
+    }
+}
+- (IBAction)barSegmentChanged:(UISegmentedControl *)sender
+{
+    self.segment = sender.selectedSegmentIndex;
+
+    NSDateFormatter* dateformat = [[NSDateFormatter alloc] init];
+    [dateformat setDateFormat:@"MMM dd, yyyy"];
+    
+    NSDate* fromDt = [dateformat dateFromString:self.frmDte.text];
+    NSDate* toDt = [dateformat dateFromString:self.toDte.text];
+    
+    [self showBillFrom:fromDt Till:toDt];
+}
+
+- (void) showBillFrom:(NSDate*)frmdt Till:(NSDate*)todt
+{
+    if (self.verified)
+    {
+        if (self.segment == 1)
+        {
+            // Means this is Laundry
+            NSLog(@"Laundry");
+        }
+        else if (self.segment == 2)
+        {
+            // Means this is Newspaper
+            NSLog(@"Newspaper");
+        }
+        else
+        {
+            NSLog(@"Milk");               
+            [self.model getMilkBillFrom:frmdt Till:todt];
         }
     }
 }

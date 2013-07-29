@@ -185,6 +185,9 @@
                                     <segment title="Newspaper"/>
                                 </segments>
                                 <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="barSegmentChanged:" destination="DrO-Rn-t7W" eventType="valueChanged" id="zNO-5r-PnF"/>
+                                </connections>
                             </segmentedControl>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="From Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vDf-P4-u0v">
                                 <constraints>
@@ -251,7 +254,7 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eyT-7D-XhR">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eyT-7D-XhR">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -266,12 +269,12 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gC6-Z2-vlA">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gC6-Z2-vlA">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VT5-ev-ge8">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VT5-ev-ge8">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="88U-mY-9pf"/>
                                 </constraints>
@@ -288,6 +291,7 @@
                             <constraint firstAttribute="trailing" secondItem="VT5-ev-ge8" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="5UB-jp-Zle"/>
                             <constraint firstItem="PUN-ti-dJb" firstAttribute="top" secondItem="Q98-ac-ZVb" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="626-bf-BhH"/>
                             <constraint firstItem="d57-iz-fZJ" firstAttribute="leading" secondItem="f50-ZX-ca1" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="75k-ZP-Trs"/>
+                            <constraint firstItem="dco-hS-9ul" firstAttribute="top" secondItem="f50-ZX-ca1" secondAttribute="top" constant="31" id="7H0-eh-cli"/>
                             <constraint firstAttribute="trailing" secondItem="n5V-Kw-rJI" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="7aX-Pd-Zew"/>
                             <constraint firstItem="vDf-P4-u0v" firstAttribute="leading" secondItem="f50-ZX-ca1" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="8KG-Bk-mc1"/>
                             <constraint firstItem="Wjq-mi-3zv" firstAttribute="leading" secondItem="f50-ZX-ca1" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="8ps-g3-Rp8"/>
@@ -313,7 +317,6 @@
                             <constraint firstAttribute="trailing" secondItem="ob5-zl-ayq" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="VRX-dv-hiR"/>
                             <constraint firstItem="KFh-Mg-Erv" firstAttribute="leading" secondItem="f50-ZX-ca1" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="Z0p-35-IJf"/>
                             <constraint firstAttribute="trailing" secondItem="Q98-ac-ZVb" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="amh-8O-2LA"/>
-                            <constraint firstItem="dco-hS-9ul" firstAttribute="top" secondItem="f50-ZX-ca1" secondAttribute="top" constant="33" id="bW5-TL-jZX"/>
                             <constraint firstAttribute="bottom" secondItem="qyE-gg-TVD" secondAttribute="bottom" constant="153" id="gZk-vx-3yM"/>
                             <constraint firstAttribute="trailing" secondItem="d57-iz-fZJ" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="gkb-i3-bRT"/>
                             <constraint firstItem="43v-uh-2bm" firstAttribute="top" secondItem="f50-ZX-ca1" secondAttribute="top" constant="151" id="gmZ-GP-9H7"/>
@@ -353,6 +356,31 @@
         <image name="milk.png" width="130" height="132"/>
         <image name="newspaper_bw.jpg" width="128" height="96"/>
     </resources>
+    <classes>
+        <class className="MBBillViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MBBillViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="barSegmentChanged:" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="billbl" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dayslbl" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="frmDte" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="quantitylbl" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="toDte" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="MBViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MBViewController.h"/>
+        </class>
+        <class className="MilkViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MilkViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="stepperPressed:" candidateClass="UIStepper"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

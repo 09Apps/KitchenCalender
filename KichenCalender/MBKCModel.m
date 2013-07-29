@@ -96,6 +96,9 @@
     return plistPath;
 }
 
+- (void) getMilkBillFrom:(NSDate*)frmdt Till:(NSDate*)todt
+{
 
+}
 
 @end
