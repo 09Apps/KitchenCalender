@@ -114,7 +114,12 @@
     NSDate* fromDt = [dateformat dateFromString:self.frmTxt.text];
     NSDate* toDt = [dateformat dateFromString:self.toTxt.text];
     
-    if([toDt compare:fromDt] == NSOrderedDescending) // if start is later in time than end
+    if([fromDt compare:toDt] == NSOrderedDescending) // if start is later in time than end
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"TillDate should be after FromDate." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
+    else
     {
         NSDictionary* dict = [[NSDictionary alloc] initWithObjectsAndKeys:
                               self.frmTxt.text, @"fromDate",
@@ -124,11 +129,6 @@
         
         [self.delegate addExceptionVC:self didFinishAddingException:dict];
         [self dismissViewControllerAnimated:YES completion:nil];        
-    }
-    else
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"TillDate should be after FromDate." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
     }
 }
 

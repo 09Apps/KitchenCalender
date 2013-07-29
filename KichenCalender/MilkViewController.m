@@ -188,7 +188,7 @@
         {
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell4"];
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
-            self.txtField.delegate = self;
+            [self.txtField setDelegate:self];
             self.txtField.placeholder = @"effective from date";
             self.txtField.textAlignment = NSTextAlignmentRight;            
             self.txtField.tag = sectionCount + [indexPath row];

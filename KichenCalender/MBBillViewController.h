@@ -13,4 +13,5 @@
 @property (weak, nonatomic) IBOutlet UITextField *toDte;
 @property (weak, nonatomic) IBOutlet UILabel *quantitylbl;
 @property (weak, nonatomic) IBOutlet UILabel *billbl;
+@property (weak, nonatomic) IBOutlet UILabel *dayslbl;
 @end
