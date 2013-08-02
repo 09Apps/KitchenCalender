@@ -7,15 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MBKCModel.h"
 
 @interface MBBillViewController : UIViewController <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *frmDte;
 @property (weak, nonatomic) IBOutlet UITextField *toDte;
-@property (weak, nonatomic) IBOutlet UILabel *quantitylbl;
-@property (weak, nonatomic) IBOutlet UILabel *billbl;
-@property (weak, nonatomic) IBOutlet UILabel *dayslbl;
-@property (strong, nonatomic) MBKCModel* model;
+@property (strong, nonatomic) IBOutlet NSDate *nsdatefrm;
+@property (strong, nonatomic) IBOutlet NSDate *nsdateto;
 @property NSInteger segment;
-@property BOOL verified;
+
 @end
