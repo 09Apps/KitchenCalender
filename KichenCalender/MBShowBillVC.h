@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBKCModel.h"
 
 @interface MBShowBillVC : UITableViewController
 
-@property NSInteger billtype;
+@property  NSInteger billtype;
 @property (strong, nonatomic) NSDate* frmdt;
 @property (strong, nonatomic) NSDate* todt;
+@property (strong, nonatomic) MBKCModel* model;
+
+
 @end

@@ -130,17 +130,4 @@
     }
 }
 
--(NSInteger)getNumberOfDaysFrom:(NSDate*)fromDt Till:(NSDate*)toDt
-{
-    NSCalendar *gregorian = [[NSCalendar alloc]
-                             initWithCalendarIdentifier:NSGregorianCalendar];
-    
-    NSUInteger unitFlags = NSDayCalendarUnit;
-    
-    NSDateComponents *components = [gregorian components:unitFlags
-                                                fromDate:fromDt
-                                                  toDate:toDt options:0];
-    return [components day];
-}
-
 @end

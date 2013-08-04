@@ -8,6 +8,7 @@
 
 #import "MBShowBillVC.h"
 
+
 @interface MBShowBillVC ()
 
 @end
@@ -17,7 +18,8 @@
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
-    if (self) {
+    if (self)
+    {
         // Custom initialization
     }
     return self;
@@ -32,6 +34,7 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -45,13 +48,37 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
+    
+    if (self.billtype == 0)
+    {
+        return 2;        
+    }
+    else if (self.billtype == 1)
+    {
+        //means laundry
+    }
+    else
+    {
+        //Means newspaper
+    }
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 2;
+    if (section == 0)
+    {
+        return 3;
+    }
+    if (section == 1)
+    {
+        return 5;
+    }
+    else
+    {
+        return 5;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -62,13 +89,34 @@
     // Configure the cell...
     if (indexPath.section == 0)
     {
-       if (indexPath.row == 0)
-       {
-           cell.textLabel.text = @"Test";
-       }
+        if (indexPath.row == 0)
+        {
+           cell.textLabel.text = @"From Date :";
+        }
+        if (indexPath.row == 1)
+        {
+            cell.textLabel.text = @"To Date :";
+        }
+        if (indexPath.row == 2)
+        {
+            cell.textLabel.text = @"Total days :";
+        }
     }
     
     return cell;
+}
+
+-(NSInteger)getNumberOfDaysFrom:(NSDate*)fromDt Till:(NSDate*)toDt
+{
+    NSCalendar *gregorian = [[NSCalendar alloc]
+                             initWithCalendarIdentifier:NSGregorianCalendar];
+    
+    NSUInteger unitFlags = NSDayCalendarUnit;
+    
+    NSDateComponents *components = [gregorian components:unitFlags
+                                                fromDate:fromDt
+                                                  toDate:toDt options:0];
+    return [components day];
 }
 
 /*
