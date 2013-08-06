@@ -101,6 +101,7 @@
     {
         MBShowBillVC *nextVC = (MBShowBillVC *)[segue destinationViewController];
         nextVC.billtype = self.segment;
+        
         nextVC.frmdt = self.nsdatefrm;
         nextVC.todt = self.nsdateto;
     }

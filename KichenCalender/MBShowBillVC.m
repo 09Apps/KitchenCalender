@@ -28,13 +28,29 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
+    if (self.billtype == 0)
+    {
+        self.title = @"Milk Bill";
+    }
+    else if (self.billtype == 1)
+    {
+        self.title = @"Laundry Bill";
+    }
+    else
+    {
+        self.title = @"Paper Bill";
+    }
+    
+    self.model = [[MBKCModel alloc] init];
+    
+    [self.model getMilkBillFrom:self.frmdt Till:self.todt];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -86,38 +102,40 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
+    NSDateFormatter* dformat = [[NSDateFormatter alloc] init];
+    [dformat setDateFormat:@"MMM dd, yyyy"];
+    
+    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(150, 15, 130, 20)];
+    label.backgroundColor = [UIColor clearColor];
+    
     // Configure the cell...
     if (indexPath.section == 0)
     {
+        // Just put from date, to date and no. of days here.
         if (indexPath.row == 0)
         {
-           cell.textLabel.text = @"From Date :";
+            cell.textLabel.text = @"From Date :";
+            label.text = [NSString stringWithFormat:@"%@",[dformat stringFromDate:self.frmdt]];
         }
         if (indexPath.row == 1)
         {
             cell.textLabel.text = @"To Date :";
+            label.text = [NSString stringWithFormat:@"%@",[dformat stringFromDate:self.todt]];
         }
         if (indexPath.row == 2)
         {
             cell.textLabel.text = @"Total days :";
+            NSInteger days = [MBKCModel getNumberOfDaysFrom:self.frmdt Till:self.todt];
+            label.text = [NSString stringWithFormat:@"%d",days];
         }
     }
+    
+    [cell addSubview:label];
     
     return cell;
 }
 
--(NSInteger)getNumberOfDaysFrom:(NSDate*)fromDt Till:(NSDate*)toDt
-{
-    NSCalendar *gregorian = [[NSCalendar alloc]
-                             initWithCalendarIdentifier:NSGregorianCalendar];
-    
-    NSUInteger unitFlags = NSDayCalendarUnit;
-    
-    NSDateComponents *components = [gregorian components:unitFlags
-                                                fromDate:fromDt
-                                                  toDate:toDt options:0];
-    return [components day];
-}
+
 
 /*
 // Override to support conditional editing of the table view.

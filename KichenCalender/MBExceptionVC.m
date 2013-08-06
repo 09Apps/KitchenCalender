@@ -28,6 +28,7 @@
 {
     [super viewDidLoad];
     
+    self.title = @"Exceptions";
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addExceptionCell)];
     
     self.navigationItem.rightBarButtonItem = addButton;    
@@ -71,20 +72,26 @@
     // Configure the cell...
     
     NSDictionary* dict = [self.exceptions objectAtIndex:indexPath.row];
-    [cell.textLabel setText:[dict objectForKey:@"fromDate"]];
     
-    NSString* str = @"Till : ";
-    str = [str stringByAppendingString:[dict objectForKey:@"toDate"]];
-    [cell.detailTextLabel setText:str];
+    if ([[dict objectForKey:@"fromDate"] length] != 0)
+    {
+        [cell.textLabel setText:[dict objectForKey:@"fromDate"]];
+        
+        NSString* str = @"Till : ";
+        str = [str stringByAppendingString:[dict objectForKey:@"toDate"]];
+        [cell.detailTextLabel setText:str];
 
-    UILabel* quantitylbl = [[UILabel alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
-    [quantitylbl setTextAlignment:NSTextAlignmentRight];
+        UILabel* quantitylbl = [[UILabel alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
+        [quantitylbl setTextAlignment:NSTextAlignmentRight];
+        quantitylbl.backgroundColor = [UIColor clearColor];
     
-    str = [dict objectForKey:@"quantity"];
-    quantitylbl.text = [str stringByAppendingString:@"  Ltr / day"];
+        str = [dict objectForKey:@"quantity"];
+        quantitylbl.text = [str stringByAppendingString:@"  Ltr / day"];
     
-    cell.accessoryView = quantitylbl;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+        cell.accessoryView = quantitylbl;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;        
+    }
     
     return cell;
 }

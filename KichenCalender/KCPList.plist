@@ -2,19 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>currency</key>
+	<string>Rs</string>
 	<key>milk2</key>
 	<dict>
 		<key>exceptions</key>
-		<array>
-			<dict>
-				<key>quantity</key>
-				<string></string>
-				<key>toDate</key>
-				<string></string>
-				<key>fromDate</key>
-				<string></string>
-			</dict>
-		</array>
+		<array/>
 		<key>toDate</key>
 		<string></string>
 		<key>fromDate</key>
@@ -31,16 +24,7 @@
 	<key>milk1</key>
 	<dict>
 		<key>exceptions</key>
-		<array>
-			<dict>
-				<key>quantity</key>
-				<string>0.5</string>
-				<key>toDate</key>
-				<string>Jul-24-2013</string>
-				<key>fromDate</key>
-				<string>Jul-23-2013</string>
-			</dict>
-		</array>
+		<array/>
 		<key>toDate</key>
 		<string></string>
 		<key>fromDate</key>

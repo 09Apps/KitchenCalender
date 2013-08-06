@@ -8,6 +8,7 @@
 
 #import "MBKCModel.h"
 
+
 @implementation MBKCModel
 
 - (NSArray*) getMilkDetails
@@ -37,7 +38,7 @@
     //		NSLog(@"model values %@",obj);
     ///////
     
-    return [NSArray arrayWithObjects:dict1, dict2, nil];
+    return [NSArray arrayWithObjects:dict1, dict2, self.sections, nil];
 }
 
 
@@ -98,7 +99,110 @@
 
 - (void) getMilkBillFrom:(NSDate*)frmdt Till:(NSDate*)todt
 {
+    NSArray* milk = self.getMilkDetails;
+    NSUInteger counter = 0;
+    NSInteger totalQuantity = 0;
+    NSInteger exceptiondays = 0;
+    
+    NSDateFormatter* dformat = [[NSDateFormatter alloc] init];
+    [dformat setDateFormat:@"MMM dd, yyyy"];
+    
+    for (id obj in milk)
+    {
+        if (counter == 2)
+        {
+            NSInteger sect = [obj integerValue];
+        }
+        else
+        {
+            NSArray* exceptions = [obj objectForKey:@"exceptions"];
 
+            for (id exobj in exceptions)
+            {
+                NSString* frstr = [exobj objectForKey:@"fromDate"];
+                NSDate* exfrdt = [dformat dateFromString:frstr];
+
+                frstr = [exobj objectForKey:@"toDate"];
+                NSDate* extodt = [dformat dateFromString:frstr];
+                
+                
+                if ([frmdt compare:extodt] == NSOrderedDescending  ||
+                    [exfrdt compare:todt] == NSOrderedDescending )
+                {
+                    // Exception from date is later than Todate of bill date OR
+                    // Exception to date is before bill from date
+                    // Ignore this exception
+                    NSLog(@"exception not in range");
+                    NSLog(@"Total exception days %d",exceptiondays);
+                    NSLog(@"totalQuantity %d",totalQuantity);                       
+                }
+                else
+                {
+                    NSLog(@"exception is in range");
+                    
+                    NSDate* effectivefrmdt;
+                    NSDate* effectivetodt;
+                    
+                    if ([exfrdt compare:frmdt] == NSOrderedDescending)
+                    {
+                        // Means exception from date is later than bill from date
+                        // so make it effective start date
+                        effectivefrmdt = exfrdt;
+                    }
+                    else
+                    {
+                        // Bill from date is later than exception start date
+                        // so make it effective start date
+                        effectivefrmdt = frmdt;
+                    }
+                    
+                    NSLog(@"effectivefrmdt %@",effectivefrmdt);
+                    
+                    if ([extodt compare:todt] == NSOrderedDescending)
+                    {
+                        effectivetodt = todt;
+                    }
+                    else
+                    {
+                        effectivetodt = extodt;
+                    }
+                    
+                    NSLog(@"effectivetodt %@",effectivetodt);
+                    
+                    NSInteger exdays = [MBKCModel getNumberOfDaysFrom:effectivefrmdt Till:effectivetodt];
+                    
+                    NSLog(@"This exception days %d",exdays);
+                    
+                    exceptiondays = exceptiondays + exdays;
+                    
+                    NSLog(@"Total exception days %d",exceptiondays);                    
+
+                    NSInteger exquant = [[exobj objectForKey:@"quantity"] integerValue];
+                    
+                    NSLog(@"This exception exquant %d",exquant);
+                    
+                    NSInteger extotquant = exdays * exquant;
+                    
+                    totalQuantity = totalQuantity + extotquant;
+                    NSLog(@"totalQuantity %d",totalQuantity);                    
+                }
+            }
+        }
+        counter++;
+    }
+}
+
++ (NSInteger)getNumberOfDaysFrom:(NSDate*)fromDt Till:(NSDate*)toDt
+{
+    NSCalendar *gregorian = [[NSCalendar alloc]
+                             initWithCalendarIdentifier:NSGregorianCalendar];
+    
+    NSUInteger unitFlags = NSDayCalendarUnit;
+    
+    NSDateComponents *components = [gregorian components:unitFlags
+                                                fromDate:fromDt
+                                                  toDate:toDt options:0];
+    return ([components day]+1) ;
 }
 
 @end

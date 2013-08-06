@@ -34,11 +34,14 @@
     
     self.model = [[MBKCModel alloc] init];
     
-    NSArray* milkDict = [self.model getMilkDetails];
+    NSArray* milkarr = [self.model getMilkDetails];
     
-    self.milk1 = [milkDict objectAtIndex:0];
-    self.milk2 = [milkDict objectAtIndex:1];
+    self.milk1 = [milkarr objectAtIndex:0];
+    self.milk2 = [milkarr objectAtIndex:1];
 
+    NSString* sections = [milkarr objectAtIndex:2];
+    self.sect = [sections integerValue];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -67,7 +70,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return [self.model.sections integerValue];
+    return self.sect;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -145,6 +148,7 @@
             stepper.tag = indexPath.section;
             
             quantitylbl = [[UILabel alloc] initWithFrame:CGRectMake(160, 12, 40, 20)];
+            //quantitylbl.backgroundColor = [UIColor clearColor];
             
             if ([indexPath section] == 0)
             {
@@ -332,7 +336,7 @@
         // This means user is adding one more section
         if (buttonIndex == 1)
         {
-            self.model.sections = @"2";
+            self.sect = 2;
             self.navigationItem.rightBarButtonItem = nil;
             
             [self.view endEditing:YES];
@@ -347,6 +351,12 @@
         if (buttonIndex == 1)
         {
             [self.view endEditing:YES];
+            
+            if (self.sect == 2)
+            {
+                self.model.sections = @"2";
+            }
+            
             [self.model setMilkDetailsWithMilk1:self.milk1 AndMilk2:self.milk2];
         }
         

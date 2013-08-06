@@ -14,6 +14,7 @@
 @property(nonatomic,retain) UITextField* txtField;
 @property(nonatomic,retain) NSMutableDictionary* milk1;
 @property(nonatomic,retain) NSMutableDictionary* milk2;
+@property NSInteger sect;
 @property(nonatomic,retain) MBKCModel* model;
 
 @end

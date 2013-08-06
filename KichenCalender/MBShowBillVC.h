@@ -12,9 +12,10 @@
 @interface MBShowBillVC : UITableViewController
 
 @property  NSInteger billtype;
-@property (strong, nonatomic) NSDate* frmdt;
-@property (strong, nonatomic) NSDate* todt;
+@property (retain, nonatomic) NSDate* frmdt;
+@property (retain, nonatomic) NSDate* todt;
 @property (strong, nonatomic) MBKCModel* model;
+
 
 
 @end
