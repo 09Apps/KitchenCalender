@@ -43,7 +43,6 @@
     }
     
     self.model = [[MBKCModel alloc] init];
-    
     [self.model getMilkBillFrom:self.frmdt Till:self.todt];
     
     // Uncomment the following line to preserve selection between presentations.
