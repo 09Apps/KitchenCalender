@@ -110,7 +110,8 @@
     
     for (id mlkobj in milk)
     {
-        NSDictionary* dict1 = [[NSDictionary alloc]init];
+        NSMutableDictionary* dict1 = [[NSMutableDictionary alloc]init];
+        double billamt = 0;
         
         if (counter == 2)
         {
@@ -123,9 +124,12 @@
             NSInteger defaultdays = 0;
             
             // Get milk details
-//            [dict1 setValue:[mlkobj objectForKey:@"title"] forKey:@"title"];
-//            [dict1 setValue:[mlkobj objectForKey:@"rate"] forKey:@"rate"];
-//            [dict1 setValue:[mlkobj objectForKey:@"deliveryCharge"] forKey:@"deliveryCharge"];
+            
+            NSString* ratestr = [mlkobj objectForKey:@"rate"];
+            
+            [dict1 setValue:[mlkobj objectForKey:@"title"] forKey:@"title"];
+            [dict1 setValue:ratestr forKey:@"rate"];
+            [dict1 setValue:[mlkobj objectForKey:@"deliveryCharge"] forKey:@"deliveryCharge"];
             
             NSString* defrmdt = [mlkobj objectForKey:@"fromDate"];
             NSDate* dfrdt = [dformat dateFromString:defrmdt];
@@ -231,8 +235,12 @@
                 totalQuantity = totalQuantity + (defaultdays * dfquant);                                        
             }
             
-            NSLog(@"totalQuantity %.2f",totalQuantity);
-//            [dict1 setValue:[NSString stringWithFormat:@"%.2f",totalQuantity] forKey:@"quantity"];
+            billamt = totalQuantity * [ratestr doubleValue];
+            
+            NSLog(@"billamt %.2f",billamt);
+            
+            [dict1 setValue:[NSString stringWithFormat:@"%.2f",totalQuantity] forKey:@"quantity"];
+            [dict1 setValue:[NSString stringWithFormat:@"%.2f",totalQuantity] forKey:@"billamt"];            
         }
         
         [milkbill setObject:dict1 atIndexedSubscript:counter];

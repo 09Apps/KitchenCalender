@@ -28,10 +28,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.model = [[MBKCModel alloc] init];
     
     if (self.billtype == 0)
     {
         self.title = @"Milk Bill";
+        self.billarray = [self.model getMilkBillFrom:self.frmdt Till:self.todt];
     }
     else if (self.billtype == 1)
     {
@@ -41,9 +43,6 @@
     {
         self.title = @"Paper Bill";
     }
-    
-    self.model = [[MBKCModel alloc] init];
-    [self.model getMilkBillFrom:self.frmdt Till:self.todt];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -63,37 +62,13 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    
-    if (self.billtype == 0)
-    {
-        return 2;        
-    }
-    else if (self.billtype == 1)
-    {
-        //means laundry
-    }
-    else
-    {
-        //Means newspaper
-    }
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    if (section == 0)
-    {
-        return 3;
-    }
-    if (section == 1)
-    {
-        return 5;
-    }
-    else
-    {
-        return 5;
-    }
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
