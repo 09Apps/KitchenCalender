@@ -111,6 +111,7 @@
 {
     NSDateFormatter* dateformat = [[NSDateFormatter alloc] init];
     [dateformat setDateFormat:@"MMM dd, yyyy"];
+    [dateformat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     
     self.nsdatefrm = [dateformat dateFromString:self.frmDte.text];
     self.nsdateto = [dateformat dateFromString:self.toDte.text];

@@ -346,6 +346,9 @@
         </class>
         <class className="MilkViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MilkViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="stepperPressed:" candidateClass="UIStepper"/>
+            </relationships>
         </class>
         <class className="NSDate" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NSDate.h"/>

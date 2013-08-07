@@ -99,47 +99,48 @@
 
 - (void) getMilkBillFrom:(NSDate*)frmdt Till:(NSDate*)todt
 {
-    NSArray* milk = self.getMilkDetails;
     NSUInteger counter = 0;
-    NSInteger totalQuantity = 0;
+    double totalQuantity = 0;
     NSInteger exceptiondays = 0;
+    NSInteger sect = 1;
     
     NSDateFormatter* dformat = [[NSDateFormatter alloc] init];
     [dformat setDateFormat:@"MMM dd, yyyy"];
+    [dformat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     
-    for (id obj in milk)
+    NSDate* exfrdt = [[NSDate alloc] init];
+    NSDate* extodt = [[NSDate alloc] init];
+    
+    NSArray* milk = self.getMilkDetails;
+    NSArray* milkbill;
+    
+    for (id mlkobj in milk)
     {
         if (counter == 2)
         {
-            NSInteger sect = [obj integerValue];
+            sect = [mlkobj integerValue];
         }
         else
         {
-            NSArray* exceptions = [obj objectForKey:@"exceptions"];
+            NSArray* exceptions = [mlkobj objectForKey:@"exceptions"];
 
             for (id exobj in exceptions)
             {
-                NSString* frstr = [exobj objectForKey:@"fromDate"];
-                NSDate* exfrdt = [dformat dateFromString:frstr];
+                NSString* frstr = [exobj objectForKey:@"fromDate"];                
+                exfrdt = [dformat dateFromString:frstr];
 
-                frstr = [exobj objectForKey:@"toDate"];
-                NSDate* extodt = [dformat dateFromString:frstr];
-                
+                frstr = [exobj objectForKey:@"toDate"];               
+                extodt = [dformat dateFromString:frstr];
                 
                 if ([frmdt compare:extodt] == NSOrderedDescending  ||
                     [exfrdt compare:todt] == NSOrderedDescending )
                 {
                     // Exception from date is later than Todate of bill date OR
                     // Exception to date is before bill from date
-                    // Ignore this exception
-                    NSLog(@"exception not in range");
-                    NSLog(@"Total exception days %d",exceptiondays);
-                    NSLog(@"totalQuantity %d",totalQuantity);                       
+                    // Ignore this exception           
                 }
                 else
                 {
-                    NSLog(@"exception is in range");
-                    
                     NSDate* effectivefrmdt;
                     NSDate* effectivetodt;
                     
@@ -155,9 +156,7 @@
                         // so make it effective start date
                         effectivefrmdt = frmdt;
                     }
-                    
-                    NSLog(@"effectivefrmdt %@",effectivefrmdt);
-                    
+       
                     if ([extodt compare:todt] == NSOrderedDescending)
                     {
                         effectivetodt = todt;
@@ -167,24 +166,13 @@
                         effectivetodt = extodt;
                     }
                     
-                    NSLog(@"effectivetodt %@",effectivetodt);
-                    
                     NSInteger exdays = [MBKCModel getNumberOfDaysFrom:effectivefrmdt Till:effectivetodt];
                     
-                    NSLog(@"This exception days %d",exdays);
-                    
-                    exceptiondays = exceptiondays + exdays;
-                    
-                    NSLog(@"Total exception days %d",exceptiondays);                    
+                    exceptiondays = exceptiondays + exdays;  // Number of exception days
 
-                    NSInteger exquant = [[exobj objectForKey:@"quantity"] integerValue];
+                    double exquant = [[exobj objectForKey:@"quantity"] doubleValue];
                     
-                    NSLog(@"This exception exquant %d",exquant);
-                    
-                    NSInteger extotquant = exdays * exquant;
-                    
-                    totalQuantity = totalQuantity + extotquant;
-                    NSLog(@"totalQuantity %d",totalQuantity);                    
+                    totalQuantity = totalQuantity + (exdays * exquant);  // This is total quantity
                 }
             }
         }
@@ -200,8 +188,8 @@
     NSUInteger unitFlags = NSDayCalendarUnit;
     
     NSDateComponents *components = [gregorian components:unitFlags
-                                                fromDate:fromDt
-                                                  toDate:toDt options:0];
+                                            fromDate:fromDt
+                                            toDate:toDt options:0];
     return ([components day]+1) ;
 }
 

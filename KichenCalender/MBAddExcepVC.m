@@ -38,6 +38,7 @@
     
     UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped)] ;
     [self.view addGestureRecognizer:tap];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -110,6 +111,7 @@
 {
     NSDateFormatter* dateformat = [[NSDateFormatter alloc] init];
     [dateformat setDateFormat:@"MMM dd, yyyy"];
+    [dateformat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     
     NSDate* fromDt = [dateformat dateFromString:self.frmTxt.text];
     NSDate* toDt = [dateformat dateFromString:self.toTxt.text];

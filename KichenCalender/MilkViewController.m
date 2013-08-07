@@ -204,7 +204,6 @@
             NSDateFormatter* dateformat = [[NSDateFormatter alloc] init];
             [dateformat setDateFormat:@"MMM dd, yyyy"];
             
-            
             if ([indexPath section] == 0)
             {
                 self.txtField.text = [self.milk1 objectForKey:@"fromDate"];
