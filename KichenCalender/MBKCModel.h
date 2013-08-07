@@ -14,7 +14,7 @@
 
 - (NSArray*) getMilkDetails;
 - (void) setMilkDetailsWithMilk1:(NSDictionary*)dict1 AndMilk2:(NSDictionary*)dict1;
-- (void) getMilkBillFrom:(NSDate*)frmdt Till:(NSDate*)todt;
+- (NSArray*) getMilkBillFrom:(NSDate*)frmdt Till:(NSDate*)todt;
 + (NSInteger)getNumberOfDaysFrom:(NSDate*)fromDt Till:(NSDate*)toDt;
 
 @end
