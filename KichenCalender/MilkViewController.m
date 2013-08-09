@@ -36,25 +36,20 @@
     
     NSArray* milkarr = [self.model getMilkDetails];
     
-    self.milk1 = [milkarr objectAtIndex:0];
-    self.milk2 = [milkarr objectAtIndex:1];
-
-    NSString* sections = [milkarr objectAtIndex:2];
-    self.sect = [sections integerValue];
+    NSString* sectstr = [milkarr objectAtIndex:0];
+    self.sect = [sectstr integerValue];
     
+    self.currency = [milkarr objectAtIndex:1];
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
- 
-    if ([self.model.sections integerValue] == 1)
-    {
-        // Show add button only if currently there is 1 section. As we support only two sections
-        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSection)];
+    self.milk = [[NSMutableArray alloc] initWithArray:[milkarr objectAtIndex:2]];
     
-        self.navigationItem.rightBarButtonItem = addButton;
-    }
+        // Show add button only if currently there is 1 section. As we support only two sections
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSection)];
+    self.navigationItem.rightBarButtonItem = addButton;
     
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(saveData)];
-    
     self.navigationItem.leftBarButtonItem = saveButton;
     
 }
@@ -84,10 +79,20 @@
     UITableViewCell *cell;
     UIStepper *stepper;
     UILabel *quantitylbl;
+    NSMutableDictionary* milkdict = [[NSMutableDictionary alloc] init];
     
-    int sectionCount = 0; 
+    NSUInteger bounds = [self.milk count];
     
-    if ([indexPath section] == 1)  sectionCount = 10;  // This is to manage tags of the textfields
+    if (bounds > [indexPath section])
+    {
+        milkdict = [self.milk objectAtIndex:[indexPath section]];
+    }
+    else
+    {
+        [self.milk addObject:milkdict];
+    }
+    
+    int sectionCount = [indexPath section] *10; // This is to manage tags of the textfields
     
     switch ([indexPath row])
     {
@@ -104,10 +109,7 @@
             self.txtField.tag = sectionCount + [indexPath row];
             self.txtField.adjustsFontSizeToFitWidth = YES;
             
-            if ([indexPath section] == 0)
-                self.txtField.text = [self.milk1 objectForKey:@"title"];
-            else
-                self.txtField.text = [self.milk2 objectForKey:@"title"];
+            self.txtField.text = [milkdict objectForKey:@"title"];
 
             cell.textLabel.text = @"Title ";
             [cell setAccessoryView:self.txtField];
@@ -126,10 +128,7 @@
             self.txtField.tag = sectionCount + [indexPath row];
             [self.txtField setEnabled: YES];
             
-            if ([indexPath section] == 0)
-                self.txtField.text = [self.milk1 objectForKey:@"rate"];
-            else
-                self.txtField.text = [self.milk2 objectForKey:@"rate"];
+            self.txtField.text = [milkdict objectForKey:@"rate"];
             
             cell.textLabel.text = @"Rate per ltr";
             [cell setAccessoryView:self.txtField];
@@ -150,14 +149,7 @@
             quantitylbl = [[UILabel alloc] initWithFrame:CGRectMake(160, 12, 40, 20)];
             //quantitylbl.backgroundColor = [UIColor clearColor];
             
-            if ([indexPath section] == 0)
-            {
-                quantitylbl.text = [self.milk1 objectForKey:@"quantity"];
-            }
-            else
-            {
-                quantitylbl.text = [self.milk2 objectForKey:@"quantity"];
-            }
+            quantitylbl.text = [milkdict objectForKey:@"quantity"];
 
             [stepper setValue:[quantitylbl.text doubleValue]];
 
@@ -177,10 +169,7 @@
             self.txtField.textAlignment = NSTextAlignmentRight;            
             self.txtField.tag = sectionCount + [indexPath row];
             
-            if ([indexPath section] == 0)
-                self.txtField.text = [self.milk1 objectForKey:@"deliveryCharge"];
-            else
-                self.txtField.text = [self.milk2 objectForKey:@"deliveryCharge"];
+            self.txtField.text = [milkdict objectForKey:@"deliveryCharge"];
             
             cell.textLabel.text = @"Delivery Charges";
             [cell setAccessoryView:self.txtField];
@@ -204,14 +193,7 @@
             NSDateFormatter* dateformat = [[NSDateFormatter alloc] init];
             [dateformat setDateFormat:@"MMM dd, yyyy"];
             
-            if ([indexPath section] == 0)
-            {
-                self.txtField.text = [self.milk1 objectForKey:@"fromDate"];
-            }
-            else
-            {
-                self.txtField.text = [self.milk2 objectForKey:@"fromDate"];
-            }
+            self.txtField.text = [milkdict objectForKey:@"fromDate"];
 
             NSDate* date = [dateformat dateFromString:self.txtField.text];
             
@@ -261,33 +243,22 @@
 
 - (void)saveTextField:(UITextField *)textField
 {
-    // Save the values from textfields. If Tag is 0 to 9 means it is coming from 1st section
-    // If tag value is more than 10 means it is coming from 2nd section to save it to milk2
+    // Save the values from textfields.
+    NSUInteger arrind = textField.tag/10;
+    NSUInteger tagind = textField.tag - (arrind * 10);
     
-    switch (textField.tag)
+    switch (tagind)
     {
         case 0:
-            [self.milk1 setValue:textField.text forKey:@"title"];
+            [[self.milk objectAtIndex:arrind] setValue:textField.text forKey:@"title"];
             break;
             
         case 1:
-            [self.milk1 setValue:textField.text forKey:@"rate"];
+            [[self.milk objectAtIndex:arrind] setValue:textField.text forKey:@"rate"];
             break;
             
         case 3:
-            [self.milk1 setValue:textField.text forKey:@"deliveryCharge"];
-            break;
-            
-        case 10:
-            [self.milk2 setValue:textField.text forKey:@"title"];
-            break;
-            
-        case 11:
-            [self.milk2 setValue:textField.text forKey:@"rate"];
-            break;
-            
-        case 13:
-            [self.milk2 setValue:textField.text forKey:@"deliveryCharge"];
+            [[self.milk objectAtIndex:arrind] setValue:textField.text forKey:@"deliveryCharge"];                        
             break;
             
         default:
@@ -300,16 +271,9 @@
 //    double stepval = sender.value + sender.stepValue;
     NSString* strval = [NSString stringWithFormat:@"%.2f",sender.value];
     
-    if (sender.tag == 0)
-    {
-        [self.milk1 setValue:strval forKey:@"quantity"];
-        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-    }
-    else
-    {
-        [self.milk2 setValue:strval forKey:@"quantity"];
-        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:2 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
-    }
+    [[self.milk objectAtIndex:sender.tag] setValue:strval forKey:@"quantity"];
+    
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:2 inSection:sender.tag]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (void)addSection
@@ -333,15 +297,14 @@
     if(alertView.tag == ADDSECTIONTAG)
     {
         // This means user is adding one more section
-        if (buttonIndex == 1)
-        {
-            self.sect = 2;
-            self.navigationItem.rightBarButtonItem = nil;
+        
+        self.sect++;
             
-            [self.view endEditing:YES];
-            [self saveTextField:self.txtField];
-            [self.tableView reloadData];
-        }
+        [self.view endEditing:YES];
+        [self saveTextField:self.txtField];
+        
+        [self.tableView reloadData];
+        
         // Do nothing if users says No to add milk
     }
     else
@@ -349,14 +312,13 @@
         // User is saving data
         if (buttonIndex == 1)
         {
+            NSArray* savearr = [[NSArray alloc] initWithObjects:[NSString stringWithFormat:@"%d",self.sect],
+                                                                self.currency,
+                                                                self.milk,
+                                                                nil];
             [self.view endEditing:YES];
             
-            if (self.sect == 2)
-            {
-                self.model.sections = @"2";
-            }
-            
-            [self.model setMilkDetailsWithMilk1:self.milk1 AndMilk2:self.milk2];
+            [self.model setMilkDetails:savearr];
         }
         
         [self.navigationController popViewControllerAnimated:YES];
@@ -369,16 +331,10 @@
     
     if (indexPath.row == 5)
     {
+        NSDictionary* milkdict = [self.milk objectAtIndex:[indexPath section]];
         NSArray* excparr;
         
-        if (indexPath.section == 0)
-        {
-            excparr = [self.milk1 objectForKey:@"exceptions"];
-        }
-        else
-        {
-            excparr = [self.milk2 objectForKey:@"exceptions"];
-        }
+        excparr = [milkdict objectForKey:@"exceptions"];
         
         MBExceptionVC* exceptionVC = [[MBExceptionVC alloc] initWithException:excparr];
         
@@ -395,18 +351,9 @@
     
     self.txtField.text = [NSString stringWithFormat:@"%@",[dformat stringFromDate:picker.date]];
     
-    if (picker.tag == 0)
-    {
-        [self.milk1 setValue:self.txtField.text forKey:@"fromDate"];
-        
-        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:4 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-    }
-    else
-    {
-        [self.milk2 setValue:self.txtField.text forKey:@"fromDate"];
-        
-        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:4 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
-    }
+    [[self.milk objectAtIndex:picker.tag] setValue:self.txtField.text forKey:@"fromDate"];
+    
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:4 inSection:picker.tag]] withRowAnimation:UITableViewRowAnimationNone];
     
 }
 

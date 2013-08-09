@@ -27,28 +27,27 @@
         NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
     }
     
-    self.sections = [temp objectForKey:@"sections"];
+    NSMutableArray* milkarray = [[NSMutableArray alloc] init];
     
-    NSDictionary* dict1 = [temp objectForKey:@"milk1"];
-    NSDictionary* dict2 = [temp objectForKey:@"milk2"];
+    NSString* str = [temp objectForKey:@"sections"];
+    self.sections = [str integerValue];
+    [milkarray addObject:str];
     
-    ////// Use to debug
-    //    NSArray* nsa = [dict1 allValues];
-    //    for (id obj in nsa)
-    //		NSLog(@"model values %@",obj);
-    ///////
+    str = [temp objectForKey:@"currency"];
+    [milkarray addObject:str];
     
-    return [NSArray arrayWithObjects:dict1, dict2, self.sections, nil];
+    [milkarray addObject:[temp objectForKey:@"milk"]];
+    
+    return milkarray;
 }
 
 
-- (void) setMilkDetailsWithMilk1:(NSDictionary*)dict1 AndMilk2:(NSDictionary*)dict2
+- (void) setMilkDetails:(NSArray*)milk
 {
     
-    NSArray* keyarr = [[NSArray alloc] initWithObjects:@"sections", @"milk1", @"milk2", nil];
-    NSArray* dictarr = [[NSArray alloc] initWithObjects:self.sections, dict1, dict2, nil];
+    NSArray* keyarr = [[NSArray alloc] initWithObjects:@"sections", @"currency", @"milk", nil];
     
-    NSDictionary* dict = [[NSDictionary alloc] initWithObjects:dictarr forKeys:keyarr];
+    NSDictionary* dict = [[NSDictionary alloc] initWithObjects:milk forKeys:keyarr];
     
     NSString* plistPath = [self getPlistPath];
     
@@ -108,145 +107,154 @@
     NSArray* milk = self.getMilkDetails;
     NSMutableArray* milkbill = [[NSMutableArray alloc] init];
     
-    for (id mlkobj in milk)
+    for (id obj in milk)
     {
         NSMutableDictionary* dict1 = [[NSMutableDictionary alloc]init];
         double billamt = 0;
         
-        if (counter == 2)
+        if (counter == 0)
         {
             // set milk object count (sections) at array position 2.
-            [milkbill setObject:mlkobj atIndexedSubscript:counter];
+            [milkbill addObject:obj];
         }
-        else
+        
+        //Counter 1 is Rs.
+        if (counter == 1)
+        {   
+            // set milk object count (sections) at array position 2.
+            [milkbill addObject:obj];   
+        }
+        
+        //Counter 2 is milk objects
+        if (counter == 2)
         {
-            double totalQuantity = 0;
-            NSInteger defaultdays = 0;
+            for (NSDictionary* mlkobj in obj)
+            {
+                double totalQuantity = 0;
+                NSInteger defaultdays = 0;
             
-            // Get milk details
+                // Get milk details
             
-            NSString* ratestr = [mlkobj objectForKey:@"rate"];
+                NSString* ratestr = [mlkobj objectForKey:@"rate"];
             
-            [dict1 setValue:[mlkobj objectForKey:@"title"] forKey:@"title"];
-            [dict1 setValue:ratestr forKey:@"rate"];
-            [dict1 setValue:[mlkobj objectForKey:@"deliveryCharge"] forKey:@"deliveryCharge"];
+                [dict1 setValue:[mlkobj objectForKey:@"title"] forKey:@"title"];
+                [dict1 setValue:ratestr forKey:@"rate"];
+                [dict1 setValue:[mlkobj objectForKey:@"deliveryCharge"] forKey:@"deliveryCharge"];
             
-            NSString* defrmdt = [mlkobj objectForKey:@"fromDate"];
-            NSDate* dfrdt = [dformat dateFromString:defrmdt];
+                NSString* defrmdt = [mlkobj objectForKey:@"fromDate"];
+                NSDate* dfrdt = [dformat dateFromString:defrmdt];
 
 //            NSString* dftostr = [mlkobj objectForKey:@"toDate"]; // implement this!!
 //            NSDate* dftodt = [dformat dateFromString:dftostr];
             
-            NSDate* dftodt = [NSDate date];
+                NSDate* dftodt = [NSDate date];
             
-            if ([frmdt compare:dftodt] == NSOrderedDescending  ||
-                [dfrdt compare:todt] == NSOrderedDescending )
-            {
-                // Exception from date is later than Todate of bill date OR
-                // Exception to date is before bill from date
-                // Ignore this exception
-            }
-            else
-            {
-                NSDate* dfeffectivefrmdt;
-                NSDate* dfeffectivetodt;
-                
-                if ([dfrdt compare:frmdt] == NSOrderedDescending)
+                if ([frmdt compare:dftodt] == NSOrderedDescending  ||
+                    [dfrdt compare:todt] == NSOrderedDescending )
                 {
-                    // Means exception from date is later than bill from date
-                    // so make it effective start date
-                    dfeffectivefrmdt = dfrdt;
+                    // Exception from date is later than Todate of bill date OR
+                    // Exception to date is before bill from date
+                    // Ignore this exception
                 }
                 else
                 {
-                    // Bill from date is later than exception start date
-                    // so make it effective start date
-                    dfeffectivefrmdt = frmdt;
-                }
+                    NSDate* dfeffectivefrmdt;
+                    NSDate* dfeffectivetodt;
                 
-                if ([dftodt compare:todt] == NSOrderedDescending)
-                {
-                    dfeffectivetodt = todt;
-                }
-                else
-                {
-                    dfeffectivetodt = dftodt;
-                }
-                
-                defaultdays = [MBKCModel getNumberOfDaysFrom:dfeffectivefrmdt Till:dfeffectivetodt];
-                
-                double dfquant = [[mlkobj objectForKey:@"quantity"] doubleValue];         
-            
-                // Now get the exceptions data
-                NSArray* exceptions = [mlkobj objectForKey:@"exceptions"];
-
-                for (id exobj in exceptions)
-                {
-                    NSString* frstr = [exobj objectForKey:@"fromDate"];
-                    NSDate* exfrdt = exfrdt = [dformat dateFromString:frstr];
-
-                    frstr = [exobj objectForKey:@"toDate"];
-                    NSDate* extodt = [dformat dateFromString:frstr];
-                
-                    if ([frmdt compare:extodt] == NSOrderedDescending  ||
-                        [exfrdt compare:todt] == NSOrderedDescending )
+                    if ([dfrdt compare:frmdt] == NSOrderedDescending)
                     {
-                        // Exception from date is later than Todate of bill date OR
-                        // Exception to date is before bill from date
-                        // Ignore this exception
+                        // Means exception from date is later than bill from date
+                        // so make it effective start date
+                        dfeffectivefrmdt = dfrdt;
                     }
                     else
                     {
-                        NSDate* effectivefrmdt;
-                        NSDate* effectivetodt;
-                    
-                        if ([exfrdt compare:frmdt] == NSOrderedDescending)
-                        {
-                            // Means exception from date is later than bill from date
-                            // so make it effective start date
-                            effectivefrmdt = exfrdt;
-                        }
-                        else
-                        {
-                            // Bill from date is later than exception start date
-                            // so make it effective start date
-                            effectivefrmdt = frmdt;
-                        }
-       
-                        if ([extodt compare:todt] == NSOrderedDescending)
-                        {
-                            effectivetodt = todt;
-                        }
-                        else
-                        {
-                            effectivetodt = extodt;
-                        }
-                    
-                        NSInteger exdays = [MBKCModel getNumberOfDaysFrom:effectivefrmdt Till:effectivetodt];
-                    
-                        defaultdays = defaultdays - exdays;  // Number of exception days
-                        double exquant = [[exobj objectForKey:@"quantity"] doubleValue];
-                    
-                        totalQuantity = totalQuantity + (exdays * exquant);  // This is total quantity for exception                  
+                        // Bill from date is later than exception start date
+                        // so make it effective start date
+                        dfeffectivefrmdt = frmdt;
                     }
+                
+                    if ([dftodt compare:todt] == NSOrderedDescending)
+                    {
+                        dfeffectivetodt = todt;
+                    }
+                    else
+                    {
+                        dfeffectivetodt = dftodt;
+                    }
+                
+                    defaultdays = [MBKCModel getNumberOfDaysFrom:dfeffectivefrmdt Till:dfeffectivetodt];
+                
+                    double dfquant = [[mlkobj objectForKey:@"quantity"] doubleValue];
+            
+                    // Now get the exceptions data
+                    NSArray* exceptions = [mlkobj objectForKey:@"exceptions"];
+
+                    for (NSDictionary* exobj in exceptions)
+                    {
+                        NSString* frstr = [exobj objectForKey:@"fromDate"];
+                        NSDate* exfrdt = exfrdt = [dformat dateFromString:frstr];
+
+                        frstr = [exobj objectForKey:@"toDate"];
+                        NSDate* extodt = [dformat dateFromString:frstr];
+                
+                        if ([frmdt compare:extodt] == NSOrderedDescending  ||
+                            [exfrdt compare:todt] == NSOrderedDescending )
+                        {
+                            // Exception from date is later than Todate of bill date OR
+                            // Exception to date is before bill from date
+                            // Ignore this exception
+                        }
+                        else
+                        {
+                            NSDate* effectivefrmdt;
+                            NSDate* effectivetodt;
+                    
+                            if ([exfrdt compare:frmdt] == NSOrderedDescending)
+                            {
+                                // Means exception from date is later than bill from date
+                                // so make it effective start date
+                                effectivefrmdt = exfrdt;
+                            }
+                            else
+                            {
+                                // Bill from date is later than exception start date
+                                // so make it effective start date
+                                effectivefrmdt = frmdt;
+                            }
+           
+                            if ([extodt compare:todt] == NSOrderedDescending)
+                            {
+                                effectivetodt = todt;
+                            }
+                            else
+                            {
+                                effectivetodt = extodt;
+                            }
+                        
+                            NSInteger exdays = [MBKCModel getNumberOfDaysFrom:effectivefrmdt Till:effectivetodt];
+                        
+                            defaultdays = defaultdays - exdays;  // Number of exception days
+                            double exquant = [[exobj objectForKey:@"quantity"] doubleValue];
+                        
+                            totalQuantity = totalQuantity + (exdays * exquant);  // This is total quantity for exception                  
+                        }
+                    }
+                
+                    // Add default quantity now
+                    totalQuantity = totalQuantity + (defaultdays * dfquant);                                        
                 }
                 
-                // Add default quantity now
-                totalQuantity = totalQuantity + (defaultdays * dfquant);                                        
+                billamt = totalQuantity * [ratestr doubleValue];
+                
+                [dict1 setValue:[NSString stringWithFormat:@"%.2f",totalQuantity] forKey:@"quantity"];
+                [dict1 setValue:[NSString stringWithFormat:@"%.2f",totalQuantity] forKey:@"billamt"];            
             }
-            
-            billamt = totalQuantity * [ratestr doubleValue];
-            
-            NSLog(@"billamt %.2f",billamt);
-            
-            [dict1 setValue:[NSString stringWithFormat:@"%.2f",totalQuantity] forKey:@"quantity"];
-            [dict1 setValue:[NSString stringWithFormat:@"%.2f",totalQuantity] forKey:@"billamt"];            
         }
         
-        [milkbill setObject:dict1 atIndexedSubscript:counter];
+        [milkbill addObject:dict1];
         counter++;
     }
-    
     return milkbill;
 }
 

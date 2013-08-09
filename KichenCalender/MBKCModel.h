@@ -10,10 +10,10 @@
 
 @interface MBKCModel : NSObject
 
-@property (nonatomic,retain) NSString* sections;
+@property NSInteger sections;
 
 - (NSArray*) getMilkDetails;
-- (void) setMilkDetailsWithMilk1:(NSDictionary*)dict1 AndMilk2:(NSDictionary*)dict1;
+- (void) setMilkDetails:(NSArray*)milk;
 - (NSArray*) getMilkBillFrom:(NSDate*)frmdt Till:(NSDate*)todt;
 + (NSInteger)getNumberOfDaysFrom:(NSDate*)fromDt Till:(NSDate*)toDt;
 
