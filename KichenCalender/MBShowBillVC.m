@@ -34,6 +34,13 @@
     {
         self.title = @"Milk Bill";
         self.billarray = [self.model getMilkBillFrom:self.frmdt Till:self.todt];
+        
+//        NSLog(@"self.billarray %@",self.billarray);
+
+        // returns array with these elements sections, Rs, total bill, {title,rate,delivery charge,quantity,bill amount}
+        
+        self.milkarr = [self.billarray objectAtIndex:3];
+//        NSLog(@"self.milkarr %@",self.milkarr);
     }
     else if (self.billtype == 1)
     {
@@ -62,13 +69,31 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 1;
+    NSUInteger sect = [[self.billarray objectAtIndex:0] integerValue];
+    return (sect+1);
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section > 0)
+    {
+        NSDictionary* dict = [self.milkarr objectAtIndex:(section-1)];
+        return [dict objectForKey:@"title"];
+    }
+    else
+    {
+        return @"";
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 1;
+    if (section == 0) {
+        return 3;
+    }
+    else
+        return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -79,7 +104,7 @@
     NSDateFormatter* dformat = [[NSDateFormatter alloc] init];
     [dformat setDateFormat:@"MMM dd, yyyy"];
     
-    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(150, 15, 130, 20)];
+    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(200, 15, 100, 20)];
     label.backgroundColor = [UIColor clearColor];
     
     // Configure the cell...
@@ -88,19 +113,34 @@
         // Just put from date, to date and no. of days here.
         if (indexPath.row == 0)
         {
-            cell.textLabel.text = @"From Date :";
+            cell.textLabel.text = @"From Date      : ";
             label.text = [NSString stringWithFormat:@"%@",[dformat stringFromDate:self.frmdt]];
         }
         if (indexPath.row == 1)
         {
-            cell.textLabel.text = @"To Date :";
+            cell.textLabel.text = @"To Date        : ";
             label.text = [NSString stringWithFormat:@"%@",[dformat stringFromDate:self.todt]];
         }
         if (indexPath.row == 2)
         {
-            cell.textLabel.text = @"Total days :";
-            NSInteger days = [MBKCModel getNumberOfDaysFrom:self.frmdt Till:self.todt];
-            label.text = [NSString stringWithFormat:@"%d",days];
+            cell.textLabel.text = @"Total Bill Rs. : ";
+            label.text = [NSString stringWithFormat:@"%@",[self.billarray objectAtIndex:2]];
+        }
+    }
+    else
+    {
+        NSUInteger arrct = indexPath.section - 1;
+        NSDictionary* dict = [self.milkarr objectAtIndex:arrct];
+        
+        if (indexPath.row == 0)
+        {
+            cell.textLabel.text = @"Quantity ltr : ";
+            label.text = [dict objectForKey:@"quantity"];
+        }
+        if (indexPath.row == 1)
+        {
+            cell.textLabel.text = @"Bill Rs.     : ";
+            label.text = [dict objectForKey:@"billamt"];
         }
     }
     

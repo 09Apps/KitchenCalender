@@ -16,6 +16,7 @@
 @property (retain, nonatomic) NSDate* todt;
 @property (strong, nonatomic) MBKCModel* model;
 @property (strong, nonatomic) NSArray* billarray;
+@property (strong, nonatomic) NSArray* milkarr;
 
 
 

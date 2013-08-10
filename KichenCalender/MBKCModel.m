@@ -104,12 +104,12 @@
     [dformat setDateFormat:@"MMM dd, yyyy"];
     [dformat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     
-    NSArray* milk = self.getMilkDetails;
     NSMutableArray* milkbill = [[NSMutableArray alloc] init];
+    
+    NSArray* milk = self.getMilkDetails;
     
     for (id obj in milk)
     {
-        NSMutableDictionary* dict1 = [[NSMutableDictionary alloc]init];
         double billamt = 0;
         
         if (counter == 0)
@@ -122,24 +122,30 @@
         if (counter == 1)
         {   
             // set milk object count (sections) at array position 2.
-            [milkbill addObject:obj];   
+            [milkbill addObject:obj];
         }
         
         //Counter 2 is milk objects
         if (counter == 2)
         {
+            NSMutableArray* eachmilk = [[NSMutableArray alloc] init];
+            double totalbill = 0;
+            
             for (NSDictionary* mlkobj in obj)
             {
                 double totalQuantity = 0;
                 NSInteger defaultdays = 0;
+                NSMutableDictionary* dict1 = [[NSMutableDictionary alloc]init];                
             
                 // Get milk details
-            
+        
                 NSString* ratestr = [mlkobj objectForKey:@"rate"];
-            
-                [dict1 setValue:[mlkobj objectForKey:@"title"] forKey:@"title"];
                 [dict1 setValue:ratestr forKey:@"rate"];
-                [dict1 setValue:[mlkobj objectForKey:@"deliveryCharge"] forKey:@"deliveryCharge"];
+                
+                [dict1 setValue:[mlkobj objectForKey:@"title"] forKey:@"title"];
+                
+                NSString* delchgstr = [mlkobj objectForKey:@"deliveryCharge"];
+                [dict1 setValue:delchgstr forKey:@"deliveryCharge"];
             
                 NSString* defrmdt = [mlkobj objectForKey:@"fromDate"];
                 NSDate* dfrdt = [dformat dateFromString:defrmdt];
@@ -245,16 +251,22 @@
                     totalQuantity = totalQuantity + (defaultdays * dfquant);                                        
                 }
                 
-                billamt = totalQuantity * [ratestr doubleValue];
+                billamt = (totalQuantity * [ratestr doubleValue]) + [delchgstr integerValue];
+                
+                totalbill = totalbill + billamt;
                 
                 [dict1 setValue:[NSString stringWithFormat:@"%.2f",totalQuantity] forKey:@"quantity"];
-                [dict1 setValue:[NSString stringWithFormat:@"%.2f",totalQuantity] forKey:@"billamt"];            
+                [dict1 setValue:[NSString stringWithFormat:@"%.2f",billamt] forKey:@"billamt"];
+                
+                [eachmilk addObject:dict1];              
             }
+            
+            [milkbill addObject:[NSString stringWithFormat:@"%.2f",totalbill]];
+            [milkbill addObject:eachmilk];
         }
-        
-        [milkbill addObject:dict1];
         counter++;
     }
+    
     return milkbill;
 }
 
