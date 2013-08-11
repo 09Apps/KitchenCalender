@@ -4,40 +4,25 @@
 <dict>
 	<key>currency</key>
 	<string>Rs</string>
-	<key>milk2</key>
-	<dict>
-		<key>exceptions</key>
-		<array/>
-		<key>toDate</key>
-		<string></string>
-		<key>fromDate</key>
-		<string></string>
-		<key>deliveryCharge</key>
-		<string></string>
-		<key>quantity</key>
-		<string>0</string>
-		<key>rate</key>
-		<string></string>
-		<key>title</key>
-		<string></string>
-	</dict>
-	<key>milk1</key>
-	<dict>
-		<key>exceptions</key>
-		<array/>
-		<key>toDate</key>
-		<string></string>
-		<key>fromDate</key>
-		<string></string>
-		<key>deliveryCharge</key>
-		<string></string>
-		<key>quantity</key>
-		<string>0</string>
-		<key>rate</key>
-		<string></string>
-		<key>title</key>
-		<string></string>
-	</dict>
+	<key>milk</key>
+	<array>
+		<dict>
+			<key>exceptions</key>
+			<array/>
+			<key>deliveryCharge</key>
+			<string></string>
+			<key>toDate</key>
+			<string></string>
+			<key>fromDate</key>
+			<string></string>
+			<key>quantity</key>
+			<string></string>
+			<key>rate</key>
+			<string></string>
+			<key>title</key>
+			<string></string>
+		</dict>
+	</array>
 	<key>sections</key>
 	<string>1</string>
 </dict>

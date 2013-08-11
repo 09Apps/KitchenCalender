@@ -331,10 +331,7 @@
     
     if (indexPath.row == 5)
     {
-        NSDictionary* milkdict = [self.milk objectAtIndex:[indexPath section]];
-        NSArray* excparr;
-        
-        excparr = [milkdict objectForKey:@"exceptions"];
+        NSMutableArray* excparr = [[self.milk objectAtIndex:[indexPath section]] objectForKey:@"exceptions"];
         
         MBExceptionVC* exceptionVC = [[MBExceptionVC alloc] initWithException:excparr];
         
@@ -356,5 +353,6 @@
     [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:4 inSection:picker.tag]] withRowAnimation:UITableViewRowAnimationNone];
     
 }
+
 
 @end

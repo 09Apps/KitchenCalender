@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "MBKCModel.h"
+#import "MBExceptionVC.h"
 
 @interface MilkViewController : UITableViewController <UITextFieldDelegate>
-
 @property(nonatomic,retain) UITextField* txtField;
 @property(nonatomic,retain) NSMutableArray* milk;
 @property NSInteger sect;
