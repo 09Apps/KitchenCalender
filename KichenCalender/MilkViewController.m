@@ -333,6 +333,11 @@
     {
         NSMutableArray* excparr = [[self.milk objectAtIndex:[indexPath section]] objectForKey:@"exceptions"];
         
+        if (excparr == nil) {
+            excparr = [[NSMutableArray alloc] init];
+            [[self.milk objectAtIndex:[indexPath section]] setObject:excparr forKey:@"exceptions"];
+        }
+        
         MBExceptionVC* exceptionVC = [[MBExceptionVC alloc] initWithException:excparr];
         
         [self.navigationController pushViewController:exceptionVC animated:YES];

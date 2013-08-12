@@ -60,7 +60,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+{    
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
@@ -87,7 +87,6 @@
         str = [dict objectForKey:@"quantity"];
         quantitylbl.text = [str stringByAppendingString:@"  Ltr / day"];
     
-
         cell.accessoryView = quantitylbl;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;        
     }
@@ -129,6 +128,7 @@
 
 - (void)addExceptionVC:(MBAddExcepVC *)controller didFinishAddingException:(NSDictionary *)item
 {
+
     [self.exceptions addObject:item];
     [self.tableView reloadData];
 }
