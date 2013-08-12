@@ -280,7 +280,14 @@
     NSDateComponents *components = [gregorian components:unitFlags
                                             fromDate:fromDt
                                             toDate:toDt options:0];
-    return ([components day]+1) ;
+    if ([components day] < 0)
+    {
+        return 0;
+    }
+    else
+    {
+        return ([components day]+1) ;
+    }
 }
 
 @end

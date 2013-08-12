@@ -71,7 +71,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 6;
+    return 7;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -206,7 +206,7 @@
                 [datePicker setDate:date];
             }
             
-            [datePicker setTag:[indexPath section]];
+            [datePicker setTag:self.txtField.tag];
             [datePicker addTarget:self action:@selector(updateDateField:) forControlEvents:UIControlEventValueChanged];
             [self.txtField setInputView:datePicker];
              
@@ -217,6 +217,44 @@
             break;
         }
         case 5:
+        {
+            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell4"];
+            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
+            [self.txtField setDelegate:self];
+            self.txtField.textAlignment = NSTextAlignmentRight;
+            self.txtField.tag = sectionCount + [indexPath row];
+            self.txtField.adjustsFontSizeToFitWidth = YES;
+            
+            UIDatePicker *datePicker = [[UIDatePicker alloc]init];
+            [datePicker setDatePickerMode:UIDatePickerModeDate];
+            
+            NSDateFormatter* dateformat = [[NSDateFormatter alloc] init];
+            [dateformat setDateFormat:@"MMM dd, yyyy"];            
+            
+            self.txtField.text = [milkdict objectForKey:@"toDate"];
+            NSDate* date = [dateformat dateFromString:self.txtField.text];
+            
+            if (date == nil)
+            {
+                self.txtField.text = @"Dec 31, 2100";
+            }
+            else
+            {
+                [datePicker setDate:date];
+            }            
+            
+            [datePicker setTag:self.txtField.tag];
+            [datePicker addTarget:self action:@selector(updateDateField:) forControlEvents:UIControlEventValueChanged];
+            [self.txtField setInputView:datePicker];
+            
+            cell.textLabel.text = @"Till Date ";
+            [cell setAccessoryView:self.txtField];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            break;
+        }
+            
+        case 6:
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell3"];            
             cell.textLabel.text = @"Exceptions ";
             [cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
@@ -329,7 +367,7 @@
 {
     [self.view endEditing:YES];
     
-    if (indexPath.row == 5)
+    if (indexPath.row == 6)
     {
         NSMutableArray* excparr = [[self.milk objectAtIndex:[indexPath section]] objectForKey:@"exceptions"];
         
@@ -344,18 +382,42 @@
     }
 }
 
--(void) updateDateField:(id)sender
+-(void) updateDateField:(UIDatePicker*)sender
 {
-    UIDatePicker *picker = (UIDatePicker*)sender;
+    NSUInteger arrind = sender.tag/10;
+    NSUInteger tagind = sender.tag - (arrind * 10);
     
     NSDateFormatter* dformat = [[NSDateFormatter alloc] init];
     [dformat setDateFormat:@"MMM dd, yyyy"];
     
-    self.txtField.text = [NSString stringWithFormat:@"%@",[dformat stringFromDate:picker.date]];
+    self.txtField.text = [NSString stringWithFormat:@"%@",[dformat stringFromDate:sender.date]];
     
-    [[self.milk objectAtIndex:picker.tag] setValue:self.txtField.text forKey:@"fromDate"];
+    if (tagind == 4)
+    {
+        [[self.milk objectAtIndex:arrind] setValue:self.txtField.text forKey:@"fromDate"];
+    }
+    else
+    {
+       // Compare toDate with From Date
+        NSString* frmtxt = [[self.milk objectAtIndex:arrind] objectForKey:@"fromDate"];
+        
+        NSDate* frmdate = [dformat dateFromString:frmtxt];
+        
+        if([frmdate compare:sender.date] == NSOrderedDescending)
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"TillDate should be after FromDate." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            self.txtField.text = @"";
+            [alert show];
+        }
+        else
+        {
+            [[self.milk objectAtIndex:arrind] setValue:self.txtField.text forKey:@"toDate"];    
+        }
+    }
     
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:4 inSection:picker.tag]] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView reloadData];
+    
+//    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:tagind inSection:arrind]] withRowAnimation:UITableViewRowAnimationNone];
     
 }
 
