@@ -79,17 +79,8 @@
     UIStepper *stepper;
     UILabel *quantitylbl;
     NSMutableDictionary* milkdict = [[NSMutableDictionary alloc] init];
-    
-    NSUInteger bounds = [self.milk count];
-    
-    if (bounds > [indexPath section])
-    {
-        milkdict = [self.milk objectAtIndex:[indexPath section]];
-    }
-    else
-    {
-        [self.milk addObject:milkdict];
-    }
+
+    milkdict = [self.milk objectAtIndex:[indexPath section]];
     
     int sectionCount = [indexPath section] *10; // This is to manage tags of the textfields
     
@@ -236,6 +227,8 @@
             if (date == nil)
             {
                 self.txtField.text = @"Dec 31, 2100";
+                [[self.milk objectAtIndex:indexPath.section] setValue:self.txtField.text forKey:@"toDate"];
+                self.ischangedflag = YES;
             }
             else
             {
@@ -348,7 +341,9 @@
         if (buttonIndex == 1)
         {
             self.sect++;
-            
+            NSMutableDictionary* milkdict = [[NSMutableDictionary alloc] init];
+            [self.milk addObject:milkdict];
+
             [self.view endEditing:YES];
             [self saveTextField:self.txtField];
             self.ischangedflag = YES;
