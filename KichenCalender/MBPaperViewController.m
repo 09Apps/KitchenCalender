@@ -108,12 +108,13 @@
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(150, 60, 120, 20)];
             self.txtField.delegate = self;
             
-            self.txtField.placeholder = @"Mon - Fri rate";
+            self.txtField.placeholder = @"Mon - Fri rate Rs.";
             self.txtField.keyboardType = UIKeyboardTypeDecimalPad;
             self.txtField.returnKeyType = UIReturnKeyNext;
             self.txtField.textAlignment = NSTextAlignmentRight;
             self.txtField.tag = sectionCount + [indexPath row];
             [self.txtField setEnabled: YES];
+            self.txtField.adjustsFontSizeToFitWidth = YES;            
             
             self.txtField.text = [paperdict objectForKey:@"weekdayprice"];
             
@@ -128,12 +129,13 @@
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(150, 60, 120, 20)];
             self.txtField.delegate = self;
             
-            self.txtField.placeholder = @"Saturday rate";
+            self.txtField.placeholder = @"Saturday rate Rs.";
             self.txtField.keyboardType = UIKeyboardTypeDecimalPad;
             self.txtField.returnKeyType = UIReturnKeyNext;
             self.txtField.textAlignment = NSTextAlignmentRight;
             self.txtField.tag = sectionCount + [indexPath row];
             [self.txtField setEnabled: YES];
+            self.txtField.adjustsFontSizeToFitWidth = YES;            
             
             self.txtField.text = [paperdict objectForKey:@"saturdayprice"];
             
@@ -148,12 +150,13 @@
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(150, 60, 120, 20)];
             self.txtField.delegate = self;
             
-            self.txtField.placeholder = @"Sunday rate";
+            self.txtField.placeholder = @"Sunday rate Rs.";
             self.txtField.keyboardType = UIKeyboardTypeDecimalPad;
             self.txtField.returnKeyType = UIReturnKeyNext;
             self.txtField.textAlignment = NSTextAlignmentRight;
             self.txtField.tag = sectionCount + [indexPath row];
             [self.txtField setEnabled: YES];
+            self.txtField.adjustsFontSizeToFitWidth = YES;            
             
             self.txtField.text = [paperdict objectForKey:@"sundayprice"];
             
@@ -400,6 +403,8 @@
             [self.view endEditing:YES];
             [self saveTextField:self.txtField];
             self.ischangedflag = YES;
+            
+            [paperdict setObject:@"daily" forKey:@"frequency"];
             [self.papers addObject:paperdict];
             [self.tableView reloadData];
         }
@@ -410,6 +415,8 @@
             [self.view endEditing:YES];
             [self saveTextField:self.txtField];
             self.ischangedflag = YES;
+            
+            [paperdict setObject:@"weekly" forKey:@"frequency"];
             [self.papers addObject:paperdict];
             [self.tableView reloadData];
         }
@@ -420,13 +427,17 @@
         // User is saving data
         if (buttonIndex == 1)
         {
-/*            NSArray* savearr = [[NSArray alloc] initWithObjects:[NSString stringWithFormat:@"%d",self.sect],
-                                self.currency,
-                                self.milk,
+            NSArray* savearr = [[NSArray alloc] initWithObjects:[NSString stringWithFormat:@"%d",self.sect],
+                                self.papers,
                                 nil];
+            
+            NSArray* papersarr = [[NSArray alloc] initWithObjects:self.currency,
+                                  savearr,
+                                  nil];
+                                  
             [self.view endEditing:YES];
             
-            [self.model setMilkDetails:savearr]; */
+            [self.model setPaperDetails:papersarr];
         }
  
         [self.navigationController popViewControllerAnimated:YES]; 
