@@ -98,8 +98,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell;
     
     NSDateFormatter* dformat = [[NSDateFormatter alloc] init];
     [dformat setDateFormat:@"MMM dd, yyyy"];
@@ -113,16 +112,19 @@
         // Just put from date, to date and no. of days here.
         if (indexPath.row == 0)
         {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];
             cell.textLabel.text = @"From Date      : ";
             label.text = [NSString stringWithFormat:@"%@",[dformat stringFromDate:self.frmdt]];
         }
         if (indexPath.row == 1)
         {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];            
             cell.textLabel.text = @"To Date        : ";
             label.text = [NSString stringWithFormat:@"%@",[dformat stringFromDate:self.todt]];
         }
         if (indexPath.row == 2)
         {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];            
             cell.textLabel.text = @"Total Bill Rs. : ";
             label.text = [NSString stringWithFormat:@"%@",[self.billarray objectAtIndex:2]];
         }
@@ -134,12 +136,14 @@
         
         if (indexPath.row == 0)
         {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];            
             cell.textLabel.text = @"Quantity Ltr : ";
             label.text = [dict objectForKey:@"quantity"];
         }
         if (indexPath.row == 1)
         {
-            cell.textLabel.text = @"Bill Rs.     : ";
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];            
+            cell.textLabel.text = @"Bill Rs.       : ";
             label.text = [dict objectForKey:@"billamt"];
         }
     }
