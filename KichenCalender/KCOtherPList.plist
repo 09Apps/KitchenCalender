@@ -10,7 +10,7 @@
 		<array>
 			<dict>
 				<key>frequency</key>
-				<string></string>
+				<string>daily</string>
 				<key>exceptions</key>
 				<array/>
 				<key>todate</key>

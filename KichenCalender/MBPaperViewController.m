@@ -283,6 +283,11 @@
     return YES;
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    self.ischangedflag = YES;
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     [self saveTextField:textField];
