@@ -310,7 +310,7 @@
     
     [catarray addObject:[temp objectForKey:@"currency"]];
 
-    NSDictionary* dict = [[NSDictionary alloc] init];
+    NSArray* dict = [[NSArray alloc] init];
     
     if (category == PAPERCAT)
     {
@@ -318,11 +318,11 @@
         // Array format = { currency, sections, {papers array}}
         dict = [temp objectForKey:@"paper"];
         
-        NSString* str = [dict objectForKey:@"sections"];
+        NSString* str = [dict objectAtIndex:0];
         self.sections = [str integerValue];
         [catarray addObject:str];
         
-        [catarray addObject:[dict objectForKey:@"papers"]];
+        [catarray addObject:[dict objectAtIndex:1]];       
     }
     else
     {
@@ -334,6 +334,31 @@
 
     return catarray;
 }
+
+- (void) setPaperDetails:(NSArray*)paper
+{
+    NSArray* keyarr = [[NSArray alloc] initWithObjects:@"currency", @"paper", nil];
+    
+    NSDictionary* dict = [[NSDictionary alloc] initWithObjects:paper forKeys:keyarr];
+    
+    NSString* plistPath = [self getPlistPath:@"KCOtherPList"];
+    
+    NSString *error = nil;
+    // create NSData from dictionary
+    NSData *plistData = [NSPropertyListSerialization dataFromPropertyList:dict format:NSPropertyListXMLFormat_v1_0 errorDescription:&error];
+    
+    // check is plistData exists
+    if(plistData)
+    {
+        // write plistData to our Data.plist file
+        [plistData writeToFile:plistPath atomically:YES];
+    }
+    else
+    {
+        NSLog(@"Error in saveData: %@", error);
+    }
+}
+
 
 
 
