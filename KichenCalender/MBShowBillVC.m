@@ -104,7 +104,7 @@
     NSDateFormatter* dformat = [[NSDateFormatter alloc] init];
     [dformat setDateFormat:@"MMM dd, yyyy"];
     
-    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(200, 15, 100, 20)];
+    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(180, 15, 120, 20)];
     label.backgroundColor = [UIColor clearColor];
     
     // Configure the cell...
@@ -134,7 +134,7 @@
         
         if (indexPath.row == 0)
         {
-            cell.textLabel.text = @"Quantity ltr : ";
+            cell.textLabel.text = @"Quantity Ltr : ";
             label.text = [dict objectForKey:@"quantity"];
         }
         if (indexPath.row == 1)

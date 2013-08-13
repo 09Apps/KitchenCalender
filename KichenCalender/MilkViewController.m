@@ -9,8 +9,6 @@
 #import "MilkViewController.h"
 #import "MBExceptionVC.h"
 
-#define ADDSECTIONTAG 100
-#define SAVEDATAG 200
 
 @interface MilkViewController ()
 
@@ -39,13 +37,14 @@
     NSString* sectstr = [milkarr objectAtIndex:0];
     self.sect = [sectstr integerValue];
     
+    self.ischangedflag = NO;
+    
     self.currency = [milkarr objectAtIndex:1];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     self.milk = [[NSMutableArray alloc] initWithArray:[milkarr objectAtIndex:2]];
     
-        // Show add button only if currently there is 1 section. As we support only two sections
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSection)];
     self.navigationItem.rightBarButtonItem = addButton;
     
@@ -98,7 +97,7 @@
     {
         case 0:
             // Cell1 is re-usable cell for textfield based cells
-            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];            
+            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
             self.txtField.delegate = self;
             
@@ -117,7 +116,7 @@
             break;
         
         case 1:
-            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];            
+            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];            
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
             self.txtField.delegate = self;
             
@@ -137,7 +136,7 @@
             break;
 
         case 2:
-            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell2"];
+            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];
             cell.textLabel.text = @"Quantity per day";
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
@@ -159,7 +158,7 @@
             break;
 
         case 3:
-            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];            
+            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];            
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
             self.txtField.delegate = self;
             
@@ -179,7 +178,7 @@
 
         case 4:
         {
-            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell4"];
+            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell4" forIndexPath:indexPath];
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
             [self.txtField setDelegate:self];
             self.txtField.placeholder = @"effective from date";
@@ -218,7 +217,7 @@
         }
         case 5:
         {
-            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell4"];
+            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell4" forIndexPath:indexPath];
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
             [self.txtField setDelegate:self];
             self.txtField.textAlignment = NSTextAlignmentRight;
@@ -255,7 +254,7 @@
         }
             
         case 6:
-            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell3"];            
+            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell3" forIndexPath:indexPath];            
             cell.textLabel.text = @"Exceptions ";
             [cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
             cell.selectionStyle = UITableViewCellSelectionStyleGray;
@@ -289,14 +288,17 @@
     {
         case 0:
             [[self.milk objectAtIndex:arrind] setValue:textField.text forKey:@"title"];
+            self.ischangedflag = YES;
             break;
             
         case 1:
             [[self.milk objectAtIndex:arrind] setValue:textField.text forKey:@"rate"];
+            self.ischangedflag = YES;            
             break;
             
         case 3:
-            [[self.milk objectAtIndex:arrind] setValue:textField.text forKey:@"deliveryCharge"];                        
+            [[self.milk objectAtIndex:arrind] setValue:textField.text forKey:@"deliveryCharge"];
+            self.ischangedflag = YES;            
             break;
             
         default:
@@ -310,6 +312,7 @@
     NSString* strval = [NSString stringWithFormat:@"%.2f",sender.value];
     
     [[self.milk objectAtIndex:sender.tag] setValue:strval forKey:@"quantity"];
+    self.ischangedflag = YES;
     
     [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:2 inSection:sender.tag]] withRowAnimation:UITableViewRowAnimationNone];
 }
@@ -325,9 +328,16 @@
 
 - (void)saveData
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save changes" message:@"Do you wish to save the details?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-    [alert setTag:SAVEDATAG];
-    [alert show];
+    if (self.ischangedflag == YES)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save changes" message:@"Do you wish to save the details?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        [alert setTag:SAVEDATAG];
+        [alert show];
+    }
+    else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -335,14 +345,15 @@
     if(alertView.tag == ADDSECTIONTAG)
     {
         // This means user is adding one more section
-        
-        self.sect++;
+        if (buttonIndex == 1)
+        {
+            self.sect++;
             
-        [self.view endEditing:YES];
-        [self saveTextField:self.txtField];
-        
-        [self.tableView reloadData];
-        
+            [self.view endEditing:YES];
+            [self saveTextField:self.txtField];
+            self.ischangedflag = YES;
+            [self.tableView reloadData];
+        }
         // Do nothing if users says No to add milk
     }
     else
@@ -370,6 +381,8 @@
     if (indexPath.row == 6)
     {
         NSMutableArray* excparr = [[self.milk objectAtIndex:[indexPath section]] objectForKey:@"exceptions"];
+
+        self.ischangedflag = YES;
         
         if (excparr == nil) {
             excparr = [[NSMutableArray alloc] init];
@@ -395,6 +408,7 @@
     if (tagind == 4)
     {
         [[self.milk objectAtIndex:arrind] setValue:self.txtField.text forKey:@"fromDate"];
+        self.ischangedflag = YES;        
     }
     else
     {
@@ -411,14 +425,13 @@
         }
         else
         {
-            [[self.milk objectAtIndex:arrind] setValue:self.txtField.text forKey:@"toDate"];    
+            [[self.milk objectAtIndex:arrind] setValue:self.txtField.text forKey:@"toDate"];
+            self.ischangedflag = YES;                    
         }
     }
     
     [self.tableView reloadData];
-    
-//    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:tagind inSection:arrind]] withRowAnimation:UITableViewRowAnimationNone];
-    
+   
 }
 
 

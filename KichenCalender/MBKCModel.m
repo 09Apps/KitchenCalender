@@ -13,7 +13,7 @@
 
 - (NSArray*) getMilkDetails
 {
-    NSString* plistPath = [self getPlistPath];
+    NSString* plistPath = [self getPlistPath:@"KCMilkPList"];
     
     // read property list into memory as an NSData object
     NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
@@ -44,12 +44,11 @@
 
 - (void) setMilkDetails:(NSArray*)milk
 {
-    
     NSArray* keyarr = [[NSArray alloc] initWithObjects:@"sections", @"currency", @"milk", nil];
     
     NSDictionary* dict = [[NSDictionary alloc] initWithObjects:milk forKeys:keyarr];
     
-    NSString* plistPath = [self getPlistPath];
+    NSString* plistPath = [self getPlistPath:@"KCMilkPList"];
     
     NSString *error = nil;
     // create NSData from dictionary
@@ -67,21 +66,24 @@
     }
 }
 
-- (NSString*) getPlistPath
+- (NSString*) getPlistPath:(NSString*) pListName
 {
     // get paths from root direcory
     NSArray *paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES);
     // get documents path
     NSString *documentsPath = [paths objectAtIndex:0];
+    
+    NSString *filename = [pListName stringByAppendingString:@".plist"];
+    
     // get the path to our Data/plist file
-    NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"KCPList.plist"];
-
+    NSString *plistPath = [documentsPath stringByAppendingPathComponent:filename];
+    
     // check to see if Data.plist exists in documents
     if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath])
     {
         NSError *err;
         // if not in documents, get property list from main bundle
-        NSString* pBundlePath = [[NSBundle mainBundle] pathForResource:@"KCPList" ofType:@"plist"];
+        NSString* pBundlePath = [[NSBundle mainBundle] pathForResource:pListName ofType:@"plist"];
         
         // Copy Plist to document directory
         NSFileManager* manager = [NSFileManager defaultManager];
@@ -150,10 +152,8 @@
                 NSString* defrmdt = [mlkobj objectForKey:@"fromDate"];
                 NSDate* dfrdt = [dformat dateFromString:defrmdt];
 
-//            NSString* dftostr = [mlkobj objectForKey:@"toDate"]; // implement this!!
-//            NSDate* dftodt = [dformat dateFromString:dftostr];
-            
-                NSDate* dftodt = [NSDate date];
+                NSString* dftostr = [mlkobj objectForKey:@"toDate"]; 
+                NSDate* dftodt = [dformat dateFromString:dftostr];
             
                 if ([frmdt compare:dftodt] == NSOrderedDescending  ||
                     [dfrdt compare:todt] == NSOrderedDescending )
@@ -289,5 +289,52 @@
         return ([components day]+1) ;
     }
 }
+
+- (NSArray*) getOtherDetails:(NSInteger)category
+{
+    NSString* plistPath = [self getPlistPath:@"KCOtherPList"];
+    
+    // read property list into memory as an NSData object
+    NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
+    NSString *errorDesc = nil;
+    NSPropertyListFormat format;
+    // convert static property list into Dictionary object
+    NSDictionary *temp = (NSDictionary *)[NSPropertyListSerialization propertyListFromData:plistXML mutabilityOption:NSPropertyListMutableContainersAndLeaves format:&format errorDescription:&errorDesc];
+    
+    if (!temp)
+    {
+        NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
+    }
+    
+    NSMutableArray* catarray = [[NSMutableArray alloc] init];
+    
+    [catarray addObject:[temp objectForKey:@"currency"]];
+
+    NSDictionary* dict = [[NSDictionary alloc] init];
+    
+    if (category == PAPERCAT)
+    {
+        // Get newspaper data in array
+        // Array format = { currency, sections, {papers array}}
+        dict = [temp objectForKey:@"paper"];
+        
+        NSString* str = [dict objectForKey:@"sections"];
+        self.sections = [str integerValue];
+        [catarray addObject:str];
+        
+        [catarray addObject:[dict objectForKey:@"papers"]];
+    }
+    else
+    {
+        // Get Laundry data
+        dict = [temp objectForKey:@"laundry"];        
+    }
+    
+    [catarray addObject:dict];
+
+    return catarray;
+}
+
+
 
 @end
