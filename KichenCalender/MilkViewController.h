@@ -14,6 +14,7 @@
 @property(nonatomic,retain) UITextField* txtField;
 @property(nonatomic,retain) NSMutableArray* milk;
 @property NSInteger sect;
+@property BOOL ischangedflag;
 @property(nonatomic,retain) NSString* currency;
 @property(nonatomic,retain) MBKCModel* model;
 
