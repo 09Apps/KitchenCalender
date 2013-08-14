@@ -292,6 +292,7 @@
 
 - (NSArray*) getOtherDetails:(NSInteger)category
 {
+    // Returns Array format = { currency, sections, {papers array}}
     NSString* plistPath = [self getPlistPath:@"KCOtherPList"];
     
     // read property list into memory as an NSData object
@@ -310,24 +311,25 @@
     
     [catarray addObject:[temp objectForKey:@"currency"]];
 
-    NSArray* dict = [[NSArray alloc] init];
+    NSDictionary* dict = [[NSDictionary alloc] init];
     
     if (category == PAPERCAT)
     {
         // Get newspaper data in array
-        // Array format = { currency, sections, {papers array}}
+        
         dict = [temp objectForKey:@"paper"];
         
-        NSString* str = [dict objectAtIndex:0];
+        NSString* str = [dict objectForKey:@"sections"];
+        
         self.sections = [str integerValue];
         [catarray addObject:str];
         
-        [catarray addObject:[dict objectAtIndex:1]];       
+        [catarray addObject:[dict objectForKey:@"papers"]];
     }
     else
     {
         // Get Laundry data
-        dict = [temp objectForKey:@"laundry"];        
+        dict = [temp objectForKey:@"laundry"];
     }
     
     [catarray addObject:dict];
@@ -337,6 +339,7 @@
 
 - (void) setPaperDetails:(NSArray*)paper
 {
+    // User is saving data {currency, paper={sections,papers}}
     NSArray* keyarr = [[NSArray alloc] initWithObjects:@"currency", @"paper", nil];
     
     NSDictionary* dict = [[NSDictionary alloc] initWithObjects:paper forKeys:keyarr];

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MBKCModel.h"
 
-@interface MBPaperViewController : UITableViewController <UITextFieldDelegate>
+@interface MBPaperViewController : UITableViewController <UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property(nonatomic,retain) MBKCModel* model;
 @property NSInteger sect;
@@ -17,5 +17,6 @@
 @property(nonatomic,retain) NSMutableArray* papers;
 @property(nonatomic,retain) NSString* currency;
 @property(nonatomic,retain) UITextField* txtField;
+@property (strong,nonatomic)NSArray* days;
 
 @end

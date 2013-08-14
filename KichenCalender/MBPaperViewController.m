@@ -45,6 +45,8 @@
     
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(saveCatData)];
     self.navigationItem.leftBarButtonItem = saveButton;
+    
+    self.days = [[NSArray alloc] initWithObjects:@"Monday", @"Tuesday",@"Wednesday",@"Thursday",@"Friday",@"Saturday",@"Sunday",nil];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -77,6 +79,14 @@
     NSMutableDictionary* paperdict = [[NSMutableDictionary alloc] init];
 
     paperdict = [self.papers objectAtIndex:[indexPath section]];
+    
+    NSString* freqstr = [paperdict objectForKey:@"frequency"];
+    BOOL isdaily = YES;
+    
+    if ([freqstr compare:@"weekly"] == NSOrderedSame)
+    {
+        isdaily = NO;
+    }
 
     int sectionCount = [indexPath section] *10; // This is to manage tags of the textfields
     // Configure the cell...
@@ -86,10 +96,18 @@
         case 0:
             // Cell1 is re-usable cell for textfield based cells
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];
-            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(150, 60, 120, 20)];
+            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 100, 20)];
             self.txtField.delegate = self;
             
-            self.txtField.placeholder = @"e.g. Times of India";
+            if (isdaily == YES)
+            {
+                self.txtField.placeholder = @"e.g. Times of India";
+            }
+            else
+            {
+                self.txtField.placeholder = @"e.g. India Today";
+            }
+            
             self.txtField.keyboardType = UIKeyboardTypeNamePhonePad;
             self.txtField.returnKeyType = UIReturnKeyNext;
             self.txtField.textAlignment = NSTextAlignmentRight;
@@ -105,20 +123,28 @@
 
         case 1:
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];
-            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(150, 60, 120, 20)];
-            self.txtField.delegate = self;
-            
-            self.txtField.placeholder = @"Mon - Fri rate Rs.";
-            self.txtField.keyboardType = UIKeyboardTypeDecimalPad;
-            self.txtField.returnKeyType = UIReturnKeyNext;
+            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 100, 20)];
             self.txtField.textAlignment = NSTextAlignmentRight;
             self.txtField.tag = sectionCount + [indexPath row];
-            [self.txtField setEnabled: YES];
-            self.txtField.adjustsFontSizeToFitWidth = YES;            
+            self.txtField.adjustsFontSizeToFitWidth = YES;
             
-            self.txtField.text = [paperdict objectForKey:@"weekdayprice"];
+            if (isdaily == YES)
+            {
+                self.txtField.delegate = self;
+                self.txtField.placeholder = @"Mon - Fri rate Rs.";
+                self.txtField.keyboardType = UIKeyboardTypeDecimalPad;
+                self.txtField.returnKeyType = UIReturnKeyNext;
+                [self.txtField setEnabled: YES];
+                self.txtField.text = [paperdict objectForKey:@"weekdayprice"];
+                cell.textLabel.text = @"Weekday Rate Rs.";
+            }
+            else
+            {
+                [self.txtField setEnabled:NO];
+                cell.textLabel.text = @"Delivery frequency";                
+                self.txtField.text = @"Weekly";
+            }
             
-            cell.textLabel.text = @"Weekday Rate Rs.";
             [cell setAccessoryView:self.txtField];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
@@ -126,49 +152,73 @@
 
         case 2:
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];
-            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(150, 60, 120, 20)];
-            self.txtField.delegate = self;
-            
-            self.txtField.placeholder = @"Saturday rate Rs.";
-            self.txtField.keyboardType = UIKeyboardTypeDecimalPad;
-            self.txtField.returnKeyType = UIReturnKeyNext;
+            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 100, 20)];
             self.txtField.textAlignment = NSTextAlignmentRight;
             self.txtField.tag = sectionCount + [indexPath row];
-            [self.txtField setEnabled: YES];
-            self.txtField.adjustsFontSizeToFitWidth = YES;            
-            
+
+            self.txtField.adjustsFontSizeToFitWidth = YES;
+            self.txtField.delegate = self;
+            self.txtField.keyboardType = UIKeyboardTypeDecimalPad;
+            self.txtField.returnKeyType = UIReturnKeyNext;
             self.txtField.text = [paperdict objectForKey:@"saturdayprice"];
+            [self.txtField setEnabled: YES];
             
-            cell.textLabel.text = @"Saturday Rate Rs.";
+            if (isdaily == YES)
+            {
+                self.txtField.placeholder = @"Saturday rate Rs.";
+                cell.textLabel.text = @"Saturday Rate Rs.";
+            }
+            else
+            {
+                self.txtField.placeholder = @"Weekly rate Rs.";
+                cell.textLabel.text = @"Per week Rs.";
+            }
+            
             [cell setAccessoryView:self.txtField];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             break;
 
         case 3:
-            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];
-            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(150, 60, 120, 20)];
+            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 100, 20)];
             self.txtField.delegate = self;
-            
-            self.txtField.placeholder = @"Sunday rate Rs.";
-            self.txtField.keyboardType = UIKeyboardTypeDecimalPad;
-            self.txtField.returnKeyType = UIReturnKeyNext;
             self.txtField.textAlignment = NSTextAlignmentRight;
             self.txtField.tag = sectionCount + [indexPath row];
-            [self.txtField setEnabled: YES];
+            self.txtField.text = [paperdict objectForKey:@"sundayprice"];
             self.txtField.adjustsFontSizeToFitWidth = YES;            
             
-            self.txtField.text = [paperdict objectForKey:@"sundayprice"];
+            if (isdaily == YES)
+            {
+                cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];
+
+                [self.txtField setEnabled: YES];
+
+                self.txtField.placeholder = @"Sunday rate Rs.";
+                self.txtField.keyboardType = UIKeyboardTypeDecimalPad;
+                self.txtField.returnKeyType = UIReturnKeyNext;
+                cell.textLabel.text = @"Sunday Rate Rs.";
+            }
+            else
+            {
+                cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell2"];                
+                cell.textLabel.text = @"Day of delivery";
+                
+                UIPickerView* daypicker = [[UIPickerView alloc] init];
+                self.txtField.inputView = daypicker;
+                daypicker.delegate = self;
+                daypicker.dataSource = self;
+                daypicker.showsSelectionIndicator = YES;
+                daypicker.tag = self.txtField.tag;
+            }
             
-            cell.textLabel.text = @"Sunday Rate Rs.";
-            [cell setAccessoryView:self.txtField];
+            [cell setAccessoryView:self.txtField];            
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
+
             break;
             
         case 4:
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];
-            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(150, 60, 120, 20)];
+            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 100, 20)];
             self.txtField.delegate = self;
             
             self.txtField.placeholder = @"Rs per month";
@@ -188,7 +238,7 @@
         case 5:
         {
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell2"];
-            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(150, 60, 120, 20)];
+            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 100, 20)];
             [self.txtField setDelegate:self];
             self.txtField.placeholder = @"effective from date";
             self.txtField.textAlignment = NSTextAlignmentRight;
@@ -228,7 +278,7 @@
         case 6:
         {
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell2"];
-            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(150, 60, 120, 20)];
+            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 100, 20)];
             [self.txtField setDelegate:self];
             self.txtField.textAlignment = NSTextAlignmentRight;
             self.txtField.tag = sectionCount + [indexPath row];
@@ -291,6 +341,28 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     [self saveTextField:textField];
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent: (NSInteger)component
+{
+    return [self.days count];
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return [self.days objectAtIndex:row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    self.txtField.text = [self.days objectAtIndex:[pickerView selectedRowInComponent:0]];
+    self.txtField.tag = pickerView.tag;
+    [self.tableView reloadData];
 }
 
 - (void)saveTextField:(UITextField *)textField
@@ -429,15 +501,19 @@
     }
     else
     {
-        // User is saving data
+        // User is saving data {currency, paper={sections,papers}}
         if (buttonIndex == 1)
         {
             NSArray* savearr = [[NSArray alloc] initWithObjects:[NSString stringWithFormat:@"%d",self.sect],
                                 self.papers,
                                 nil];
             
+            NSArray* keyarr = [[NSArray alloc] initWithObjects:@"sections", @"papers", nil];
+            
+            NSDictionary* paperdict = [[NSDictionary alloc] initWithObjects:savearr forKeys:keyarr];
+            
             NSArray* papersarr = [[NSArray alloc] initWithObjects:self.currency,
-                                  savearr,
+                                  paperdict,
                                   nil];
                                   
             [self.view endEditing:YES];
