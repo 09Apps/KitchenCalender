@@ -362,7 +362,44 @@
     }
 }
 
-
++ (NSUInteger)getNumberOf:(NSUInteger)gregday From:(NSDate*)fromDt Till:(NSDate*)toDt
+{
+    //Sunday in the Gregorian calendar is 1, Monday 2 .. and Saturday 7
+    
+    NSUInteger interval = [MBKCModel getNumberOfDaysFrom:fromDt Till:toDt];
+    
+    NSCalendar *gregorian = [[NSCalendar alloc]
+                             initWithCalendarIdentifier:NSGregorianCalendar];
+    
+    // Get the weekday component of the current date
+    
+    NSDateComponents *weekdayComponents = [gregorian components:NSWeekdayCalendarUnit fromDate:fromDt];
+    
+    NSUInteger frmday = [weekdayComponents weekday];
+    
+    NSUInteger wk = interval/7;
+    
+//    NSLog(@"interval %d gregday %d wk %d",interval,gregday,wk);
+    
+    NSUInteger xtradays = interval - (wk*7);
+//    NSLog(@"xtradays %d",xtradays);
+    
+    NSInteger diffdays = gregday - frmday;
+//    NSLog(@"diffdays %d",diffdays);
+    
+    if (diffdays < 0)
+    {
+        diffdays = diffdays + 7;
+//            NSLog(@"diffdays %d",diffdays);
+    }
+    
+    if (xtradays >= diffdays)
+    {
+        wk++;
+    }
+//    NSLog(@"wk %d",wk);
+    return wk;
+}
 
 
 @end

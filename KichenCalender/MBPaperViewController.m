@@ -185,13 +185,12 @@
             self.txtField.textAlignment = NSTextAlignmentRight;
             self.txtField.tag = sectionCount + [indexPath row];
             self.txtField.text = [paperdict objectForKey:@"sundayprice"];
-            self.txtField.adjustsFontSizeToFitWidth = YES;            
+            self.txtField.adjustsFontSizeToFitWidth = YES;
+            [self.txtField setEnabled: YES];
             
             if (isdaily == YES)
             {
                 cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];
-
-                [self.txtField setEnabled: YES];
 
                 self.txtField.placeholder = @"Sunday rate Rs.";
                 self.txtField.keyboardType = UIKeyboardTypeDecimalPad;
@@ -201,7 +200,6 @@
             else
             {
                 cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell2"];                
-                cell.textLabel.text = @"Day of delivery";
                 
                 UIPickerView* daypicker = [[UIPickerView alloc] init];
                 self.txtField.inputView = daypicker;
@@ -209,6 +207,7 @@
                 daypicker.dataSource = self;
                 daypicker.showsSelectionIndicator = YES;
                 daypicker.tag = self.txtField.tag;
+                cell.textLabel.text = @"Day of delivery";                
             }
             
             [cell setAccessoryView:self.txtField];            
@@ -360,8 +359,14 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    self.txtField.text = [self.days objectAtIndex:[pickerView selectedRowInComponent:0]];
+
+    self.txtField.text = [self.days objectAtIndex:[pickerView selectedRowInComponent:0]]; 
     self.txtField.tag = pickerView.tag;
+    NSUInteger arrind = pickerView.tag/10;
+    
+    [[self.papers objectAtIndex:arrind] setValue:self.txtField.text forKey:@"sundayprice"];
+     
+    self.ischangedflag = YES;  
     [self.tableView reloadData];
 }
 
@@ -389,8 +394,12 @@
             break;
             
         case 3:
-            [[self.papers objectAtIndex:arrind] setValue:textField.text forKey:@"sundayprice"];
-            self.ischangedflag = YES;            
+            if ([textField.text integerValue] != 0)
+            {
+                // Do only for daily.Weekly is handled in pickerview
+                [[self.papers objectAtIndex:arrind] setValue:textField.text forKey:@"sundayprice"];
+                self.ischangedflag = YES;
+            }
             break;
             
         case 4:

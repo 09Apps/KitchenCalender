@@ -34,13 +34,10 @@
     {
         self.title = @"Milk Bill";
         self.billarray = [self.model getMilkBillFrom:self.frmdt Till:self.todt];
-        
-//        NSLog(@"self.billarray %@",self.billarray);
 
         // returns array with these elements sections, Rs, total bill, {title,rate,delivery charge,quantity,bill amount}
         
         self.milkarr = [self.billarray objectAtIndex:3];
-//        NSLog(@"self.milkarr %@",self.milkarr);
     }
     else if (self.billtype == 1)
     {
@@ -49,6 +46,8 @@
     else
     {
         self.title = @"Paper Bill";
+        NSInteger days = [MBKCModel getNumberOf:7 From:self.frmdt Till:self.todt];
+        
     }
     
     // Uncomment the following line to preserve selection between presentations.

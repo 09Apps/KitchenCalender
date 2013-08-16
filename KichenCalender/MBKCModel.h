@@ -28,5 +28,6 @@
 
 //General methods
 + (NSInteger)getNumberOfDaysFrom:(NSDate*)fromDt Till:(NSDate*)toDt;
++ (NSUInteger)getNumberOf:(NSUInteger)gregday From:(NSDate*)fromDt Till:(NSDate*)toDt;
 
 @end
