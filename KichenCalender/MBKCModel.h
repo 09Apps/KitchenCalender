@@ -25,6 +25,7 @@
 //Paper, Laundry methods
 - (NSArray*) getOtherDetails:(NSInteger) category;
 - (void) setPaperDetails:(NSArray*)paper;
+- (NSArray*) getPaperBillFrom:(NSDate*)frmdt Till:(NSDate*)todt;
 
 //General methods
 + (NSInteger)getNumberOfDaysFrom:(NSDate*)fromDt Till:(NSDate*)toDt;

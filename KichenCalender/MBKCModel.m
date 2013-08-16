@@ -116,14 +116,14 @@
         
         if (counter == 0)
         {
-            // set milk object count (sections) at array position 2.
+            // set milk object count (sections) at array position 0.
             [milkbill addObject:obj];
         }
         
         //Counter 1 is Rs.
         if (counter == 1)
         {   
-            // set milk object count (sections) at array position 2.
+            // set milk object count (sections) at array position 1.
             [milkbill addObject:obj];
         }
         
@@ -251,14 +251,15 @@
                     totalQuantity = totalQuantity + (defaultdays * dfquant);                                        
                 }
                 
-                billamt = (totalQuantity * [ratestr doubleValue]) + [delchgstr integerValue];
-                
-                totalbill = totalbill + billamt;
+                billamt = (totalQuantity * [ratestr doubleValue]);
                 
                 [dict1 setValue:[NSString stringWithFormat:@"%.2f",totalQuantity] forKey:@"quantity"];
                 [dict1 setValue:[NSString stringWithFormat:@"%.2f",billamt] forKey:@"billamt"];
                 
-                [eachmilk addObject:dict1];              
+                [eachmilk addObject:dict1];
+                
+                totalbill = totalbill + billamt + [delchgstr integerValue];
+                
             }
             
             [milkbill addObject:[NSString stringWithFormat:@"%.2f",totalbill]];
@@ -401,5 +402,224 @@
     return wk;
 }
 
+/*
+        NSString* freqstr = [dict objectForKey:@"frequency"];
 
+        
+        if ([freqstr compare:@"weekly"] == NSOrderedSame)
+        {
+  
+        }
+        else
+        {
+            [dict objectForKey:@"weekdayprice"];
+        }
+} */
+
+- (NSArray*) getPaperBillFrom:(NSDate*)frmdt Till:(NSDate*)todt
+{
+    // returns array with these elements sections, Rs, total bill, {title,rate,delivery charge,quantity,bill amount}
+        
+    NSDateFormatter* dformat = [[NSDateFormatter alloc] init];
+    [dformat setDateFormat:@"MMM dd, yyyy"];
+    [dformat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+        
+    NSMutableArray* paperbillarr = [[NSMutableArray alloc] init];
+    NSMutableArray* paperdetails = [[NSMutableArray alloc] init];
+    
+    NSArray* paperarr = [self getOtherDetails:PAPERCAT];
+
+    [paperbillarr addObject:[paperarr objectAtIndex:1]];  // sections
+    [paperbillarr addObject:[paperarr objectAtIndex:0]];  // currency Rs.
+
+    
+    NSArray* papers = [[NSArray alloc] initWithArray:[paperarr objectAtIndex:2]];    
+    
+    double totalbill = 0;    
+    
+    for (NSDictionary* dict in papers)
+    {
+        double billamt = 0;        
+        NSUInteger defaultdays = 0;
+        NSUInteger dayind = 0;
+        
+        NSMutableDictionary* returndict1 = [[NSMutableDictionary alloc]init];
+        
+        [returndict1 setValue:[dict objectForKey:@"title"] forKey:@"title"];
+                    
+        NSString* delchgstr = [dict objectForKey:@"deliverycharge"];
+        [returndict1 setValue:delchgstr forKey:@"deliveryCharge"];
+                    
+        NSString* defrmdt = [dict objectForKey:@"fromdate"];
+        NSDate* dfrdt = [dformat dateFromString:defrmdt];
+                    
+        NSString* dftostr = [dict objectForKey:@"todate"];
+        NSDate* dftodt = [dformat dateFromString:dftostr];
+        
+        NSString* freqstr = [dict objectForKey:@"frequency"];
+        BOOL isdaily = YES;
+        
+        if ([freqstr compare:@"weekly"] == NSOrderedSame)
+        {
+            isdaily = NO;
+        }
+
+        NSUInteger saturdays = 0;
+        NSUInteger sundays = 0;
+        NSUInteger wkdays = 0;
+                    
+        if ([frmdt compare:dftodt] == NSOrderedDescending  ||
+            [dfrdt compare:todt] == NSOrderedDescending )
+        {
+            // Paper from date is later than Todate of bill date OR
+            // Paper to date is before bill from date
+            // Ignore this paper
+        }
+        else
+        {
+            NSDate* dfeffectivefrmdt;
+            NSDate* dfeffectivetodt;
+                        
+            if ([dfrdt compare:frmdt] == NSOrderedDescending)
+            {
+                // Means exception from date is later than bill from date
+                // so make it effective start date
+                dfeffectivefrmdt = dfrdt;
+            }
+            else
+            {
+                // Bill from date is later than exception start date
+                // so make it effective start date
+                dfeffectivefrmdt = frmdt;
+            }
+                        
+            if ([dftodt compare:todt] == NSOrderedDescending)
+            {
+                dfeffectivetodt = todt;
+            }
+            else
+            {
+                dfeffectivetodt = dftodt;
+            }
+            
+            if (isdaily == YES)
+            {
+                defaultdays = [MBKCModel getNumberOfDaysFrom:dfeffectivefrmdt Till:dfeffectivetodt];
+                // find saturdays
+                saturdays = [MBKCModel getNumberOf:7 From:dfeffectivefrmdt Till:dfeffectivetodt];
+                
+                // find SUndays
+                sundays = [MBKCModel getNumberOf:1 From:dfeffectivefrmdt Till:dfeffectivetodt];
+                
+                // Rest are weekdays
+                wkdays = defaultdays - saturdays - sundays;
+            }
+            else
+            {
+                dayind = [[dict objectForKey:@"sundayprice"] integerValue];
+                wkdays = [MBKCModel getNumberOf:dayind From:dfeffectivefrmdt Till:dfeffectivetodt];
+            }
+
+            // Now get the exceptions data
+            NSArray* exceptions = [dict objectForKey:@"exceptions"];
+                        
+            for (NSDictionary* exobj in exceptions)
+            {
+                NSString* frstr = [exobj objectForKey:@"fromDate"];
+                NSDate* exfrdt = exfrdt = [dformat dateFromString:frstr];
+                            
+                frstr = [exobj objectForKey:@"toDate"];
+                NSDate* extodt = [dformat dateFromString:frstr];
+                            
+                if ([frmdt compare:extodt] == NSOrderedDescending  ||
+                    [exfrdt compare:todt] == NSOrderedDescending )
+                {
+                    // Exception from date is later than Todate of bill date OR
+                    // Exception to date is before bill from date
+                    // Ignore this exception
+                }
+                else
+                {
+                    NSDate* effectivefrmdt;
+                    NSDate* effectivetodt;
+                                
+                    if ([exfrdt compare:frmdt] == NSOrderedDescending)
+                    {
+                        // Means exception from date is later than bill from date
+                        // so make it effective start date
+                        effectivefrmdt = exfrdt;
+                    }
+                    else
+                    {
+                        // Bill from date is later than exception start date
+                        // so make it effective start date
+                        effectivefrmdt = frmdt;
+                    }
+                                
+                    if ([extodt compare:todt] == NSOrderedDescending)
+                    {
+                        effectivetodt = todt;
+                    }
+                    else
+                    {
+                        effectivetodt = extodt;
+                    }
+                                                    
+                    if (isdaily == YES)
+                    {
+                        NSInteger exdays = [MBKCModel getNumberOfDaysFrom:effectivefrmdt Till:effectivetodt];
+
+                        // find saturdays
+                        NSUInteger effsaturdays = [MBKCModel getNumberOf:7 From:effectivefrmdt Till:effectivetodt];
+                        
+                        // find SUndays
+                        NSUInteger effsundays = [MBKCModel getNumberOf:1 From:effectivefrmdt Till:effectivetodt];
+                        
+                        // Rest are weekdays
+                        NSUInteger effwkdays = exdays - effsaturdays - effsundays;
+                        
+                        saturdays = saturdays - effsaturdays;
+                    
+                        sundays = sundays - effsundays;
+                    
+                        wkdays = wkdays - effwkdays;
+                    }
+                    else
+                    {
+                        NSUInteger effwkdays = [MBKCModel getNumberOf:dayind From:dfeffectivefrmdt Till:dfeffectivetodt];
+                        wkdays = wkdays - effwkdays;
+                    }
+                }
+            }
+        }
+        
+        if (isdaily == YES)
+        {
+            double sunprice = [[dict objectForKey:@"sundayprice"] doubleValue];
+            double wkprice = [[dict objectForKey:@"weekdayprice"] doubleValue];
+            double satprice = [[dict objectForKey:@"saturdayprice"] doubleValue];
+            
+            billamt = (satprice * saturdays) + (sunprice * sundays) + (wkprice * wkdays) ;
+        }
+        else
+        {
+            double wkprice = [[dict objectForKey:@"saturdayprice"] doubleValue];
+            billamt = (wkprice * wkdays) + [delchgstr integerValue];
+        }
+
+        [returndict1 setValue:[NSString stringWithFormat:@"%.2f",billamt] forKey:@"billamt"];
+
+        totalbill = totalbill + billamt + [delchgstr integerValue];
+                    
+        [paperdetails addObject:returndict1];
+    }
+                
+    [paperbillarr addObject:[NSString stringWithFormat:@"%.2f",totalbill]];
+    [paperbillarr addObject:paperdetails];
+
+    return paperbillarr;
+}
+
+
+     
 @end

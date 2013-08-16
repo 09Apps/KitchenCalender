@@ -36,8 +36,6 @@
         self.billarray = [self.model getMilkBillFrom:self.frmdt Till:self.todt];
 
         // returns array with these elements sections, Rs, total bill, {title,rate,delivery charge,quantity,bill amount}
-        
-        self.milkarr = [self.billarray objectAtIndex:3];
     }
     else if (self.billtype == 1)
     {
@@ -46,9 +44,10 @@
     else
     {
         self.title = @"Paper Bill";
-        NSInteger days = [MBKCModel getNumberOf:7 From:self.frmdt Till:self.todt];
-        
+        self.billarray =[self.model getPaperBillFrom:self.frmdt Till:self.todt];
     }
+    
+    self.element = [self.billarray objectAtIndex:3];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -76,7 +75,7 @@
 {
     if (section > 0)
     {
-        NSDictionary* dict = [self.milkarr objectAtIndex:(section-1)];
+        NSDictionary* dict = [self.element objectAtIndex:(section-1)];
         return [dict objectForKey:@"title"];
     }
     else
@@ -88,11 +87,25 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    if (section == 0) {
+    if (section == 0)
+    {
+        // first section has 3 rows - fromd ate, to date and total bill
         return 3;
     }
     else
-        return 2;
+    {
+        if (self.billtype == 2)
+        {
+            // for newspaper , we just have two row
+            return 2;
+        }
+        else
+        {
+            // For milk we have 3 rows
+            return 3;
+        }
+
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -102,7 +115,7 @@
     NSDateFormatter* dformat = [[NSDateFormatter alloc] init];
     [dformat setDateFormat:@"MMM dd, yyyy"];
     
-    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(180, 15, 120, 20)];
+    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(190, 13, 110, 20)];
     label.backgroundColor = [UIColor clearColor];
     
     // Configure the cell...
@@ -118,35 +131,62 @@
         if (indexPath.row == 1)
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];            
-            cell.textLabel.text = @"To Date        : ";
+            cell.textLabel.text = @"To Date           : ";
             label.text = [NSString stringWithFormat:@"%@",[dformat stringFromDate:self.todt]];
         }
         if (indexPath.row == 2)
         {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];            
-            cell.textLabel.text = @"Total Bill Rs. : ";
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];            
+            cell.textLabel.text = @"Total Bill Rs.  : ";
             label.text = [NSString stringWithFormat:@"%@",[self.billarray objectAtIndex:2]];
         }
     }
     else
     {
         NSUInteger arrct = indexPath.section - 1;
-        NSDictionary* dict = [self.milkarr objectAtIndex:arrct];
+        NSDictionary* dict = [self.element objectAtIndex:arrct];
         
-        if (indexPath.row == 0)
+        if (self.billtype == 2)
         {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];            
-            cell.textLabel.text = @"Quantity Ltr : ";
-            label.text = [dict objectForKey:@"quantity"];
+            if (indexPath.row == 0)
+            {
+                cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];
+                cell.textLabel.text = @"Paper cost Rs.  :  ";
+                label.text = [dict objectForKey:@"billamt"];
+            }
+            else if (indexPath.row == 1)
+            {
+                cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];
+                cell.textLabel.text = @"Delivery Charge Rs.: ";
+                label.text = [dict objectForKey:@"deliveryCharge"];
+            }
         }
-        if (indexPath.row == 1)
+        else
         {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];            
-            cell.textLabel.text = @"Bill Rs.       : ";
-            label.text = [dict objectForKey:@"billamt"];
+            // two rows for milk and laundry
+            if (indexPath.row == 0)
+            {
+                cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];
+                cell.textLabel.text = @"Quantity Ltr :    ";
+                label.text = [dict objectForKey:@"quantity"];
+            }
+            else if (indexPath.row == 1)
+            {
+                cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];
+                cell.textLabel.text = @"Milk cost Rs.  : ";
+                label.text = [dict objectForKey:@"billamt"];
+            }
+            else 
+            {
+                cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];
+                cell.textLabel.text = @"Delivery Charge Rs.: ";
+                label.text = [dict objectForKey:@"deliveryCharge"];
+            }
         }
+
     }
     
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell addSubview:label];
     
     return cell;

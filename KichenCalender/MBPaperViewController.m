@@ -46,7 +46,7 @@
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(saveCatData)];
     self.navigationItem.leftBarButtonItem = saveButton;
     
-    self.days = [[NSArray alloc] initWithObjects:@"Monday", @"Tuesday",@"Wednesday",@"Thursday",@"Friday",@"Saturday",@"Sunday",nil];
+    self.days = [[NSArray alloc] initWithObjects:@"Sunday", @"Monday", @"Tuesday",@"Wednesday",@"Thursday",@"Friday",@"Saturday",nil];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -184,14 +184,13 @@
             self.txtField.delegate = self;
             self.txtField.textAlignment = NSTextAlignmentRight;
             self.txtField.tag = sectionCount + [indexPath row];
-            self.txtField.text = [paperdict objectForKey:@"sundayprice"];
             self.txtField.adjustsFontSizeToFitWidth = YES;
             [self.txtField setEnabled: YES];
             
             if (isdaily == YES)
             {
                 cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];
-
+                self.txtField.text = [paperdict objectForKey:@"sundayprice"];
                 self.txtField.placeholder = @"Sunday rate Rs.";
                 self.txtField.keyboardType = UIKeyboardTypeDecimalPad;
                 self.txtField.returnKeyType = UIReturnKeyNext;
@@ -200,6 +199,15 @@
             else
             {
                 cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell2"];                
+                
+                NSUInteger dayind = 0;
+                dayind = [[paperdict objectForKey:@"sundayprice"] integerValue];
+                
+                if (dayind > 0) {
+                    dayind--;
+                }
+                
+                self.txtField.text = [self.days objectAtIndex:dayind];
                 
                 UIPickerView* daypicker = [[UIPickerView alloc] init];
                 self.txtField.inputView = daypicker;
@@ -295,11 +303,14 @@
             if (date == nil)
             {
                 self.txtField.text = @"Dec 31, 2100";
+                [[self.papers objectAtIndex:indexPath.section] setValue:self.txtField.text forKey:@"todate"];
+                self.ischangedflag = YES;
             }
             else
             {
                 [datePicker setDate:date];
             }
+
             
             [datePicker setTag:self.txtField.tag];
             [datePicker addTarget:self action:@selector(updateDateField:) forControlEvents:UIControlEventValueChanged];
@@ -364,8 +375,18 @@
     self.txtField.tag = pickerView.tag;
     NSUInteger arrind = pickerView.tag/10;
     
-    [[self.papers objectAtIndex:arrind] setValue:self.txtField.text forKey:@"sundayprice"];
-     
+    NSUInteger count = 1;
+    
+    for (NSString* daystr in self.days)
+    {
+        if ([daystr compare:self.txtField.text] == NSOrderedSame)
+        {
+            [[self.papers objectAtIndex:arrind] setValue:[NSString stringWithFormat:@"%d",count] forKey:@"sundayprice"];
+            break;
+        }
+        count++;
+    }
+    
     self.ischangedflag = YES;  
     [self.tableView reloadData];
 }
