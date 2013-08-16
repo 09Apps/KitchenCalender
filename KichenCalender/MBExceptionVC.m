@@ -84,10 +84,14 @@
         [quantitylbl setTextAlignment:NSTextAlignmentRight];
         quantitylbl.backgroundColor = [UIColor clearColor];
     
-        str = [dict objectForKey:@"quantity"];
-        quantitylbl.text = [str stringByAppendingString:@"  Ltr / day"];
-    
-        cell.accessoryView = quantitylbl;
+        if (self.category == MILKCAT)
+        {
+            str = [dict objectForKey:@"quantity"];
+            quantitylbl.text = [str stringByAppendingString:@"  Ltr / day"];
+            
+            cell.accessoryView = quantitylbl;
+        }
+
         cell.selectionStyle = UITableViewCellSelectionStyleNone;        
     }
     
@@ -121,6 +125,7 @@
 - (void)addExceptionCell
 {
     MBAddExcepVC* addExceptionVC = [[MBAddExcepVC alloc]init];
+    addExceptionVC.category = self.category;
     addExceptionVC.delegate = self;
     [addExceptionVC setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
     [self presentViewController:addExceptionVC animated:YES completion:nil];

@@ -390,7 +390,7 @@
         }
         
         MBExceptionVC* exceptionVC = [[MBExceptionVC alloc] initWithException:excparr];
-        
+        exceptionVC.category = MILKCAT;
         [self.navigationController pushViewController:exceptionVC animated:YES];
     }
 }

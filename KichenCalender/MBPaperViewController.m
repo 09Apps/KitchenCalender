@@ -7,6 +7,7 @@
 //
 
 #import "MBPaperViewController.h"
+#import "MBExceptionVC.h"
 
 @interface MBPaperViewController ()
 
@@ -570,9 +571,10 @@
             [[self.papers objectAtIndex:[indexPath section]] setObject:excparr forKey:@"exceptions"];
         }
         
-//        MBExceptionVC* exceptionVC = [[MBExceptionVC alloc] initWithException:excparr];
+        MBExceptionVC* exceptionVC = [[MBExceptionVC alloc] initWithException:excparr];
+        exceptionVC.category = PAPERCAT;
         
-//        [self.navigationController pushViewController:exceptionVC animated:YES];
+        [self.navigationController pushViewController:exceptionVC animated:YES];
     }
 }
 

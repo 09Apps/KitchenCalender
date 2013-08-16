@@ -586,8 +586,8 @@
                     }
                     else
                     {
-                        NSUInteger effwkdays = [MBKCModel getNumberOf:dayind From:dfeffectivefrmdt Till:dfeffectivetodt];
-                        wkdays = wkdays - effwkdays;
+                        NSUInteger effwkdays = [MBKCModel getNumberOf:dayind From:effectivefrmdt Till:effectivetodt];
+                        wkdays = wkdays - effwkdays;       
                     }
                 }
             }
@@ -604,7 +604,7 @@
         else
         {
             double wkprice = [[dict objectForKey:@"saturdayprice"] doubleValue];
-            billamt = (wkprice * wkdays) + [delchgstr integerValue];
+            billamt = (wkprice * wkdays) ;
         }
 
         [returndict1 setValue:[NSString stringWithFormat:@"%.2f",billamt] forKey:@"billamt"];

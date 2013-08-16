@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define MILKCAT 3001
+
 @class MBAddExcepVC;
 
 @protocol MBAddExcepVCDelegate <NSObject>
@@ -20,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *frmTxt;
 @property (weak, nonatomic) IBOutlet UITextField *toTxt;
 @property (weak, nonatomic) IBOutlet UIStepper *stepper;
+@property NSUInteger category;
 
 - (IBAction)qtyChanged:(UIStepper *)sender;
 

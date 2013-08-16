@@ -49,7 +49,10 @@
 
 - (IBAction)qtyChanged:(UIStepper *)sender
 {
-    [self.qtylbl setText:[NSString stringWithFormat:@"%.2f",sender.value]];
+    if (self.category == MILKCAT)
+    {
+        [self.qtylbl setText:[NSString stringWithFormat:@"%.2f",sender.value]];
+    }
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField

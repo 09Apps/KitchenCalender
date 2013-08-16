@@ -12,6 +12,7 @@
 @interface MBExceptionVC : UITableViewController <MBAddExcepVCDelegate>
 
 @property (strong,nonatomic) NSMutableArray* exceptions;
+@property NSUInteger category;
 
 - (id)initWithException:(NSArray*) exceptions;
 
