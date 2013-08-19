@@ -58,6 +58,9 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="t9x-vn-Bb3" kind="push" id="ahC-0i-feV"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDw-3p-7Cw">
                                 <constraints>
@@ -217,6 +220,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZF2-vi-zGb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-556" y="-363"/>
+        </scene>
+        <!--LaundryVC-->
+        <scene sceneID="eXa-3b-bbJ">
+            <objects>
+                <tableViewController id="t9x-vn-Bb3" customClass="MBLaundryVC" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="N20-3C-baD">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="q1o-Nn-63k">
+                                <rect key="frame" x="0.0" y="46" width="320" height="46"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="t9x-vn-Bb3" id="h77-Du-zzL"/>
+                            <outlet property="delegate" destination="t9x-vn-Bb3" id="YJs-vm-dVB"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="lnP-mO-lFj"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7kI-45-gmr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1089" y="393"/>
         </scene>
         <!--Bill View Controller - Bills-->
         <scene sceneID="6hq-0y-Y84">
@@ -386,40 +419,6 @@
         <image name="milk.png" width="130" height="132"/>
         <image name="newspaper_bw.jpg" width="128" height="96"/>
     </resources>
-    <classes>
-        <class className="MBBillViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MBBillViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="barSegmentChanged:" candidateClass="UISegmentedControl"/>
-                <relationship kind="action" name="getBillPressed:"/>
-                <relationship kind="outlet" name="frmDte" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="nsdatefrm" candidateClass="NSDate"/>
-                <relationship kind="outlet" name="nsdateto" candidateClass="NSDate"/>
-                <relationship kind="outlet" name="toDte" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="MBPaperViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MBPaperViewController.h"/>
-        </class>
-        <class className="MBShowBillVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MBShowBillVC.h"/>
-        </class>
-        <class className="MBViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MBViewController.h"/>
-        </class>
-        <class className="MilkViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MilkViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="stepperPressed:" candidateClass="UIStepper"/>
-            </relationships>
-        </class>
-        <class className="NSDate" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSDate.h"/>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
