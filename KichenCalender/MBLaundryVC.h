@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBKCModel.h"
 
 @interface MBLaundryVC : UITableViewController
+
+@property(nonatomic,retain) MBKCModel* model;
+@property NSInteger sect;
+@property (strong, nonatomic) NSMutableArray* countarr;
+@property (strong, nonatomic) NSMutableArray* ratearr;
 
 @end

@@ -7,6 +7,8 @@
 //
 
 #import "MBLaundryVC.h"
+#import "MBSetLaundryVC.h"
+
 
 @interface MBLaundryVC ()
 
@@ -36,6 +38,20 @@
       
     self.navigationItem.rightBarButtonItems = @[settingsButton, addButton];
     
+    // Get Currency, array count and laundry data
+    
+    self.model = [[MBKCModel alloc] init];
+    
+    NSMutableArray* laundry = [self.model getOtherDetails:LAUNDRYCAT];
+    
+    self.sect = [[laundry objectAtIndex:1] integerValue];
+    
+    NSDictionary* dict = [laundry objectAtIndex:2];
+    
+    self.countarr = [dict objectForKey:@"counts"];
+
+    self.ratearr = [dict objectForKey:@"rates"];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -56,7 +72,8 @@
 
 - (void)setupLaundry
 {
-    
+    MBSetLaundryVC *setlaundry = [[MBSetLaundryVC alloc] initWithRates:self.ratearr];
+    [self.navigationController pushViewController:setlaundry animated:YES];
 }
 
 #pragma mark - Table view data source
@@ -70,8 +87,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-
-    return 3;
+    return self.sect;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
