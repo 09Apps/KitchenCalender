@@ -41,6 +41,7 @@
     self.navigationItem.leftBarButtonItem = saveButton;
     
     self.sect = [self.rates count];
+    self.ischangedflag = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,7 +75,6 @@
             self.ischangedflag = YES;
             [self.tableView reloadData];
         }
-        // Do nothing if users says No to add milk
     }
 }
 

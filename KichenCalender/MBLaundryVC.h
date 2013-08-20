@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "MBKCModel.h"
+#import "MBAddLaundryVC.h"
 
-@interface MBLaundryVC : UITableViewController
+@interface MBLaundryVC : UITableViewController <MBAddLaundryVCDelegate>
 
 @property(nonatomic,retain) MBKCModel* model;
-@property NSInteger sect;
+//@property NSInteger sect;
 @property (strong, nonatomic) NSMutableArray* countarr;
 @property (strong, nonatomic) NSMutableArray* ratearr;
 

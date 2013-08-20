@@ -8,6 +8,7 @@
 
 #import "MBLaundryVC.h"
 #import "MBSetLaundryVC.h"
+#import "MBAddLaundryVC.h"
 
 
 @interface MBLaundryVC ()
@@ -44,7 +45,7 @@
     
     NSMutableArray* laundry = [self.model getOtherDetails:LAUNDRYCAT];
     
-    self.sect = [[laundry objectAtIndex:1] integerValue];
+    //self.sect = [[laundry objectAtIndex:1] integerValue];
     
     NSDictionary* dict = [laundry objectAtIndex:2];
     
@@ -67,7 +68,10 @@
 
 - (void)addLaundry
 {
-
+    MBAddLaundryVC *addlaundry = [[MBAddLaundryVC alloc] init];
+    addlaundry.delegate = self;
+    [addlaundry setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+    [self presentViewController:addlaundry animated:YES completion:nil];
 }
 
 - (void)setupLaundry
@@ -75,8 +79,6 @@
     MBSetLaundryVC *setlaundry = [[MBSetLaundryVC alloc] initWithRates:self.ratearr];
     [self.navigationController pushViewController:setlaundry animated:YES];
 }
-
-#pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -87,7 +89,11 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return self.sect;
+    return [self.countarr count];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 63;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -96,12 +102,48 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier];
     }
     
     // Configure the cell...
     
-    [cell.textLabel setText:@"ondate"];
+    NSDictionary* dict = [self.countarr objectAtIndex:indexPath.row];
+    
+    if ([[dict objectForKey:@"totalcloth"] integerValue] != 0)
+    {
+        [cell.textLabel setText:[dict objectForKey:@"ondate"]];
+        
+        NSString* subtitle =@"Total:";
+
+        subtitle = [subtitle stringByAppendingString:[dict objectForKey:@"totalcloth"]];
+    
+        if ([[dict objectForKey:@"press"] integerValue] != 0)
+        {
+            subtitle = [subtitle stringByAppendingString:@" Press:"];                 
+            subtitle = [subtitle stringByAppendingString:[dict objectForKey:@"press"]];
+        }
+
+        if ([[dict objectForKey:@"wash"] integerValue] != 0)
+        {
+            subtitle = [subtitle stringByAppendingString:@" Wash:"];            
+            subtitle = [subtitle stringByAppendingString:[dict objectForKey:@"wash"]];
+        }
+
+        if ([[dict objectForKey:@"dryclean"] integerValue] != 0)
+        {
+            subtitle = [subtitle stringByAppendingString:@" DryClean:"];               
+            subtitle = [subtitle stringByAppendingString:[dict objectForKey:@"dryclean"]];
+        }
+
+        if ([[dict objectForKey:@"bleach"] integerValue] != 0)
+        {
+            subtitle = [subtitle stringByAppendingString:@" Bleach:"];                   
+            subtitle = [subtitle stringByAppendingString:[dict objectForKey:@"bleach"]];
+        }
+        
+        [cell.detailTextLabel setText:subtitle];
+        [cell.detailTextLabel setNumberOfLines:2];
+    }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -112,6 +154,15 @@
 {    
     return @"";
 }
+
+
+- (void)addLaundry:(MBAddLaundryVC *)controller didFinishAddingException:(NSDictionary *)item
+{
+    [self.countarr addObject:item];
+    
+    [self.tableView reloadData];
+} 
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -121,19 +172,19 @@
 }
 */
 
-/*
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
         // Delete the row from the data source
+        [self.countarr removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+        [self.tableView reloadData];        
+    }      
 }
-*/
+
 
 /*
 // Override to support rearranging the table view.
