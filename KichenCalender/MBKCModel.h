@@ -23,7 +23,7 @@
 - (NSArray*) getMilkBillFrom:(NSDate*)frmdt Till:(NSDate*)todt;
 
 //Paper, Laundry methods
-- (NSArray*) getOtherDetails:(NSInteger) category;
+- (NSMutableArray*) getOtherDetails:(NSInteger) category;
 - (void) setPaperDetails:(NSArray*)paper;
 - (NSArray*) getPaperBillFrom:(NSDate*)frmdt Till:(NSDate*)todt;
 

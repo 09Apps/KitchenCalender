@@ -291,7 +291,7 @@
     }
 }
 
-- (NSArray*) getOtherDetails:(NSInteger)category
+- (NSMutableArray*) getOtherDetails:(NSInteger)category
 {
     // Returns Array format = { currency, sections, {papers array}}
     NSString* plistPath = [self getPlistPath:@"KCOtherPList"];
@@ -331,9 +331,15 @@
     {
         // Get Laundry data
         dict = [temp objectForKey:@"laundry"];
+        
+        NSArray* rates =[dict objectForKey:@"counts"];
+        
+        self.sections = [rates count];
+        
+        [catarray addObject:[NSString stringWithFormat:@"%d",self.sections]];
+
+        [catarray addObject:dict];
     }
-    
-    [catarray addObject:dict];
 
     return catarray;
 }
@@ -401,20 +407,6 @@
 //    NSLog(@"wk %d",wk);
     return wk;
 }
-
-/*
-        NSString* freqstr = [dict objectForKey:@"frequency"];
-
-        
-        if ([freqstr compare:@"weekly"] == NSOrderedSame)
-        {
-  
-        }
-        else
-        {
-            [dict objectForKey:@"weekdayprice"];
-        }
-} */
 
 - (NSArray*) getPaperBillFrom:(NSDate*)frmdt Till:(NSDate*)todt
 {
