@@ -33,6 +33,13 @@
 		<string>1</string>
 	</dict>
 	<key>laundry</key>
-	<dict/>
+	<dict>
+		<key>counts</key>
+		<array/>
+		<key>rates</key>
+		<array>
+			<dict/>
+		</array>
+	</dict>
 </dict>
 </plist>
