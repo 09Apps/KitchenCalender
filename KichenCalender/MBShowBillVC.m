@@ -80,7 +80,7 @@
     }
     else
     {
-        return @"";
+        return @"Summary";
     }
 }
 
@@ -232,6 +232,7 @@
     return YES;
 }
 */
+
 
 #pragma mark - Table view delegate
 
