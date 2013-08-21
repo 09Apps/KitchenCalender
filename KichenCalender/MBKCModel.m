@@ -291,10 +291,10 @@
     }
 }
 
-- (NSMutableArray*) getOtherDetails:(NSInteger)category
+- (NSMutableArray*) getPaperDetails
 {
     // Returns Array format = { currency, sections, {papers array}}
-    NSString* plistPath = [self getPlistPath:@"KCOtherPList"];
+    NSString* plistPath = [self getPlistPath:@"KCPaperPList"];
     
     // read property list into memory as an NSData object
     NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
@@ -314,32 +314,52 @@
 
     NSDictionary* dict = [[NSDictionary alloc] init];
     
-    if (category == PAPERCAT)
-    {
-        // Get newspaper data in array
+    // Get newspaper data in array
         
-        dict = [temp objectForKey:@"paper"];
+    dict = [temp objectForKey:@"paper"];
         
-        NSString* str = [dict objectForKey:@"sections"];
+    NSString* str = [dict objectForKey:@"sections"];
         
-        self.sections = [str integerValue];
-        [catarray addObject:str];
-        
-        [catarray addObject:[dict objectForKey:@"papers"]];
-    }
-    else
-    {
-        // Get Laundry data
-        dict = [temp objectForKey:@"laundry"];
-        
-        NSArray* rates =[dict objectForKey:@"counts"];
-        
-        self.sections = [rates count];
-        
-        [catarray addObject:[NSString stringWithFormat:@"%d",self.sections]];
+    self.sections = [str integerValue];
+    [catarray addObject:str];
+    [catarray addObject:[dict objectForKey:@"papers"]];
 
-        [catarray addObject:dict];
+    return catarray;
+}
+
+- (NSMutableArray*) getLaundryDetails
+{
+    // Returns Array format = { currency, sections, {papers array}}
+    NSString* plistPath = [self getPlistPath:@"KCLaundryPList"];
+    
+    // read property list into memory as an NSData object
+    NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
+    NSString *errorDesc = nil;
+    NSPropertyListFormat format;
+    // convert static property list into Dictionary object
+    NSDictionary *temp = (NSDictionary *)[NSPropertyListSerialization propertyListFromData:plistXML mutabilityOption:NSPropertyListMutableContainersAndLeaves format:&format errorDescription:&errorDesc];
+    
+    if (!temp)
+    {
+        NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
     }
+    
+    NSMutableArray* catarray = [[NSMutableArray alloc] init];
+    
+    [catarray addObject:[temp objectForKey:@"currency"]];
+    
+    NSDictionary* dict = [[NSDictionary alloc] init];
+    
+    // Get Laundry data
+    dict = [temp objectForKey:@"laundry"];
+    NSLog(@"dict %@",dict);
+    NSArray* counts =[dict objectForKey:@"counts"];
+        
+    self.sections = [counts count];
+        
+    [catarray addObject:[NSString stringWithFormat:@"%d",self.sections]];
+        
+    [catarray addObject:dict];
 
     return catarray;
 }
@@ -351,11 +371,40 @@
     
     NSDictionary* dict = [[NSDictionary alloc] initWithObjects:paper forKeys:keyarr];
     
-    NSString* plistPath = [self getPlistPath:@"KCOtherPList"];
+    NSString* plistPath = [self getPlistPath:@"KCPaperPList"];
     
     NSString *error = nil;
     // create NSData from dictionary
     NSData *plistData = [NSPropertyListSerialization dataFromPropertyList:dict format:NSPropertyListXMLFormat_v1_0 errorDescription:&error];
+    
+    // check is plistData exists
+    if(plistData)
+    {
+        // write plistData to our Data.plist file
+        [plistData writeToFile:plistPath atomically:YES];
+    }
+    else
+    {
+        NSLog(@"Error in saveData: %@", error);
+    }
+}
+
+- (void) setLaundryDetails:(NSDictionary*) dict
+{
+    // User is saving data {currency, paper={sections,papers}}
+    NSArray* keyarr = [[NSArray alloc] initWithObjects:@"currency", @"laundry", nil];
+    NSArray* valarr = [[NSArray alloc] initWithObjects:@"Rs.", dict, nil];
+    
+    NSDictionary* laundry = [[NSDictionary alloc] initWithObjects:valarr forKeys:keyarr];
+    
+    NSString* plistPath = [self getPlistPath:@"KCLaundryPList"];
+    
+    NSString *error = nil;
+    
+    NSLog(@"%@",dict);
+    
+    // create NSData from dictionary
+    NSData *plistData = [NSPropertyListSerialization dataFromPropertyList:laundry format:NSPropertyListXMLFormat_v1_0 errorDescription:&error];
     
     // check is plistData exists
     if(plistData)
@@ -419,7 +468,7 @@
     NSMutableArray* paperbillarr = [[NSMutableArray alloc] init];
     NSMutableArray* paperdetails = [[NSMutableArray alloc] init];
     
-    NSArray* paperarr = [self getOtherDetails:PAPERCAT];
+    NSArray* paperarr = [self getPaperDetails];
 
     [paperbillarr addObject:[paperarr objectAtIndex:1]];  // sections
     [paperbillarr addObject:[paperarr objectAtIndex:0]];  // currency Rs.
