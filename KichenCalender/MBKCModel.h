@@ -23,6 +23,7 @@
 //Paper, Laundry methods
 - (NSMutableArray*) getLaundryDetails;
 - (void) setLaundryDetails:(NSDictionary*) dict;
+- (NSArray*) getLaundryBillFrom:(NSDate*)frmdt Till:(NSDate*)todt;
 
 - (NSMutableArray*) getPaperDetails;
 - (void) setPaperDetails:(NSArray*)paper;

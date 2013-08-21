@@ -48,8 +48,6 @@
     
     NSMutableArray* laundry = [self.model getLaundryDetails];
     
-    //self.sect = [[laundry objectAtIndex:1] integerValue];
-    
     NSDictionary* dict = [laundry objectAtIndex:2];
     
     self.countarr = [dict objectForKey:@"counts"];
@@ -68,10 +66,18 @@
 
 - (void)addLaundry
 {
-    MBAddLaundryVC *addlaundry = [[MBAddLaundryVC alloc] init];
-    addlaundry.delegate = self;
-    [addlaundry setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-    [self presentViewController:addlaundry animated:YES completion:nil];
+    if ([[self.ratearr objectAtIndex:0] objectForKey:@"fromDate"] == nil)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Set Rates" message:@"Please set laundry rates before adding details." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
+    else
+    {
+        MBAddLaundryVC *addlaundry = [[MBAddLaundryVC alloc] init];
+        addlaundry.delegate = self;
+        [addlaundry setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+        [self presentViewController:addlaundry animated:YES completion:nil];
+    }
 }
 
 - (void)setupLaundry

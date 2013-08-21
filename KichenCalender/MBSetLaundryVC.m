@@ -80,8 +80,17 @@
 
 - (void)saveData
 {
-    // Save and exit
-    [self.navigationController popViewControllerAnimated:YES];
+    if ( ([[self.rates objectAtIndex:0] objectForKey:@"fromDate"] == nil) ||
+         ([[self.rates objectAtIndex:0] objectForKey:@"press"] == 0) )
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Set Details" message:@"Please atleast set From Date & Press rate." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
+    else
+    {
+        // Save and exit
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

@@ -329,7 +329,7 @@
 
 - (NSMutableArray*) getLaundryDetails
 {
-    // Returns Array format = { currency, sections, {papers array}}
+    // Returns Array format = { currency, sections, {rates,counts}}
     NSString* plistPath = [self getPlistPath:@"KCLaundryPList"];
     
     // read property list into memory as an NSData object
@@ -352,7 +352,7 @@
     
     // Get Laundry data
     dict = [temp objectForKey:@"laundry"];
-    NSLog(@"dict %@",dict);
+
     NSArray* counts =[dict objectForKey:@"counts"];
         
     self.sections = [counts count];
@@ -401,8 +401,6 @@
     
     NSString *error = nil;
     
-    NSLog(@"%@",dict);
-    
     // create NSData from dictionary
     NSData *plistData = [NSPropertyListSerialization dataFromPropertyList:laundry format:NSPropertyListXMLFormat_v1_0 errorDescription:&error];
     
@@ -416,6 +414,130 @@
     {
         NSLog(@"Error in saveData: %@", error);
     }
+}
+
+- (NSDictionary*) getLaundryBillFrom:(NSDate*)frmdt Till:(NSDate*)todt
+{
+    // Returns array of dictionary { deliverycharge, presscount, washcount, drycleancount, bleachcount, totalbill }
+    
+    NSDateFormatter* dformat = [[NSDateFormatter alloc] init];
+    [dformat setDateFormat:@"MMM dd, yyyy"];
+    [dformat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    
+    NSArray* laundry = [self getLaundryDetails];
+    
+    NSDictionary* ldict = [laundry objectAtIndex:2];
+    
+    NSArray *ratearr = [ldict objectForKey:@"rates"];
+    
+    NSMutableDictionary* returndict = [[NSMutableDictionary alloc]init];
+    
+    double totalbill = 0;
+    NSUInteger pressct = 0;
+    NSUInteger washct = 0;
+    NSUInteger drycleanct = 0;
+    NSUInteger bleachct = 0;
+    NSString* delchgstr;
+    
+    for (NSDictionary* ratedict in ratearr)
+    {
+        NSString* defrmdt = [ratedict objectForKey:@"fromdate"];
+        NSDate* dfrdt = [dformat dateFromString:defrmdt];
+
+        NSString* dftostr = [ratedict objectForKey:@"todate"];
+        NSDate* dftodt = [dformat dateFromString:dftostr];
+        
+        if ([frmdt compare:dftodt] == NSOrderedDescending  ||
+            [dfrdt compare:todt] == NSOrderedDescending )
+        {
+            // Rates from date is later than Todate of bill date OR
+            // Rates to date is before bill from date
+            // Ignore this rate
+        }
+        else
+        {
+            NSDate* dfeffectivefrmdt;
+            NSDate* dfeffectivetodt;
+            
+            delchgstr = [ratedict objectForKey:@"deliverycharge"];
+
+            if ([dfrdt compare:frmdt] == NSOrderedDescending)
+            {
+                // Means exception from date is later than bill from date
+                // so make it effective start date
+                dfeffectivefrmdt = dfrdt;
+            }
+            else
+            {
+                // Bill from date is later than exception start date
+                // so make it effective start date
+                dfeffectivefrmdt = frmdt;
+            }
+            
+            if ([dftodt compare:todt] == NSOrderedDescending)
+            {
+                dfeffectivetodt = todt;
+            }
+            else
+            {
+                dfeffectivetodt = dftodt;
+            }
+            
+            // Now get the laundry counts during this period
+            NSArray *countarr = [ldict objectForKey:@"counts"];
+            
+            for (NSDictionary* ctdict in countarr)
+            {
+                NSString* ondt = [ctdict objectForKey:@"ondate"];
+                NSDate* dondt = [dformat dateFromString:ondt];
+                
+                if (([dondt compare:dfeffectivefrmdt] != NSOrderedAscending) &&
+                    ([dondt compare:dfeffectivetodt] != NSOrderedDescending) )
+                {
+                    // Means ondate is equal to or later than from date
+                    // && ondate is less than or equal to to date
+                    
+                    pressct = pressct + [[ctdict objectForKey:@"press"] integerValue];
+                    washct = pressct + [[ctdict objectForKey:@"wash"] integerValue];
+                    drycleanct = pressct + [[ctdict objectForKey:@"dryclean"] integerValue];
+                    bleachct = pressct + [[ctdict objectForKey:@"bleach"] integerValue];
+                }
+            }
+            
+            if (pressct > 0)
+            {
+                double pressrt = [[ratedict objectForKey:@"press"] doubleValue];
+                totalbill = totalbill + (pressct * pressrt);
+            }
+            
+            if (washct > 0)
+            {
+                double washrt = [[ratedict objectForKey:@"wash"] doubleValue];
+                totalbill = totalbill + (washct * washrt);
+            }
+            
+            if (drycleanct > 0)
+            {
+                double drycleanrt = [[ratedict objectForKey:@"dryclean"] doubleValue];
+                totalbill = totalbill + (drycleanct * drycleanrt);
+            }
+            
+            if (bleachct > 0)
+            {
+                double bleachrt = [[ratedict objectForKey:@"bleach"] doubleValue];
+                totalbill = totalbill + (bleachct * bleachrt);
+            }
+        }
+    }
+
+    [returndict setValue:delchgstr forKey:@"deliveryCharge"];
+    [returndict setValue:[NSString stringWithFormat:@"%d",pressct] forKey:@"presscount"];
+    [returndict setValue:[NSString stringWithFormat:@"%d",washct] forKey:@"washcount"];
+    [returndict setValue:[NSString stringWithFormat:@"%d",drycleanct] forKey:@"drycleancount"];
+    [returndict setValue:[NSString stringWithFormat:@"%d",bleachct] forKey:@"bleachcount"];
+    [returndict setValue:[NSString stringWithFormat:@"%.2f",totalbill] forKey:@"totalbill"];
+    
+    return returndict;
 }
 
 + (NSUInteger)getNumberOf:(NSUInteger)gregday From:(NSDate*)fromDt Till:(NSDate*)toDt
@@ -435,25 +557,19 @@
     
     NSUInteger wk = interval/7;
     
-//    NSLog(@"interval %d gregday %d wk %d",interval,gregday,wk);
-    
     NSUInteger xtradays = interval - (wk*7);
-//    NSLog(@"xtradays %d",xtradays);
     
     NSInteger diffdays = gregday - frmday;
-//    NSLog(@"diffdays %d",diffdays);
     
     if (diffdays < 0)
     {
         diffdays = diffdays + 7;
-//            NSLog(@"diffdays %d",diffdays);
     }
     
     if (xtradays >= diffdays)
     {
         wk++;
     }
-//    NSLog(@"wk %d",wk);
     return wk;
 }
 
@@ -473,7 +589,6 @@
     [paperbillarr addObject:[paperarr objectAtIndex:1]];  // sections
     [paperbillarr addObject:[paperarr objectAtIndex:0]];  // currency Rs.
 
-    
     NSArray* papers = [[NSArray alloc] initWithArray:[paperarr objectAtIndex:2]];    
     
     double totalbill = 0;    

@@ -89,7 +89,7 @@
     // Return the number of rows in the section.
     if (section == 0)
     {
-        // first section has 3 rows - fromd ate, to date and total bill
+        // first section has 3 rows - fromd date, to date and total bill
         return 3;
     }
     else
@@ -99,10 +99,16 @@
             // for newspaper , we just have two row
             return 2;
         }
-        else
+        else if (self.billtype == 0)
         {
             // For milk we have 3 rows
             return 3;
+        }
+        else
+        {
+            // Laundry has 6 rows
+            // count of press, wash, dryclean, bleach, laundry cost & delivery charge
+            return 6;
         }
 
     }
@@ -121,7 +127,7 @@
     // Configure the cell...
     if (indexPath.section == 0)
     {
-        // Just put from date, to date and no. of days here.
+        // Just put from date, to date and Total bill here.
         if (indexPath.row == 0)
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];
