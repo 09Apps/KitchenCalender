@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#define PAPERCAT 1001
-#define LAUNDRYCAT 2001
 #define ADDSECTIONTAG 100
 #define SAVEDATAG 200
 
@@ -23,9 +21,13 @@
 - (NSArray*) getMilkBillFrom:(NSDate*)frmdt Till:(NSDate*)todt;
 
 //Paper, Laundry methods
-- (NSMutableArray*) getOtherDetails:(NSInteger) category;
+- (NSMutableArray*) getLaundryDetails;
+- (void) setLaundryDetails:(NSDictionary*) dict;
+
+- (NSMutableArray*) getPaperDetails;
 - (void) setPaperDetails:(NSArray*)paper;
 - (NSArray*) getPaperBillFrom:(NSDate*)frmdt Till:(NSDate*)todt;
+
 
 //General methods
 + (NSInteger)getNumberOfDaysFrom:(NSDate*)fromDt Till:(NSDate*)toDt;
