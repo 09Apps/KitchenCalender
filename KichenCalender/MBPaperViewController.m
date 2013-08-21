@@ -30,7 +30,7 @@
     
     self.model = [[MBKCModel alloc] init];
     
-    NSArray* paperarr = [self.model getOtherDetails:PAPERCAT];
+    NSArray* paperarr = [self.model getPaperDetails];
     
     self.currency = [paperarr objectAtIndex:0];
     
@@ -572,7 +572,7 @@
         }
         
         MBExceptionVC* exceptionVC = [[MBExceptionVC alloc] initWithException:excparr];
-        exceptionVC.category = PAPERCAT;
+//        exceptionVC.category = PAPERCAT;
         
         [self.navigationController pushViewController:exceptionVC animated:YES];
     }
