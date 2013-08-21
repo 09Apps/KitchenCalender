@@ -39,11 +39,14 @@
       
     self.navigationItem.rightBarButtonItems = @[settingsButton, addButton];
     
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(saveData)];
+    self.navigationItem.leftBarButtonItem = doneButton;
+    
     // Get Currency, array count and laundry data
     
     self.model = [[MBKCModel alloc] init];
     
-    NSMutableArray* laundry = [self.model getOtherDetails:LAUNDRYCAT];
+    NSMutableArray* laundry = [self.model getLaundryDetails];
     
     //self.sect = [[laundry objectAtIndex:1] integerValue];
     
@@ -55,9 +58,6 @@
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -96,12 +96,6 @@
 {
     return 63;
 }
-
-/*
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 101;
-}
-*/
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -196,7 +190,8 @@
     return @" Records ";
 }
 
--(void)segmentChanged:(UISegmentedControl*)sender {
+-(void)segmentChanged:(UISegmentedControl*)sender
+{
     // when a segment is selected, it resets the text colors
     NSDictionary* dict = [self.countarr objectAtIndex:sender.tag];
     
@@ -210,9 +205,6 @@
         [sender setTintColor:[UIColor lightGrayColor]];
         [dict setValue:@"1" forKey:@"returned"];        
     }
-    
-    
-    
 }
 
 - (void)addLaundry:(MBAddLaundryVC *)controller didFinishAddingException:(NSDictionary *)item
@@ -221,6 +213,18 @@
     
     [self.tableView reloadData];
 } 
+
+- (void)saveData
+{
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    
+    [dict setObject:self.countarr forKey:@"counts"];
+    [dict setObject:self.ratearr forKey:@"rates"];
+    
+    [self.model setLaundryDetails:dict];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 /*
 // Override to support conditional editing of the table view.
