@@ -92,9 +92,16 @@
     return [self.countarr count];
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return 63;
 }
+
+/*
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 101;
+}
+*/
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -102,14 +109,28 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     // Configure the cell...
     
     NSDictionary* dict = [self.countarr objectAtIndex:indexPath.row];
     
-    if ([[dict objectForKey:@"totalcloth"] integerValue] != 0)
+    if (indexPath.row == 0)
+    {
+        [cell.textLabel setText:@"Date"];
+        [cell.detailTextLabel setText:@"Laundry details"];
+        UILabel* returnlbl = [[UILabel alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
+        [returnlbl setTextAlignment:NSTextAlignmentRight];
+        returnlbl.backgroundColor = [UIColor clearColor];
+        
+        returnlbl.text = @"Got it back?";
+            
+        cell.accessoryView = returnlbl;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;        
+    }
+        
+    else if ([[dict objectForKey:@"totalcloth"] integerValue] != 0)
     {
         [cell.textLabel setText:[dict objectForKey:@"ondate"]];
         
@@ -140,21 +161,59 @@
             subtitle = [subtitle stringByAppendingString:@" Bleach:"];                   
             subtitle = [subtitle stringByAppendingString:[dict objectForKey:@"bleach"]];
         }
-        
+
+        [cell.detailTextLabel setNumberOfLines:2]; 
         [cell.detailTextLabel setText:subtitle];
-        [cell.detailTextLabel setNumberOfLines:2];
+        
+        NSArray *itemArray = [NSArray arrayWithObjects: @"No", @"Yes", nil];
+        UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:itemArray];
+
+        segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
+        segmentedControl.tag = indexPath.row;
+        segmentedControl.selectedSegmentIndex = [[dict objectForKey:@"returned"] integerValue];
+        
+        if (segmentedControl.selectedSegmentIndex == 0)
+        {
+            [segmentedControl setTintColor:[UIColor redColor]];
+        }
+        else
+        {
+            [segmentedControl setTintColor:[UIColor lightGrayColor]];
+        }
+        
+        [segmentedControl addTarget:self action:@selector(segmentChanged:) forControlEvents:UIControlEventValueChanged];
+        
+        cell.accessoryView = segmentedControl;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+ 
     }
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {    
-    return @"";
+    return @" Records ";
 }
 
+-(void)segmentChanged:(UISegmentedControl*)sender {
+    // when a segment is selected, it resets the text colors
+    NSDictionary* dict = [self.countarr objectAtIndex:sender.tag];
+    
+    if (sender.selectedSegmentIndex == 0)
+    {
+        [sender setTintColor:[UIColor redColor]];
+        [dict setValue:@"0" forKey:@"returned"];
+    }
+    else
+    {
+        [sender setTintColor:[UIColor lightGrayColor]];
+        [dict setValue:@"1" forKey:@"returned"];        
+    }
+    
+    
+    
+}
 
 - (void)addLaundry:(MBAddLaundryVC *)controller didFinishAddingException:(NSDictionary *)item
 {
