@@ -18,6 +18,4 @@
 @property (strong, nonatomic) NSArray* billarray;
 @property (strong, nonatomic) NSArray* element;
 
-
-
 @end
