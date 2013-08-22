@@ -190,7 +190,7 @@
             // two rows for milk 
             if (indexPath.row == 0)
             {
-                cell.textLabel.text = @"Quantity Ltr :    ";
+                cell.textLabel.text = @"Quantity Ltr   :    ";
                 label.text = [dict objectForKey:@"quantity"];
             }
             else if (indexPath.row == 1)

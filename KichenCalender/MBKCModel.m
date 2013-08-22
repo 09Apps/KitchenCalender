@@ -699,9 +699,7 @@
             NSUInteger monthsct = (defaultdays/31);
             monthsct++;
             
-            NSLog(@"monthsct %d",monthsct);
             devbill = [[dict objectForKey:@"deliverycharge"] integerValue] * monthsct;
-            NSLog(@"devbill %d",devbill);            
             [returndict1 setValue:[NSString stringWithFormat:@"%d",devbill] forKey:@"deliveryCharge"];
             
             if (isdaily == YES)
