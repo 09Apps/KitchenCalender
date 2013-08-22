@@ -416,7 +416,7 @@
     }
 }
 
-- (NSDictionary*) getLaundryBillFrom:(NSDate*)frmdt Till:(NSDate*)todt
+- (NSArray*) getLaundryBillFrom:(NSDate*)frmdt Till:(NSDate*)todt
 {
     // Returns array of dictionary { deliverycharge, presscount, washcount, drycleancount, bleachcount, totalbill }
     
@@ -432,19 +432,25 @@
     
     NSMutableDictionary* returndict = [[NSMutableDictionary alloc]init];
     
-    double totalbill = 0;
-    NSUInteger pressct = 0;
-    NSUInteger washct = 0;
-    NSUInteger drycleanct = 0;
-    NSUInteger bleachct = 0;
+    double laundrybill = 0;
+    NSUInteger totpressct = 0;
+    NSUInteger totwashct = 0;
+    NSUInteger totdrycleanct = 0;
+    NSUInteger totbleachct = 0;
+    NSUInteger notretct = 0;
     NSString* delchgstr;
     
     for (NSDictionary* ratedict in ratearr)
     {
-        NSString* defrmdt = [ratedict objectForKey:@"fromdate"];
+        NSUInteger pressct = 0;
+        NSUInteger washct = 0;
+        NSUInteger drycleanct = 0;
+        NSUInteger bleachct = 0;
+        
+        NSString* defrmdt = [ratedict objectForKey:@"fromDate"];
         NSDate* dfrdt = [dformat dateFromString:defrmdt];
 
-        NSString* dftostr = [ratedict objectForKey:@"todate"];
+        NSString* dftostr = [ratedict objectForKey:@"toDate"];
         NSDate* dftodt = [dformat dateFromString:dftostr];
         
         if ([frmdt compare:dftodt] == NSOrderedDescending  ||
@@ -458,8 +464,6 @@
         {
             NSDate* dfeffectivefrmdt;
             NSDate* dfeffectivetodt;
-            
-            delchgstr = [ratedict objectForKey:@"deliverycharge"];
 
             if ([dfrdt compare:frmdt] == NSOrderedDescending)
             {
@@ -498,46 +502,66 @@
                     // && ondate is less than or equal to to date
                     
                     pressct = pressct + [[ctdict objectForKey:@"press"] integerValue];
-                    washct = pressct + [[ctdict objectForKey:@"wash"] integerValue];
-                    drycleanct = pressct + [[ctdict objectForKey:@"dryclean"] integerValue];
-                    bleachct = pressct + [[ctdict objectForKey:@"bleach"] integerValue];
+                    washct = washct + [[ctdict objectForKey:@"wash"] integerValue];
+                    drycleanct = drycleanct + [[ctdict objectForKey:@"dryclean"] integerValue];
+                    bleachct = bleachct + [[ctdict objectForKey:@"bleach"] integerValue];
+                    
+                    if ( [[ctdict objectForKey:@"returned"] integerValue] == 0)
+                    {
+                        notretct = notretct + [[ctdict objectForKey:@"totalcloth"] integerValue];
+                    }
                 }
             }
             
             if (pressct > 0)
             {
                 double pressrt = [[ratedict objectForKey:@"press"] doubleValue];
-                totalbill = totalbill + (pressct * pressrt);
+                laundrybill = laundrybill + (pressct * pressrt);
             }
             
             if (washct > 0)
             {
                 double washrt = [[ratedict objectForKey:@"wash"] doubleValue];
-                totalbill = totalbill + (washct * washrt);
+                laundrybill = laundrybill + (washct * washrt);          
             }
             
             if (drycleanct > 0)
             {
                 double drycleanrt = [[ratedict objectForKey:@"dryclean"] doubleValue];
-                totalbill = totalbill + (drycleanct * drycleanrt);
+                laundrybill = laundrybill + (drycleanct * drycleanrt);           
             }
             
             if (bleachct > 0)
             {
                 double bleachrt = [[ratedict objectForKey:@"bleach"] doubleValue];
-                totalbill = totalbill + (bleachct * bleachrt);
+                laundrybill = laundrybill + (bleachct * bleachrt);          
             }
+            
+            delchgstr = [ratedict objectForKey:@"deliveryCharge"];
         }
+        
+        totpressct = totpressct + pressct;
+        totwashct = totwashct + washct;
+        totdrycleanct = totdrycleanct + drycleanct;
+        totbleachct = totbleachct + bleachct;        
     }
 
+    double totalbill = laundrybill + [delchgstr integerValue];
+    
+    [returndict setValue:@"Bill Details" forKey:@"title"];
     [returndict setValue:delchgstr forKey:@"deliveryCharge"];
-    [returndict setValue:[NSString stringWithFormat:@"%d",pressct] forKey:@"presscount"];
-    [returndict setValue:[NSString stringWithFormat:@"%d",washct] forKey:@"washcount"];
-    [returndict setValue:[NSString stringWithFormat:@"%d",drycleanct] forKey:@"drycleancount"];
-    [returndict setValue:[NSString stringWithFormat:@"%d",bleachct] forKey:@"bleachcount"];
+    [returndict setValue:[NSString stringWithFormat:@"%d",totpressct] forKey:@"presscount"];
+    [returndict setValue:[NSString stringWithFormat:@"%d",totwashct] forKey:@"washcount"];
+    [returndict setValue:[NSString stringWithFormat:@"%d",totdrycleanct] forKey:@"drycleancount"];
+    [returndict setValue:[NSString stringWithFormat:@"%d",totbleachct] forKey:@"bleachcount"];
+    [returndict setValue:[NSString stringWithFormat:@"%d",notretct] forKey:@"notreturncount"];
+    [returndict setValue:[NSString stringWithFormat:@"%.2f",laundrybill] forKey:@"laundrybill"];
     [returndict setValue:[NSString stringWithFormat:@"%.2f",totalbill] forKey:@"totalbill"];
     
-    return returndict;
+    // Actually dictionary can be used as return here, but to maintain uniform behavior with
+    // milk & paper, create an array and return
+    
+    return [NSArray arrayWithObject:returndict] ;
 }
 
 + (NSUInteger)getNumberOf:(NSUInteger)gregday From:(NSDate*)fromDt Till:(NSDate*)toDt

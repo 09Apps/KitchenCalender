@@ -36,18 +36,19 @@
         self.billarray = [self.model getMilkBillFrom:self.frmdt Till:self.todt];
 
         // returns array with these elements sections, Rs, total bill, {title,rate,delivery charge,quantity,bill amount}
+        self.element = [self.billarray objectAtIndex:3];
     }
     else if (self.billtype == 1)
     {
         self.title = @"Laundry Bill";
+        self.element = [self.model getLaundryBillFrom:self.frmdt Till:self.todt];
     }
     else
     {
         self.title = @"Paper Bill";
         self.billarray =[self.model getPaperBillFrom:self.frmdt Till:self.todt];
+        self.element = [self.billarray objectAtIndex:3];
     }
-    
-    self.element = [self.billarray objectAtIndex:3];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -67,8 +68,15 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    NSUInteger sect = [[self.billarray objectAtIndex:0] integerValue];
-    return (sect+1);
+    if (self.billtype == 1)
+    {
+        return 2;
+    }
+    else
+    {
+        NSUInteger sect = [[self.billarray objectAtIndex:0] integerValue];
+        return (sect+1);
+    }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -80,7 +88,7 @@
     }
     else
     {
-        return @"Summary";
+        return @"Bill Summary";
     }
 }
 
@@ -89,7 +97,7 @@
     // Return the number of rows in the section.
     if (section == 0)
     {
-        // first section has 3 rows - fromd date, to date and total bill
+        // first section has 3 rows - from date, to date and total bill
         return 3;
     }
     else
@@ -106,9 +114,9 @@
         }
         else
         {
-            // Laundry has 6 rows
-            // count of press, wash, dryclean, bleach, laundry cost & delivery charge
-            return 6;
+            // Laundry has 7 rows
+            // count of press, wash, dryclean, bleach, laundry cost, delivery charge & clothes not returned
+            return 7;
         }
 
     }
@@ -121,12 +129,12 @@
     NSDateFormatter* dformat = [[NSDateFormatter alloc] init];
     [dformat setDateFormat:@"MMM dd, yyyy"];
     
-    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(190, 13, 110, 20)];
-    label.backgroundColor = [UIColor clearColor];
-    
     // Configure the cell...
     if (indexPath.section == 0)
     {
+        UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(180, 13, 120, 20)];
+        label.backgroundColor = [UIColor clearColor];
+        
         // Just put from date, to date and Total bill here.
         if (indexPath.row == 0)
         {
@@ -144,61 +152,111 @@
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];            
             cell.textLabel.text = @"Total Bill Rs.  : ";
-            label.text = [NSString stringWithFormat:@"%@",[self.billarray objectAtIndex:2]];
+            
+            if (self.billtype == 1)
+            {
+                label.text = [[self.element objectAtIndex:0] objectForKey:@"totalbill"];
+            }
+            else
+            {
+                label.text = [NSString stringWithFormat:@"%@",[self.billarray objectAtIndex:2]];
+            }
         }
+        [cell addSubview:label];
     }
     else
     {
         NSUInteger arrct = indexPath.section - 1;
         NSDictionary* dict = [self.element objectAtIndex:arrct];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];
+        UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(235, 13, 60, 20)];
+        label.backgroundColor = [UIColor clearColor];
         
         if (self.billtype == 2)
         {
             if (indexPath.row == 0)
             {
-                cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];
                 cell.textLabel.text = @"Paper cost Rs.  :  ";
                 label.text = [dict objectForKey:@"billamt"];
             }
             else if (indexPath.row == 1)
             {
-                cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];
+                cell.textLabel.text = @"Delivery Charge Rs.: ";
+                label.text = [dict objectForKey:@"deliveryCharge"];
+            }
+        }
+        else if (self.billtype == 0)
+        {
+            // two rows for milk 
+            if (indexPath.row == 0)
+            {
+                cell.textLabel.text = @"Quantity Ltr :    ";
+                label.text = [dict objectForKey:@"quantity"];
+            }
+            else if (indexPath.row == 1)
+            {
+                cell.textLabel.text = @"Milk cost Rs.  : ";
+                label.text = [dict objectForKey:@"billamt"];
+            }
+            else 
+            {
                 cell.textLabel.text = @"Delivery Charge Rs.: ";
                 label.text = [dict objectForKey:@"deliveryCharge"];
             }
         }
         else
         {
-            // two rows for milk and laundry
-            if (indexPath.row == 0)
+            // Laundry has 7 rows
+            
+            switch (indexPath.row)
             {
-                cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];
-                cell.textLabel.text = @"Quantity Ltr :    ";
-                label.text = [dict objectForKey:@"quantity"];
-            }
-            else if (indexPath.row == 1)
-            {
-                cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];
-                cell.textLabel.text = @"Milk cost Rs.  : ";
-                label.text = [dict objectForKey:@"billamt"];
-            }
-            else 
-            {
-                cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];
-                cell.textLabel.text = @"Delivery Charge Rs.: ";
-                label.text = [dict objectForKey:@"deliveryCharge"];
-            }
-        }
+                case 0:
+                    cell.textLabel.text = @"Pressed clothes                : ";
+                    label.text = [dict objectForKey:@"presscount"];
+                    break;
 
+                case 1:
+                    cell.textLabel.text = @"Drycleaned clothes          : ";
+                    label.text = [dict objectForKey:@"drycleancount"];
+                    break;
+                    
+                case 2:
+                    cell.textLabel.text = @"Wash n' Pressed clothes : ";
+                    label.text = [dict objectForKey:@"washcount"];
+                    break;
+                    
+                case 3:
+                    cell.textLabel.text = @"Bleached clothes             : ";
+                    label.text = [dict objectForKey:@"bleachcount"];
+                    break;
+                    
+                case 4:
+                    cell.textLabel.text = @"Laundry Bill                      : ";
+                    label.text = [dict objectForKey:@"laundrybill"];
+                    break;
+                    
+                case 5:
+                    cell.textLabel.text = @"Delivery charge                : ";
+                    label.text = [dict objectForKey:@"deliveryCharge"];
+                    break;
+
+                case 6:
+                    cell.textLabel.text = @"Clothes Not Returned     : ";
+                    label.text = [dict objectForKey:@"notreturncount"];
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+        }
+        [cell addSubview:label];
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell addSubview:label];
     
     return cell;
 }
-
-
 
 /*
 // Override to support conditional editing of the table view.

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>currency</key>
+	<string>Rs</string>
+	<key>paper</key>
+	<dict>
+		<key>papers</key>
+		<array>
+			<dict>
+				<key>frequency</key>
+				<string>daily</string>
+				<key>exceptions</key>
+				<array/>
+				<key>todate</key>
+				<string></string>
+				<key>fromdate</key>
+				<string></string>
+				<key>deliverycharge</key>
+				<string></string>
+				<key>sundayprice</key>
+				<string></string>
+				<key>saturdayprice</key>
+				<string></string>
+				<key>weekdayprice</key>
+				<string></string>
+				<key>title</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>sections</key>
+		<string>1</string>
+	</dict>
+</dict>
+</plist>
