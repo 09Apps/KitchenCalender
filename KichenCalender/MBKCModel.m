@@ -133,10 +133,12 @@
             NSMutableArray* eachmilk = [[NSMutableArray alloc] init];
             double totalbill = 0;
             
+            
             for (NSDictionary* mlkobj in obj)
             {
                 double totalQuantity = 0;
                 NSInteger defaultdays = 0;
+                NSInteger totdelcharge = 0;
                 NSMutableDictionary* dict1 = [[NSMutableDictionary alloc]init];                
             
                 // Get milk details
@@ -145,9 +147,6 @@
                 [dict1 setValue:ratestr forKey:@"rate"];
                 
                 [dict1 setValue:[mlkobj objectForKey:@"title"] forKey:@"title"];
-                
-                NSString* delchgstr = [mlkobj objectForKey:@"deliveryCharge"];
-                [dict1 setValue:delchgstr forKey:@"deliveryCharge"];
             
                 NSString* defrmdt = [mlkobj objectForKey:@"fromDate"];
                 NSDate* dfrdt = [dformat dateFromString:defrmdt];
@@ -190,7 +189,15 @@
                     }
                 
                     defaultdays = [MBKCModel getNumberOfDaysFrom:dfeffectivefrmdt Till:dfeffectivetodt];
-                
+                    
+                    // find number of months, used to calculate delivery charge
+                    NSUInteger monthsct = (defaultdays/31);
+                    monthsct++;
+                    
+                    NSString* dstr = [mlkobj objectForKey:@"deliveryCharge"];
+                    
+                    totdelcharge = [dstr integerValue] * monthsct;
+                    
                     double dfquant = [[mlkobj objectForKey:@"quantity"] doubleValue];
             
                     // Now get the exceptions data
@@ -255,11 +262,13 @@
                 
                 [dict1 setValue:[NSString stringWithFormat:@"%.2f",totalQuantity] forKey:@"quantity"];
                 [dict1 setValue:[NSString stringWithFormat:@"%.2f",billamt] forKey:@"billamt"];
-                
+
+                NSString* delchgstr = [NSString stringWithFormat:@"%d",totdelcharge];
+                [dict1 setValue:delchgstr forKey:@"deliveryCharge"];
+
                 [eachmilk addObject:dict1];
                 
-                totalbill = totalbill + billamt + [delchgstr integerValue];
-                
+                totalbill = totalbill + billamt + totdelcharge;
             }
             
             [milkbill addObject:[NSString stringWithFormat:@"%.2f",totalbill]];
@@ -437,8 +446,8 @@
     NSUInteger totwashct = 0;
     NSUInteger totdrycleanct = 0;
     NSUInteger totbleachct = 0;
+    NSUInteger totdelch = 0;
     NSUInteger notretct = 0;
-    NSString* delchgstr;
     
     for (NSDictionary* ratedict in ratearr)
     {
@@ -486,6 +495,10 @@
             {
                 dfeffectivetodt = dftodt;
             }
+            
+            // find number of months, used to calculate delivery charge
+            NSUInteger monthsct = ([MBKCModel getNumberOfDaysFrom:dfeffectivefrmdt Till:dfeffectivetodt]/31);
+            monthsct++;
             
             // Now get the laundry counts during this period
             NSArray *countarr = [ldict objectForKey:@"counts"];
@@ -537,19 +550,20 @@
                 laundrybill = laundrybill + (bleachct * bleachrt);          
             }
             
-            delchgstr = [ratedict objectForKey:@"deliveryCharge"];
+            NSUInteger delcharge = [[ratedict objectForKey:@"deliveryCharge"] integerValue] * monthsct;
+            totdelch = totdelch + delcharge;
         }
         
         totpressct = totpressct + pressct;
         totwashct = totwashct + washct;
         totdrycleanct = totdrycleanct + drycleanct;
-        totbleachct = totbleachct + bleachct;        
+        totbleachct = totbleachct + bleachct;
     }
 
-    double totalbill = laundrybill + [delchgstr integerValue];
+    double totalbill = laundrybill + totdelch;
     
     [returndict setValue:@"Bill Details" forKey:@"title"];
-    [returndict setValue:delchgstr forKey:@"deliveryCharge"];
+    [returndict setValue:[NSString stringWithFormat:@"%d",totdelch] forKey:@"deliveryCharge"];
     [returndict setValue:[NSString stringWithFormat:@"%d",totpressct] forKey:@"presscount"];
     [returndict setValue:[NSString stringWithFormat:@"%d",totwashct] forKey:@"washcount"];
     [returndict setValue:[NSString stringWithFormat:@"%d",totdrycleanct] forKey:@"drycleancount"];
@@ -600,7 +614,6 @@
 - (NSArray*) getPaperBillFrom:(NSDate*)frmdt Till:(NSDate*)todt
 {
     // returns array with these elements sections, Rs, total bill, {title,rate,delivery charge,quantity,bill amount}
-        
     NSDateFormatter* dformat = [[NSDateFormatter alloc] init];
     [dformat setDateFormat:@"MMM dd, yyyy"];
     [dformat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
@@ -615,20 +628,18 @@
 
     NSArray* papers = [[NSArray alloc] initWithArray:[paperarr objectAtIndex:2]];    
     
-    double totalbill = 0;    
+    double totalbill = 0;
     
     for (NSDictionary* dict in papers)
     {
-        double billamt = 0;        
+        double billamt = 0;
         NSUInteger defaultdays = 0;
         NSUInteger dayind = 0;
+        NSInteger devbill = 0;
         
         NSMutableDictionary* returndict1 = [[NSMutableDictionary alloc]init];
         
         [returndict1 setValue:[dict objectForKey:@"title"] forKey:@"title"];
-                    
-        NSString* delchgstr = [dict objectForKey:@"deliverycharge"];
-        [returndict1 setValue:delchgstr forKey:@"deliveryCharge"];
                     
         NSString* defrmdt = [dict objectForKey:@"fromdate"];
         NSDate* dfrdt = [dformat dateFromString:defrmdt];
@@ -682,9 +693,19 @@
                 dfeffectivetodt = dftodt;
             }
             
+            defaultdays = [MBKCModel getNumberOfDaysFrom:dfeffectivefrmdt Till:dfeffectivetodt];
+            
+            // find number of months, used to calculate delivery charge
+            NSUInteger monthsct = (defaultdays/31);
+            monthsct++;
+            
+            NSLog(@"monthsct %d",monthsct);
+            devbill = [[dict objectForKey:@"deliverycharge"] integerValue] * monthsct;
+            NSLog(@"devbill %d",devbill);            
+            [returndict1 setValue:[NSString stringWithFormat:@"%d",devbill] forKey:@"deliveryCharge"];
+            
             if (isdaily == YES)
             {
-                defaultdays = [MBKCModel getNumberOfDaysFrom:dfeffectivefrmdt Till:dfeffectivetodt];
                 // find saturdays
                 saturdays = [MBKCModel getNumberOf:7 From:dfeffectivefrmdt Till:dfeffectivetodt];
                 
@@ -788,8 +809,8 @@
         }
 
         [returndict1 setValue:[NSString stringWithFormat:@"%.2f",billamt] forKey:@"billamt"];
-
-        totalbill = totalbill + billamt + [delchgstr integerValue];
+        
+        totalbill = totalbill + billamt + devbill;
                     
         [paperdetails addObject:returndict1];
     }

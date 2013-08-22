@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED08ADE517C2323800F12AF0 /* MBSetLaundryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ED08ADE317C2323800F12AF0 /* MBSetLaundryVC.m */; };
+		ED08ADE617C2323800F12AF0 /* MBSetLaundryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED08ADE417C2323800F12AF0 /* MBSetLaundryVC.xib */; };
 		ED0F81B517BF8AB300B85174 /* MBLaundryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ED0F81B417BF8AB300B85174 /* MBLaundryVC.m */; };
 		ED0FA8E21792C5A0000D6249 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED0FA8E11792C5A0000D6249 /* UIKit.framework */; };
 		ED0FA8E41792C5A0000D6249 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED0FA8E31792C5A0000D6249 /* Foundation.framework */; };
@@ -36,10 +38,16 @@
 		ED93B3041793CF1F006CC526 /* bills.png in Resources */ = {isa = PBXBuildFile; fileRef = ED93B3031793CF1F006CC526 /* bills.png */; };
 		ED9C4F7B17AAD5EE002CE712 /* calculator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED9C4F7A17AAD5EE002CE712 /* calculator@2x.png */; };
 		ED9C4F8017AADBF1002CE712 /* MBShowBillVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9C4F7F17AADBF1002CE712 /* MBShowBillVC.m */; };
-		EDC7D16B17B9F130003284A8 /* KCOtherPList.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDC7D16A17B9F130003284A8 /* KCOtherPList.plist */; };
+		EDBFD0D117C4C9DF00767FCA /* KCLaundryPList.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDBFD0D017C4C9DF00767FCA /* KCLaundryPList.plist */; };
+		EDC7D16B17B9F130003284A8 /* KCPaperPList.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDC7D16A17B9F130003284A8 /* KCPaperPList.plist */; };
+		EDED24F417C34CF200EBB707 /* MBAddLaundryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EDED24F217C34CF200EBB707 /* MBAddLaundryVC.m */; };
+		EDED24F517C34CF200EBB707 /* MBAddLaundryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDED24F317C34CF200EBB707 /* MBAddLaundryVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		ED08ADE217C2323800F12AF0 /* MBSetLaundryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSetLaundryVC.h; sourceTree = "<group>"; };
+		ED08ADE317C2323800F12AF0 /* MBSetLaundryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSetLaundryVC.m; sourceTree = "<group>"; };
+		ED08ADE417C2323800F12AF0 /* MBSetLaundryVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBSetLaundryVC.xib; sourceTree = "<group>"; };
 		ED0F81B317BF8AB300B85174 /* MBLaundryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBLaundryVC.h; sourceTree = "<group>"; };
 		ED0F81B417BF8AB300B85174 /* MBLaundryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBLaundryVC.m; sourceTree = "<group>"; };
 		ED0FA8DE1792C5A0000D6249 /* KichenCalender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KichenCalender.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,7 +90,11 @@
 		ED9C4F7A17AAD5EE002CE712 /* calculator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calculator@2x.png"; sourceTree = "<group>"; };
 		ED9C4F7E17AADBF1002CE712 /* MBShowBillVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBShowBillVC.h; sourceTree = "<group>"; };
 		ED9C4F7F17AADBF1002CE712 /* MBShowBillVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBShowBillVC.m; sourceTree = "<group>"; };
-		EDC7D16A17B9F130003284A8 /* KCOtherPList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = KCOtherPList.plist; sourceTree = "<group>"; };
+		EDBFD0D017C4C9DF00767FCA /* KCLaundryPList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = KCLaundryPList.plist; sourceTree = "<group>"; };
+		EDC7D16A17B9F130003284A8 /* KCPaperPList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = KCPaperPList.plist; sourceTree = "<group>"; };
+		EDED24F117C34CF200EBB707 /* MBAddLaundryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAddLaundryVC.h; sourceTree = "<group>"; };
+		EDED24F217C34CF200EBB707 /* MBAddLaundryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAddLaundryVC.m; sourceTree = "<group>"; };
+		EDED24F317C34CF200EBB707 /* MBAddLaundryVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBAddLaundryVC.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +164,12 @@
 				ED6CCBDA17B9473A0090D620 /* MBPaperViewController.m */,
 				ED0F81B317BF8AB300B85174 /* MBLaundryVC.h */,
 				ED0F81B417BF8AB300B85174 /* MBLaundryVC.m */,
+				ED08ADE217C2323800F12AF0 /* MBSetLaundryVC.h */,
+				ED08ADE317C2323800F12AF0 /* MBSetLaundryVC.m */,
+				ED08ADE417C2323800F12AF0 /* MBSetLaundryVC.xib */,
+				EDED24F117C34CF200EBB707 /* MBAddLaundryVC.h */,
+				EDED24F217C34CF200EBB707 /* MBAddLaundryVC.m */,
+				EDED24F317C34CF200EBB707 /* MBAddLaundryVC.xib */,
 				ED0FA8E81792C5A0000D6249 /* Supporting Files */,
 			);
 			path = KichenCalender;
@@ -175,7 +193,8 @@
 				ED0FA8F51792C5A0000D6249 /* Default@2x.png */,
 				ED0FA8F71792C5A0000D6249 /* Default-568h@2x.png */,
 				ED3F30171798616C000FF701 /* KCMilkPList.plist */,
-				EDC7D16A17B9F130003284A8 /* KCOtherPList.plist */,
+				EDC7D16A17B9F130003284A8 /* KCPaperPList.plist */,
+				EDBFD0D017C4C9DF00767FCA /* KCLaundryPList.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -245,9 +264,12 @@
 				ED68D3B817A12F5F00FB74AB /* MBAddExcepVC.xib in Resources */,
 				ED4B309517A6B52300DAB796 /* MainStoryboard.storyboard in Resources */,
 				ED9C4F7B17AAD5EE002CE712 /* calculator@2x.png in Resources */,
-				EDC7D16B17B9F130003284A8 /* KCOtherPList.plist in Resources */,
+				EDC7D16B17B9F130003284A8 /* KCPaperPList.plist in Resources */,
 				ED758BFF17C2045E00627462 /* bGear.png in Resources */,
 				ED758C0517C2153F00627462 /* simple_gears.png in Resources */,
+				ED08ADE617C2323800F12AF0 /* MBSetLaundryVC.xib in Resources */,
+				EDED24F517C34CF200EBB707 /* MBAddLaundryVC.xib in Resources */,
+				EDBFD0D117C4C9DF00767FCA /* KCLaundryPList.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +291,8 @@
 				ED9C4F8017AADBF1002CE712 /* MBShowBillVC.m in Sources */,
 				ED6CCBDB17B9473A0090D620 /* MBPaperViewController.m in Sources */,
 				ED0F81B517BF8AB300B85174 /* MBLaundryVC.m in Sources */,
+				ED08ADE517C2323800F12AF0 /* MBSetLaundryVC.m in Sources */,
+				EDED24F417C34CF200EBB707 /* MBAddLaundryVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -176,7 +176,7 @@
         {
             if (indexPath.row == 0)
             {
-                cell.textLabel.text = @"Paper cost Rs.  :  ";
+                cell.textLabel.text = @"Paper cost Rs.      :  ";
                 label.text = [dict objectForKey:@"billamt"];
             }
             else if (indexPath.row == 1)
@@ -243,6 +243,7 @@
                 case 6:
                     cell.textLabel.text = @"Clothes Not Returned     : ";
                     label.text = [dict objectForKey:@"notreturncount"];
+                    label.textColor = [UIColor redColor];
                     break;
                     
                 default:
