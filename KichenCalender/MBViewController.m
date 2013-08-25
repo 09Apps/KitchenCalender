@@ -20,6 +20,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     self.navigationItem.title = @"Subscriptions";
+    self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"board_back.png"]];
 }
 
 - (void)didReceiveMemoryWarning

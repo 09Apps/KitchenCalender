@@ -28,6 +28,8 @@
 {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"board_back.png"]];    
+    
     self.model = [[MBKCModel alloc] init];
     
     NSArray* paperarr = [self.model getPaperDetails];

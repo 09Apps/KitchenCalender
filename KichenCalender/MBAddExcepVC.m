@@ -31,6 +31,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"board_back.png"]];
+    
     [self.stepper setStepValue:0.25];
     [self.frmTxt setTag:FRMTXTTAG];
     [self.toTxt setTag:TOTXTTAG];

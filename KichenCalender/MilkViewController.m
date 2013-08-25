@@ -30,6 +30,8 @@
 {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"board_back.png"]];
+    
     self.model = [[MBKCModel alloc] init];
     
     NSArray* milkarr = [self.model getMilkDetails];
@@ -228,7 +230,7 @@
             {
                 self.txtField.text = @"Dec 31, 2100";
                 [[self.milk objectAtIndex:indexPath.section] setValue:self.txtField.text forKey:@"toDate"];
-                self.ischangedflag = YES;
+                //self.ischangedflag = YES;
             }
             else
             {

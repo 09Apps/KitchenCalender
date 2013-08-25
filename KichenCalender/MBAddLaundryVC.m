@@ -28,6 +28,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"board_back.png"]];
+    
     self.ctdict = [[NSMutableDictionary alloc] init];
     
     self.isaddedflag = NO;

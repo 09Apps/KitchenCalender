@@ -29,6 +29,8 @@
 {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"board_back.png"]];    
+    
     self.navigationItem.title = @"Laundry Setup";
 
     // Uncomment the following line to preserve selection between presentations.
@@ -75,6 +77,11 @@
             self.ischangedflag = YES;
             [self.tableView reloadData];
         }
+    }
+    else
+    {
+        // means user is trying to exit without entering from date and rates
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
@@ -521,5 +528,9 @@
 {
     [self.view endEditing:YES];
 }
+
+
+    
+
 
 @end
