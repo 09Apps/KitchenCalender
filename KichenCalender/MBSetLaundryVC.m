@@ -31,6 +31,9 @@
     
     self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"board_back.png"]];    
     
+    UIImage *image = [UIImage imageNamed: @"NavBar-Wood.png"];
+    [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics: UIBarMetricsDefault];
+
     self.navigationItem.title = @"Laundry Setup";
 
     // Uncomment the following line to preserve selection between presentations.

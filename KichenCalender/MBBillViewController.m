@@ -33,6 +33,10 @@
     
     self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"board_back.png"]];
     
+    UIImage *image = [UIImage imageNamed: @"NavBar-Wood.png"];
+    [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics: UIBarMetricsDefault];
+
+    
     [self.frmDte setDelegate:self];
     [self.toDte setDelegate:self];
 
