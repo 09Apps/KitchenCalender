@@ -33,6 +33,7 @@
     UIImage *image = [UIImage imageNamed: @"NavBar-Wood.png"];
     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics: UIBarMetricsDefault];
 
+    self.title = @"Paper n Mags";
     
     self.model = [[MBKCModel alloc] init];
     
@@ -103,7 +104,7 @@
         case 0:
             // Cell1 is re-usable cell for textfield based cells
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];
-            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 100, 20)];
+            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(160, 60, 120, 20)];
             self.txtField.delegate = self;
             
             if (isdaily == YES)
@@ -130,7 +131,7 @@
 
         case 1:
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];
-            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 100, 20)];
+            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(160, 60, 120, 20)];
             self.txtField.textAlignment = NSTextAlignmentRight;
             self.txtField.tag = sectionCount + [indexPath row];
             self.txtField.adjustsFontSizeToFitWidth = YES;
@@ -159,7 +160,7 @@
 
         case 2:
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];
-            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 100, 20)];
+            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(160, 60, 120, 20)];
             self.txtField.textAlignment = NSTextAlignmentRight;
             self.txtField.tag = sectionCount + [indexPath row];
 
@@ -187,7 +188,7 @@
             break;
 
         case 3:
-            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 100, 20)];
+            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(160, 60, 120, 20)];
             self.txtField.delegate = self;
             self.txtField.textAlignment = NSTextAlignmentRight;
             self.txtField.tag = sectionCount + [indexPath row];
@@ -232,13 +233,14 @@
             
         case 4:
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];
-            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 100, 20)];
+            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(160, 60, 120, 20)];
             self.txtField.delegate = self;
             
             self.txtField.placeholder = @"Rs per month";
             self.txtField.keyboardType = UIKeyboardTypeNumberPad;
             self.txtField.returnKeyType = UIReturnKeyNext;
             self.txtField.textAlignment = NSTextAlignmentRight;
+            self.txtField.adjustsFontSizeToFitWidth = YES;            
             self.txtField.tag = sectionCount + [indexPath row];
             
             self.txtField.text = [paperdict objectForKey:@"deliverycharge"];
@@ -252,7 +254,7 @@
         case 5:
         {
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell2"];
-            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 100, 20)];
+            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(160, 60, 120, 20)];
             [self.txtField setDelegate:self];
             self.txtField.placeholder = @"effective from date";
             self.txtField.textAlignment = NSTextAlignmentRight;
@@ -292,7 +294,7 @@
         case 6:
         {
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell2"];
-            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 100, 20)];
+            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(160, 60, 120, 20)];
             [self.txtField setDelegate:self];
             self.txtField.textAlignment = NSTextAlignmentRight;
             self.txtField.tag = sectionCount + [indexPath row];
