@@ -230,7 +230,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="q1o-Nn-63k">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="q1o-Nn-63k">
                                 <rect key="frame" x="0.0" y="46" width="320" height="46"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -300,17 +300,20 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="-------------------------------------------------" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d57-iz-fZJ">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="-----------------------------------------" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d57-iz-fZJ">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="-------------------------------------------------" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q98-ac-ZVb">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="------------------------------------------" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q98-ac-ZVb">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="277" id="5c3-kk-EEp"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="-------------------------------------------------" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n5V-Kw-rJI">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="-----------------------------------------" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n5V-Kw-rJI">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -338,27 +341,26 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="n5V-Kw-rJI" firstAttribute="top" secondItem="f50-ZX-ca1" secondAttribute="top" constant="67" id="0fe-bH-UVL"/>
-                            <constraint firstItem="xg4-tq-nr4" firstAttribute="centerX" secondItem="Q98-ac-ZVb" secondAttribute="centerX" type="default" id="2rq-VS-XWB"/>
-                            <constraint firstItem="d57-iz-fZJ" firstAttribute="leading" secondItem="f50-ZX-ca1" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="75k-ZP-Trs"/>
+                            <constraint firstItem="Q98-ac-ZVb" firstAttribute="centerX" secondItem="xg4-tq-nr4" secondAttribute="centerX" type="default" id="2gq-MJ-KS3"/>
+                            <constraint firstItem="d57-iz-fZJ" firstAttribute="leading" secondItem="n5V-Kw-rJI" secondAttribute="leading" type="default" id="7FX-XJ-dYK"/>
                             <constraint firstItem="dco-hS-9ul" firstAttribute="top" secondItem="f50-ZX-ca1" secondAttribute="top" constant="31" id="7H0-eh-cli"/>
-                            <constraint firstAttribute="trailing" secondItem="n5V-Kw-rJI" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="7aX-Pd-Zew"/>
+                            <constraint firstItem="d57-iz-fZJ" firstAttribute="trailing" secondItem="n5V-Kw-rJI" secondAttribute="trailing" type="default" id="8F9-LO-dTq"/>
                             <constraint firstItem="vDf-P4-u0v" firstAttribute="leading" secondItem="f50-ZX-ca1" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="8KG-Bk-mc1"/>
+                            <constraint firstItem="Q98-ac-ZVb" firstAttribute="trailing" secondItem="d57-iz-fZJ" secondAttribute="trailing" type="default" id="8vQ-Kb-XzH"/>
                             <constraint firstItem="vDf-P4-u0v" firstAttribute="top" secondItem="n5V-Kw-rJI" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="DH8-Et-vmN"/>
-                            <constraint firstItem="n5V-Kw-rJI" firstAttribute="leading" secondItem="f50-ZX-ca1" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="F19-Zj-uEx"/>
                             <constraint firstItem="lvz-aZ-XUq" firstAttribute="top" secondItem="f50-ZX-ca1" secondAttribute="top" constant="155" id="HGi-k4-Z1d"/>
                             <constraint firstItem="ob5-zl-ayq" firstAttribute="top" secondItem="f50-ZX-ca1" secondAttribute="top" constant="92" id="Lmd-le-trk"/>
-                            <constraint firstItem="Q98-ac-ZVb" firstAttribute="leading" secondItem="f50-ZX-ca1" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="N2U-H8-PqY"/>
+                            <constraint firstAttribute="bottom" secondItem="xg4-tq-nr4" secondAttribute="bottom" constant="136" id="LrR-Tq-11C"/>
                             <constraint firstItem="d57-iz-fZJ" firstAttribute="top" secondItem="vDf-P4-u0v" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="NKF-ys-aPz"/>
                             <constraint firstItem="ob5-zl-ayq" firstAttribute="leading" secondItem="43v-uh-2bm" secondAttribute="leading" type="default" id="Olp-yJ-uPv"/>
                             <constraint firstAttribute="trailing" secondItem="ob5-zl-ayq" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="VRX-dv-hiR"/>
-                            <constraint firstAttribute="trailing" secondItem="Q98-ac-ZVb" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="amh-8O-2LA"/>
-                            <constraint firstAttribute="trailing" secondItem="d57-iz-fZJ" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="gkb-i3-bRT"/>
+                            <constraint firstItem="n5V-Kw-rJI" firstAttribute="centerX" secondItem="dco-hS-9ul" secondAttribute="centerX" type="default" id="ZG7-D0-8Cg"/>
                             <constraint firstItem="43v-uh-2bm" firstAttribute="top" secondItem="f50-ZX-ca1" secondAttribute="top" constant="151" id="gmZ-GP-9H7"/>
+                            <constraint firstItem="Q98-ac-ZVb" firstAttribute="leading" secondItem="d57-iz-fZJ" secondAttribute="leading" type="default" id="kyk-Fc-gMt"/>
+                            <constraint firstItem="Q98-ac-ZVb" firstAttribute="centerX" secondItem="f50-ZX-ca1" secondAttribute="centerX" type="default" id="m7Z-lo-VUA"/>
                             <constraint firstItem="lvz-aZ-XUq" firstAttribute="leading" secondItem="f50-ZX-ca1" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="mGA-9k-sfG"/>
                             <constraint firstAttribute="trailing" secondItem="43v-uh-2bm" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="mmI-fD-bNs"/>
-                            <constraint firstAttribute="bottom" secondItem="xg4-tq-nr4" secondAttribute="bottom" constant="118" id="sFl-Qx-Rqp"/>
                             <constraint firstItem="Q98-ac-ZVb" firstAttribute="top" secondItem="f50-ZX-ca1" secondAttribute="top" constant="186" id="tD4-Nt-aLm"/>
-                            <constraint firstItem="n5V-Kw-rJI" firstAttribute="centerX" secondItem="dco-hS-9ul" secondAttribute="centerX" type="default" id="w0B-yb-MiZ"/>
                             <constraint firstItem="lvz-aZ-XUq" firstAttribute="trailing" secondItem="vDf-P4-u0v" secondAttribute="trailing" type="default" id="ybx-gL-olH"/>
                         </constraints>
                     </view>
@@ -419,6 +421,43 @@
         <image name="milk.png" width="130" height="132"/>
         <image name="newspaper_bw.jpg" width="128" height="96"/>
     </resources>
+    <classes>
+        <class className="MBBillViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MBBillViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="barSegmentChanged:" candidateClass="UISegmentedControl"/>
+                <relationship kind="action" name="getBillPressed:"/>
+                <relationship kind="outlet" name="frmDte" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="nsdatefrm" candidateClass="NSDate"/>
+                <relationship kind="outlet" name="nsdateto" candidateClass="NSDate"/>
+                <relationship kind="outlet" name="toDte" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="MBLaundryVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MBLaundryVC.h"/>
+        </class>
+        <class className="MBPaperViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MBPaperViewController.h"/>
+        </class>
+        <class className="MBShowBillVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MBShowBillVC.h"/>
+        </class>
+        <class className="MBViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MBViewController.h"/>
+        </class>
+        <class className="MilkViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MilkViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="stepperPressed:" candidateClass="UIStepper"/>
+            </relationships>
+        </class>
+        <class className="NSDate" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSDate.h"/>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

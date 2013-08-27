@@ -313,7 +313,6 @@
             {
                 self.txtField.text = @"Dec 31, 2100";
                 [[self.papers objectAtIndex:indexPath.section] setValue:self.txtField.text forKey:@"todate"];
-                self.ischangedflag = YES;
             }
             else
             {

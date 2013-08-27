@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		ED08ADE517C2323800F12AF0 /* MBSetLaundryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ED08ADE317C2323800F12AF0 /* MBSetLaundryVC.m */; };
 		ED08ADE617C2323800F12AF0 /* MBSetLaundryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED08ADE417C2323800F12AF0 /* MBSetLaundryVC.xib */; };
+		ED0F78D817CC82AA00258A21 /* default.png in Resources */ = {isa = PBXBuildFile; fileRef = ED0F78D717CC82AA00258A21 /* default.png */; };
+		ED0F78DA17CC82D900258A21 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED0F78D917CC82D900258A21 /* Default-568h@2x.png */; };
+		ED0F78DE17CC851D00258A21 /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = ED0F78DD17CC851D00258A21 /* info.png */; };
+		ED0F78E217CC85E900258A21 /* MBInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ED0F78E017CC85E900258A21 /* MBInfoVC.m */; };
+		ED0F78E317CC85E900258A21 /* MBInfoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED0F78E117CC85E900258A21 /* MBInfoVC.xib */; };
 		ED0F81B517BF8AB300B85174 /* MBLaundryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ED0F81B417BF8AB300B85174 /* MBLaundryVC.m */; };
 		ED0FA8E21792C5A0000D6249 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED0FA8E11792C5A0000D6249 /* UIKit.framework */; };
 		ED0FA8E41792C5A0000D6249 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED0FA8E31792C5A0000D6249 /* Foundation.framework */; };
@@ -19,7 +24,6 @@
 		ED0FA8FE1792C5A0000D6249 /* MBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED0FA8FD1792C5A0000D6249 /* MBViewController.m */; };
 		ED0FA90D1792D045000D6249 /* iron.png in Resources */ = {isa = PBXBuildFile; fileRef = ED0FA90C1792D045000D6249 /* iron.png */; };
 		ED0FA90F1792D0F7000D6249 /* milk.png in Resources */ = {isa = PBXBuildFile; fileRef = ED0FA90E1792D0F7000D6249 /* milk.png */; };
-		ED1EEF3F17C7680900F2EA62 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = ED1EEF3E17C7680900F2EA62 /* Default.png */; };
 		ED34F93E17CA6C520036AF49 /* NavBar-Wood.png in Resources */ = {isa = PBXBuildFile; fileRef = ED34F93C17CA6C520036AF49 /* NavBar-Wood.png */; };
 		ED34F93F17CA6C520036AF49 /* NavBar-Wood@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED34F93D17CA6C520036AF49 /* NavBar-Wood@2x.png */; };
 		ED3A913517C85C4500B27AD4 /* board_back.png in Resources */ = {isa = PBXBuildFile; fileRef = ED3A913417C85C4500B27AD4 /* board_back.png */; };
@@ -35,6 +39,7 @@
 		ED6CCBDB17B9473A0090D620 /* MBPaperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED6CCBDA17B9473A0090D620 /* MBPaperViewController.m */; };
 		ED758BFF17C2045E00627462 /* bGear.png in Resources */ = {isa = PBXBuildFile; fileRef = ED758BFE17C2045E00627462 /* bGear.png */; };
 		ED758C0517C2153F00627462 /* simple_gears.png in Resources */ = {isa = PBXBuildFile; fileRef = ED758C0417C2153F00627462 /* simple_gears.png */; };
+		ED89E7E017CB382F0018490A /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED89E7DF17CB382F0018490A /* iAd.framework */; };
 		ED93B2FE1793CBD3006CC526 /* newspaper_bw.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ED93B2FD1793CBD3006CC526 /* newspaper_bw.jpg */; };
 		ED93B3041793CF1F006CC526 /* bills.png in Resources */ = {isa = PBXBuildFile; fileRef = ED93B3031793CF1F006CC526 /* bills.png */; };
 		ED9C4F7B17AAD5EE002CE712 /* calculator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED9C4F7A17AAD5EE002CE712 /* calculator@2x.png */; };
@@ -43,13 +48,18 @@
 		EDC7D16B17B9F130003284A8 /* KCPaperPList.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDC7D16A17B9F130003284A8 /* KCPaperPList.plist */; };
 		EDED24F417C34CF200EBB707 /* MBAddLaundryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EDED24F217C34CF200EBB707 /* MBAddLaundryVC.m */; };
 		EDED24F517C34CF200EBB707 /* MBAddLaundryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDED24F317C34CF200EBB707 /* MBAddLaundryVC.xib */; };
-		EDFF52CD17CA54F70088C1CF /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDFF52CC17CA54F70088C1CF /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		ED08ADE217C2323800F12AF0 /* MBSetLaundryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSetLaundryVC.h; sourceTree = "<group>"; };
 		ED08ADE317C2323800F12AF0 /* MBSetLaundryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSetLaundryVC.m; sourceTree = "<group>"; };
 		ED08ADE417C2323800F12AF0 /* MBSetLaundryVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBSetLaundryVC.xib; sourceTree = "<group>"; };
+		ED0F78D717CC82AA00258A21 /* default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default.png; sourceTree = "<group>"; };
+		ED0F78D917CC82D900258A21 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		ED0F78DD17CC851D00258A21 /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
+		ED0F78DF17CC85E900258A21 /* MBInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBInfoVC.h; sourceTree = "<group>"; };
+		ED0F78E017CC85E900258A21 /* MBInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBInfoVC.m; sourceTree = "<group>"; };
+		ED0F78E117CC85E900258A21 /* MBInfoVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBInfoVC.xib; sourceTree = "<group>"; };
 		ED0F81B317BF8AB300B85174 /* MBLaundryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBLaundryVC.h; sourceTree = "<group>"; };
 		ED0F81B417BF8AB300B85174 /* MBLaundryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBLaundryVC.m; sourceTree = "<group>"; };
 		ED0FA8DE1792C5A0000D6249 /* KichenCalender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KichenCalender.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,7 +76,6 @@
 		ED0FA8FD1792C5A0000D6249 /* MBViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBViewController.m; sourceTree = "<group>"; };
 		ED0FA90C1792D045000D6249 /* iron.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iron.png; sourceTree = "<group>"; };
 		ED0FA90E1792D0F7000D6249 /* milk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = milk.png; sourceTree = "<group>"; };
-		ED1EEF3E17C7680900F2EA62 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		ED34F93C17CA6C520036AF49 /* NavBar-Wood.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "NavBar-Wood.png"; path = "../../images/NavBar-Textures/NavBar-Wood.png"; sourceTree = "<group>"; };
 		ED34F93D17CA6C520036AF49 /* NavBar-Wood@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "NavBar-Wood@2x.png"; path = "../../images/NavBar-Textures/NavBar-Wood@2x.png"; sourceTree = "<group>"; };
 		ED3A913417C85C4500B27AD4 /* board_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = board_back.png; path = ../../images/board_back.png; sourceTree = "<group>"; };
@@ -88,6 +97,7 @@
 		ED6CCBDA17B9473A0090D620 /* MBPaperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBPaperViewController.m; sourceTree = "<group>"; };
 		ED758BFE17C2045E00627462 /* bGear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bGear.png; sourceTree = "<group>"; };
 		ED758C0417C2153F00627462 /* simple_gears.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = simple_gears.png; sourceTree = "<group>"; };
+		ED89E7DF17CB382F0018490A /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		ED93B2FD1793CBD3006CC526 /* newspaper_bw.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = newspaper_bw.jpg; sourceTree = "<group>"; };
 		ED93B3031793CF1F006CC526 /* bills.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bills.png; sourceTree = "<group>"; };
 		ED9C4F7A17AAD5EE002CE712 /* calculator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calculator@2x.png"; sourceTree = "<group>"; };
@@ -98,7 +108,6 @@
 		EDED24F117C34CF200EBB707 /* MBAddLaundryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAddLaundryVC.h; sourceTree = "<group>"; };
 		EDED24F217C34CF200EBB707 /* MBAddLaundryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAddLaundryVC.m; sourceTree = "<group>"; };
 		EDED24F317C34CF200EBB707 /* MBAddLaundryVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBAddLaundryVC.xib; sourceTree = "<group>"; };
-		EDFF52CC17CA54F70088C1CF /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../../images/Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED89E7E017CB382F0018490A /* iAd.framework in Frameworks */,
 				ED0FA8E21792C5A0000D6249 /* UIKit.framework in Frameworks */,
 				ED0FA8E41792C5A0000D6249 /* Foundation.framework in Frameworks */,
 				ED0FA8E61792C5A0000D6249 /* CoreGraphics.framework in Frameworks */,
@@ -118,6 +128,7 @@
 		ED0FA8D51792C5A0000D6249 = {
 			isa = PBXGroup;
 			children = (
+				ED89E7DF17CB382F0018490A /* iAd.framework */,
 				ED0FA8E71792C5A0000D6249 /* KichenCalender */,
 				ED0FA8E01792C5A0000D6249 /* Frameworks */,
 				ED0FA8DF1792C5A0000D6249 /* Products */,
@@ -174,6 +185,9 @@
 				EDED24F117C34CF200EBB707 /* MBAddLaundryVC.h */,
 				EDED24F217C34CF200EBB707 /* MBAddLaundryVC.m */,
 				EDED24F317C34CF200EBB707 /* MBAddLaundryVC.xib */,
+				ED0F78DF17CC85E900258A21 /* MBInfoVC.h */,
+				ED0F78E017CC85E900258A21 /* MBInfoVC.m */,
+				ED0F78E117CC85E900258A21 /* MBInfoVC.xib */,
 				ED0FA8E81792C5A0000D6249 /* Supporting Files */,
 			);
 			path = KichenCalender;
@@ -182,11 +196,12 @@
 		ED0FA8E81792C5A0000D6249 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				ED0F78DD17CC851D00258A21 /* info.png */,
+				ED0F78D917CC82D900258A21 /* Default-568h@2x.png */,
 				ED34F93C17CA6C520036AF49 /* NavBar-Wood.png */,
 				ED34F93D17CA6C520036AF49 /* NavBar-Wood@2x.png */,
-				EDFF52CC17CA54F70088C1CF /* Default-568h@2x.png */,
+				ED0F78D717CC82AA00258A21 /* default.png */,
 				ED758C0417C2153F00627462 /* simple_gears.png */,
-				ED1EEF3E17C7680900F2EA62 /* Default.png */,
 				ED3A913417C85C4500B27AD4 /* board_back.png */,
 				ED758BFE17C2045E00627462 /* bGear.png */,
 				ED93B2FD1793CBD3006CC526 /* newspaper_bw.jpg */,
@@ -273,11 +288,13 @@
 				ED08ADE617C2323800F12AF0 /* MBSetLaundryVC.xib in Resources */,
 				EDED24F517C34CF200EBB707 /* MBAddLaundryVC.xib in Resources */,
 				EDBFD0D117C4C9DF00767FCA /* KCLaundryPList.plist in Resources */,
-				ED1EEF3F17C7680900F2EA62 /* Default.png in Resources */,
 				ED3A913517C85C4500B27AD4 /* board_back.png in Resources */,
-				EDFF52CD17CA54F70088C1CF /* Default-568h@2x.png in Resources */,
 				ED34F93E17CA6C520036AF49 /* NavBar-Wood.png in Resources */,
 				ED34F93F17CA6C520036AF49 /* NavBar-Wood@2x.png in Resources */,
+				ED0F78D817CC82AA00258A21 /* default.png in Resources */,
+				ED0F78DA17CC82D900258A21 /* Default-568h@2x.png in Resources */,
+				ED0F78DE17CC851D00258A21 /* info.png in Resources */,
+				ED0F78E317CC85E900258A21 /* MBInfoVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +318,7 @@
 				ED0F81B517BF8AB300B85174 /* MBLaundryVC.m in Sources */,
 				ED08ADE517C2323800F12AF0 /* MBSetLaundryVC.m in Sources */,
 				EDED24F417C34CF200EBB707 /* MBAddLaundryVC.m in Sources */,
+				ED0F78E217CC85E900258A21 /* MBInfoVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
