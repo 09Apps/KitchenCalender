@@ -305,9 +305,9 @@
                                 <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="------------------------------------------" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q98-ac-ZVb">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="-----------------------------------------" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KiM-lO-2l0">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="277" id="5c3-kk-EEp"/>
+                                    <constraint firstAttribute="width" constant="277" id="5zi-kZ-euY"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
@@ -341,26 +341,26 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="n5V-Kw-rJI" firstAttribute="top" secondItem="f50-ZX-ca1" secondAttribute="top" constant="67" id="0fe-bH-UVL"/>
-                            <constraint firstItem="Q98-ac-ZVb" firstAttribute="centerX" secondItem="xg4-tq-nr4" secondAttribute="centerX" type="default" id="2gq-MJ-KS3"/>
+                            <constraint firstItem="KiM-lO-2l0" firstAttribute="centerX" secondItem="f50-ZX-ca1" secondAttribute="centerX" type="default" id="1ht-8v-T01"/>
+                            <constraint firstItem="KiM-lO-2l0" firstAttribute="centerX" secondItem="xg4-tq-nr4" secondAttribute="centerX" type="default" id="6zb-pI-G4z"/>
                             <constraint firstItem="d57-iz-fZJ" firstAttribute="leading" secondItem="n5V-Kw-rJI" secondAttribute="leading" type="default" id="7FX-XJ-dYK"/>
                             <constraint firstItem="dco-hS-9ul" firstAttribute="top" secondItem="f50-ZX-ca1" secondAttribute="top" constant="31" id="7H0-eh-cli"/>
                             <constraint firstItem="d57-iz-fZJ" firstAttribute="trailing" secondItem="n5V-Kw-rJI" secondAttribute="trailing" type="default" id="8F9-LO-dTq"/>
                             <constraint firstItem="vDf-P4-u0v" firstAttribute="leading" secondItem="f50-ZX-ca1" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="8KG-Bk-mc1"/>
-                            <constraint firstItem="Q98-ac-ZVb" firstAttribute="trailing" secondItem="d57-iz-fZJ" secondAttribute="trailing" type="default" id="8vQ-Kb-XzH"/>
                             <constraint firstItem="vDf-P4-u0v" firstAttribute="top" secondItem="n5V-Kw-rJI" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="DH8-Et-vmN"/>
+                            <constraint firstItem="KiM-lO-2l0" firstAttribute="top" secondItem="f50-ZX-ca1" secondAttribute="top" constant="182" id="H6y-Ns-dqR"/>
+                            <constraint firstItem="KiM-lO-2l0" firstAttribute="leading" secondItem="d57-iz-fZJ" secondAttribute="leading" type="default" id="H86-sX-vlK"/>
                             <constraint firstItem="lvz-aZ-XUq" firstAttribute="top" secondItem="f50-ZX-ca1" secondAttribute="top" constant="155" id="HGi-k4-Z1d"/>
                             <constraint firstItem="ob5-zl-ayq" firstAttribute="top" secondItem="f50-ZX-ca1" secondAttribute="top" constant="92" id="Lmd-le-trk"/>
                             <constraint firstAttribute="bottom" secondItem="xg4-tq-nr4" secondAttribute="bottom" constant="136" id="LrR-Tq-11C"/>
+                            <constraint firstItem="KiM-lO-2l0" firstAttribute="trailing" secondItem="d57-iz-fZJ" secondAttribute="trailing" type="default" id="N5l-6V-jmG"/>
                             <constraint firstItem="d57-iz-fZJ" firstAttribute="top" secondItem="vDf-P4-u0v" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="NKF-ys-aPz"/>
                             <constraint firstItem="ob5-zl-ayq" firstAttribute="leading" secondItem="43v-uh-2bm" secondAttribute="leading" type="default" id="Olp-yJ-uPv"/>
                             <constraint firstAttribute="trailing" secondItem="ob5-zl-ayq" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="VRX-dv-hiR"/>
                             <constraint firstItem="n5V-Kw-rJI" firstAttribute="centerX" secondItem="dco-hS-9ul" secondAttribute="centerX" type="default" id="ZG7-D0-8Cg"/>
                             <constraint firstItem="43v-uh-2bm" firstAttribute="top" secondItem="f50-ZX-ca1" secondAttribute="top" constant="151" id="gmZ-GP-9H7"/>
-                            <constraint firstItem="Q98-ac-ZVb" firstAttribute="leading" secondItem="d57-iz-fZJ" secondAttribute="leading" type="default" id="kyk-Fc-gMt"/>
-                            <constraint firstItem="Q98-ac-ZVb" firstAttribute="centerX" secondItem="f50-ZX-ca1" secondAttribute="centerX" type="default" id="m7Z-lo-VUA"/>
                             <constraint firstItem="lvz-aZ-XUq" firstAttribute="leading" secondItem="f50-ZX-ca1" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="mGA-9k-sfG"/>
                             <constraint firstAttribute="trailing" secondItem="43v-uh-2bm" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="mmI-fD-bNs"/>
-                            <constraint firstItem="Q98-ac-ZVb" firstAttribute="top" secondItem="f50-ZX-ca1" secondAttribute="top" constant="186" id="tD4-Nt-aLm"/>
                             <constraint firstItem="lvz-aZ-XUq" firstAttribute="trailing" secondItem="vDf-P4-u0v" secondAttribute="trailing" type="default" id="ybx-gL-olH"/>
                         </constraints>
                     </view>
@@ -447,12 +447,6 @@
         </class>
         <class className="MilkViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MilkViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="stepperPressed:" candidateClass="UIStepper"/>
-            </relationships>
-        </class>
-        <class className="NSDate" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSDate.h"/>
         </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>

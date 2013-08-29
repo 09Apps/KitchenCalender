@@ -3,7 +3,7 @@
 //  KichenCalender
 //
 //  Created by Swapnil Takalkar on 8/20/13.
-//  Copyright (c) 2013 mobi. All rights reserved.
+//  Copyright (c) 2013 09Apps. All rights reserved.
 //
 
 #import "MBAddLaundryVC.h"

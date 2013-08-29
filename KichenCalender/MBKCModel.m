@@ -3,7 +3,7 @@
 //  KichenCalender
 //
 //  Created by Swapnil Takalkar on 7/18/13.
-//  Copyright (c) 2013 mobi. All rights reserved.
+//  Copyright (c) 2013 09Apps. All rights reserved.
 //
 
 #import "MBKCModel.h"

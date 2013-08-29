@@ -3,7 +3,7 @@
 //  KichenCalender
 //
 //  Created by Swapnil Takalkar on 7/14/13.
-//  Copyright (c) 2013 mobi. All rights reserved.
+//  Copyright (c) 2013 09Apps. All rights reserved.
 //
 
 #import "MBViewController.h"
@@ -25,10 +25,12 @@
     UIImage *image = [UIImage imageNamed: @"NavBar-Wood.png"];
     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics: UIBarMetricsDefault];
     
-    self.bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
-    self.bannerView.delegate = self;
-    self.bannerView.hidden = YES;
-    [self.view addSubview:self.bannerView];
+    _bannerView = [[ADBannerView alloc] initWithFrame:CGRectZero];
+    _bannerView.delegate = self;
+    _bannerView.hidden = YES;
+
+
+    [self.view addSubview:_bannerView];
     
     self.navigationController.navigationBar.tintColor = [UIColor brownColor];
     
@@ -47,7 +49,9 @@
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner
 {
-    CGRect bannerFrame = CGRectMake(0.0, (self.view.frame.size.height - 50), 0.0, 0.0);
+    NSLog(@"bannerViewDidLoadAd");
+//    CGRect bannerFrame = CGRectMake(0.0, (self.view.frame.size.height - 50), 0.0, 0.0);
+    CGRect bannerFrame = CGRectMake(0.0, (self.view.frame.size.height - 100), 0.0, 0.0);    
     [self.bannerView setFrame:bannerFrame];
     self.bannerView.hidden = NO;
 }
