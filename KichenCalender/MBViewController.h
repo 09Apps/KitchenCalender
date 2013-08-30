@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GADBannerView.h"
 
-@interface MBViewController : UIViewController
+
+@interface MBViewController : UIViewController <GADBannerViewDelegate>
+{
+    GADBannerView *bannerView_;
+}
 
 @end

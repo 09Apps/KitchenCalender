@@ -32,6 +32,21 @@
     UIBarButtonItem *helpButton = [[UIBarButtonItem alloc] initWithImage:confimg style:UIBarButtonItemStylePlain target:self action:@selector(gotoHelp)];
 
     self.navigationItem.rightBarButtonItem = helpButton;
+    
+
+    bannerView_ = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
+
+    bannerView_.adUnitID = @"a152204863d59fa";
+    bannerView_.rootViewController = self;
+    bannerView_.hidden = YES;
+    bannerView_.delegate = self;
+    [self.view addSubview:bannerView_];
+    
+    // Initiate a generic request to load it with an ad.
+    GADRequest *request = [GADRequest request];
+    request.testDevices = [NSArray arrayWithObjects:@"188DC48180E85703AAEE011991E21436", nil];
+    [bannerView_ loadRequest:request];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,6 +59,22 @@
 {
     MBInfoVC* infoVC = [[MBInfoVC alloc] init];
     [self.navigationController pushViewController:infoVC animated:YES];
+}
+
+- (void)adViewDidReceiveAd:(GADBannerView *)bannerView
+{
+    bannerView_.frame = CGRectMake(0.0,
+                                   self.view.frame.size.height -
+                                   bannerView_.frame.size.height,
+                                   bannerView_.frame.size.width,
+                                   bannerView_.frame.size.height);
+    bannerView_.hidden = NO;    
+}
+
+- (void)adView:(GADBannerView *)bannerView
+didFailToReceiveAdWithError:(GADRequestError *)error
+{
+    NSLog(@"didFailToReceiveAdWithError %@",error);
 }
 
 @end
