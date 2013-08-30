@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		ED08ADE517C2323800F12AF0 /* MBSetLaundryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ED08ADE317C2323800F12AF0 /* MBSetLaundryVC.m */; };
 		ED08ADE617C2323800F12AF0 /* MBSetLaundryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED08ADE417C2323800F12AF0 /* MBSetLaundryVC.xib */; };
-		ED0F78D817CC82AA00258A21 /* default.png in Resources */ = {isa = PBXBuildFile; fileRef = ED0F78D717CC82AA00258A21 /* default.png */; };
+		ED0F78D817CC82AA00258A21 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = ED0F78D717CC82AA00258A21 /* Default.png */; };
 		ED0F78DA17CC82D900258A21 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED0F78D917CC82D900258A21 /* Default-568h@2x.png */; };
 		ED0F78DE17CC851D00258A21 /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = ED0F78DD17CC851D00258A21 /* info.png */; };
 		ED0F78E217CC85E900258A21 /* MBInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ED0F78E017CC85E900258A21 /* MBInfoVC.m */; };
@@ -39,7 +39,6 @@
 		ED6CCBDB17B9473A0090D620 /* MBPaperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED6CCBDA17B9473A0090D620 /* MBPaperViewController.m */; };
 		ED758BFF17C2045E00627462 /* bGear.png in Resources */ = {isa = PBXBuildFile; fileRef = ED758BFE17C2045E00627462 /* bGear.png */; };
 		ED758C0517C2153F00627462 /* simple_gears.png in Resources */ = {isa = PBXBuildFile; fileRef = ED758C0417C2153F00627462 /* simple_gears.png */; };
-		ED89E7E017CB382F0018490A /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED89E7DF17CB382F0018490A /* iAd.framework */; };
 		ED93B2FE1793CBD3006CC526 /* newspaper_bw.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ED93B2FD1793CBD3006CC526 /* newspaper_bw.jpg */; };
 		ED93B3041793CF1F006CC526 /* bills.png in Resources */ = {isa = PBXBuildFile; fileRef = ED93B3031793CF1F006CC526 /* bills.png */; };
 		ED9C4F7B17AAD5EE002CE712 /* calculator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED9C4F7A17AAD5EE002CE712 /* calculator@2x.png */; };
@@ -48,13 +47,14 @@
 		EDC7D16B17B9F130003284A8 /* KCPaperPList.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDC7D16A17B9F130003284A8 /* KCPaperPList.plist */; };
 		EDED24F417C34CF200EBB707 /* MBAddLaundryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EDED24F217C34CF200EBB707 /* MBAddLaundryVC.m */; };
 		EDED24F517C34CF200EBB707 /* MBAddLaundryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDED24F317C34CF200EBB707 /* MBAddLaundryVC.xib */; };
+		EDF194E017CDD17600DFB787 /* default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDF194DF17CDD17600DFB787 /* default@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		ED08ADE217C2323800F12AF0 /* MBSetLaundryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSetLaundryVC.h; sourceTree = "<group>"; };
 		ED08ADE317C2323800F12AF0 /* MBSetLaundryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSetLaundryVC.m; sourceTree = "<group>"; };
 		ED08ADE417C2323800F12AF0 /* MBSetLaundryVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBSetLaundryVC.xib; sourceTree = "<group>"; };
-		ED0F78D717CC82AA00258A21 /* default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default.png; sourceTree = "<group>"; };
+		ED0F78D717CC82AA00258A21 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		ED0F78D917CC82D900258A21 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		ED0F78DD17CC851D00258A21 /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
 		ED0F78DF17CC85E900258A21 /* MBInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBInfoVC.h; sourceTree = "<group>"; };
@@ -108,6 +108,7 @@
 		EDED24F117C34CF200EBB707 /* MBAddLaundryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAddLaundryVC.h; sourceTree = "<group>"; };
 		EDED24F217C34CF200EBB707 /* MBAddLaundryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAddLaundryVC.m; sourceTree = "<group>"; };
 		EDED24F317C34CF200EBB707 /* MBAddLaundryVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBAddLaundryVC.xib; sourceTree = "<group>"; };
+		EDF194DF17CDD17600DFB787 /* default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,7 +116,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ED89E7E017CB382F0018490A /* iAd.framework in Frameworks */,
 				ED0FA8E21792C5A0000D6249 /* UIKit.framework in Frameworks */,
 				ED0FA8E41792C5A0000D6249 /* Foundation.framework in Frameworks */,
 				ED0FA8E61792C5A0000D6249 /* CoreGraphics.framework in Frameworks */,
@@ -200,10 +200,11 @@
 				ED0F78D917CC82D900258A21 /* Default-568h@2x.png */,
 				ED34F93C17CA6C520036AF49 /* NavBar-Wood.png */,
 				ED34F93D17CA6C520036AF49 /* NavBar-Wood@2x.png */,
-				ED0F78D717CC82AA00258A21 /* default.png */,
+				ED0F78D717CC82AA00258A21 /* Default.png */,
 				ED758C0417C2153F00627462 /* simple_gears.png */,
 				ED3A913417C85C4500B27AD4 /* board_back.png */,
 				ED758BFE17C2045E00627462 /* bGear.png */,
+				EDF194DF17CDD17600DFB787 /* default@2x.png */,
 				ED93B2FD1793CBD3006CC526 /* newspaper_bw.jpg */,
 				ED0FA90E1792D0F7000D6249 /* milk.png */,
 				ED0FA90C1792D045000D6249 /* iron.png */,
@@ -248,7 +249,7 @@
 			attributes = {
 				CLASSPREFIX = MB;
 				LastUpgradeCheck = 0460;
-				ORGANIZATIONNAME = mobi;
+				ORGANIZATIONNAME = 09Apps;
 			};
 			buildConfigurationList = ED0FA8D91792C5A0000D6249 /* Build configuration list for PBXProject "KichenCalender" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -291,10 +292,11 @@
 				ED3A913517C85C4500B27AD4 /* board_back.png in Resources */,
 				ED34F93E17CA6C520036AF49 /* NavBar-Wood.png in Resources */,
 				ED34F93F17CA6C520036AF49 /* NavBar-Wood@2x.png in Resources */,
-				ED0F78D817CC82AA00258A21 /* default.png in Resources */,
+				ED0F78D817CC82AA00258A21 /* Default.png in Resources */,
 				ED0F78DA17CC82D900258A21 /* Default-568h@2x.png in Resources */,
 				ED0F78DE17CC851D00258A21 /* info.png in Resources */,
 				ED0F78E317CC85E900258A21 /* MBInfoVC.xib in Resources */,
+				EDF194E017CDD17600DFB787 /* default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
