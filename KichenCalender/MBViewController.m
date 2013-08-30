@@ -25,13 +25,6 @@
     UIImage *image = [UIImage imageNamed: @"NavBar-Wood.png"];
     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics: UIBarMetricsDefault];
     
-    _bannerView = [[ADBannerView alloc] initWithFrame:CGRectZero];
-    _bannerView.delegate = self;
-    _bannerView.hidden = YES;
-
-
-    [self.view addSubview:_bannerView];
-    
     self.navigationController.navigationBar.tintColor = [UIColor brownColor];
     
     UIImage *confimg = [UIImage imageNamed:@"info.png"];
@@ -45,32 +38,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)bannerViewDidLoadAd:(ADBannerView *)banner
-{
-    NSLog(@"bannerViewDidLoadAd");
-//    CGRect bannerFrame = CGRectMake(0.0, (self.view.frame.size.height - 50), 0.0, 0.0);
-    CGRect bannerFrame = CGRectMake(0.0, (self.view.frame.size.height - 100), 0.0, 0.0);    
-    [self.bannerView setFrame:bannerFrame];
-    self.bannerView.hidden = NO;
-}
-
--(void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
-{
-    NSLog(@"Error receive ad: %@", error);
-    self.bannerView.hidden = YES;
-}
-
-- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner
-               willLeaveApplication:(BOOL)willLeave
-{
-    return YES;
-}
-
-- (void)bannerViewActionDidFinish:(ADBannerView *)banner
-{
-    
 }
 
 - (void)gotoHelp
