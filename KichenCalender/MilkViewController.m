@@ -235,6 +235,7 @@
             {
                 self.txtField.text = @"Dec 31, 2100";
                 [[self.milk objectAtIndex:indexPath.section] setValue:self.txtField.text forKey:@"toDate"];
+                [datePicker setDate:[NSDate date]];
                 //self.ischangedflag = YES;
             }
             else
@@ -304,6 +305,14 @@
         case 3:
             [[self.milk objectAtIndex:arrind] setValue:textField.text forKey:@"deliveryCharge"];
             self.ischangedflag = YES;            
+            break;
+
+        case 4:
+            [self.tableView reloadData];
+            break;
+
+        case 5:
+            [self.tableView reloadData];
             break;
             
         default:
@@ -437,7 +446,7 @@
         }
     }
     
-    [self.tableView reloadData];
+//    [self.tableView reloadData];
    
 }
 

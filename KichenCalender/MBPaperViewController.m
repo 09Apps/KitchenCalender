@@ -131,7 +131,7 @@
 
         case 1:
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];
-            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(160, 60, 120, 20)];
+            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(170, 60, 110, 20)];
             self.txtField.textAlignment = NSTextAlignmentRight;
             self.txtField.tag = sectionCount + [indexPath row];
             self.txtField.adjustsFontSizeToFitWidth = YES;
@@ -313,13 +313,13 @@
             {
                 self.txtField.text = @"Dec 31, 2100";
                 [[self.papers objectAtIndex:indexPath.section] setValue:self.txtField.text forKey:@"todate"];
+                [datePicker setDate:[NSDate date]];
             }
             else
             {
                 [datePicker setDate:date];
             }
 
-            
             [datePicker setTag:self.txtField.tag];
             [datePicker addTarget:self action:@selector(updateDateField:) forControlEvents:UIControlEventValueChanged];
             [self.txtField setInputView:datePicker];
@@ -435,7 +435,15 @@
             [[self.papers objectAtIndex:arrind] setValue:textField.text forKey:@"deliverycharge"];
             self.ischangedflag = YES;            
             break;
-            
+
+        case 5:
+            [self.tableView reloadData];
+            break;
+
+        case 6:
+            [self.tableView reloadData];
+            break;
+
         default:
             break;
     }
@@ -499,8 +507,6 @@
             self.ischangedflag = YES;            
         }
     }
-    
-    [self.tableView reloadData];    
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

@@ -118,8 +118,8 @@
         else
         {
             // Laundry has 7 rows
-            // count of press, wash, dryclean, bleach, laundry cost, delivery charge & clothes not returned
-            return 7;
+            // count of press, wash, dryclean, bleach, saree, laundry cost, delivery charge & clothes not returned
+            return 8;
         }
 
     }
@@ -172,7 +172,7 @@
         NSUInteger arrct = indexPath.section - 1;
         NSDictionary* dict = [self.element objectAtIndex:arrct];
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];
-        UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(235, 13, 60, 20)];
+        UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(232, 13, 70, 20)];
         label.backgroundColor = [UIColor clearColor];
         
         if (self.billtype == 2)
@@ -209,7 +209,7 @@
         }
         else
         {
-            // Laundry has 7 rows
+            // Laundry has 8 rows
             
             switch (indexPath.row)
             {
@@ -232,18 +232,23 @@
                     cell.textLabel.text = @"Bleached clothes             : ";
                     label.text = [dict objectForKey:@"bleachcount"];
                     break;
-                    
+
                 case 4:
+                    cell.textLabel.text = @"Sarees                               : ";
+                    label.text = [dict objectForKey:@"sareecount"];
+                    break;
+                    
+                case 5:
                     cell.textLabel.text = @"Laundry Bill                      : ";
                     label.text = [dict objectForKey:@"laundrybill"];
                     break;
                     
-                case 5:
+                case 6:
                     cell.textLabel.text = @"Delivery charge                : ";
                     label.text = [dict objectForKey:@"deliveryCharge"];
                     break;
 
-                case 6:
+                case 7:
                     cell.textLabel.text = @"Clothes Not Returned     : ";
                     label.text = [dict objectForKey:@"notreturncount"];
                     label.textColor = [UIColor redColor];

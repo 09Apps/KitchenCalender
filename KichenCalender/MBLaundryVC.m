@@ -8,7 +8,7 @@
 
 #import "MBLaundryVC.h"
 #import "MBSetLaundryVC.h"
-#import "MBAddLaundryVC.h"
+#import "MBAddLaundryDVC.h"
 
 
 @interface MBLaundryVC ()
@@ -78,10 +78,9 @@
     }
     else
     {
-        MBAddLaundryVC *addlaundry = [[MBAddLaundryVC alloc] init];
-        addlaundry.delegate = self;
-        [addlaundry setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-        [self presentViewController:addlaundry animated:YES completion:nil];
+        MBAddLaundryDVC *addlaundryc = [[MBAddLaundryDVC alloc] init];
+        addlaundryc.delegate = self;
+        [self.navigationController pushViewController:addlaundryc animated:YES];
     }
 }
 
@@ -167,7 +166,13 @@
             subtitle = [subtitle stringByAppendingString:[dict objectForKey:@"bleach"]];
         }
 
-        [cell.detailTextLabel setNumberOfLines:2]; 
+        if ([[dict objectForKey:@"saree"] integerValue] != 0)
+        {
+            subtitle = [subtitle stringByAppendingString:@" Saree:"];
+            subtitle = [subtitle stringByAppendingString:[dict objectForKey:@"saree"]];
+        }
+        
+        [cell.detailTextLabel setNumberOfLines:2];
         [cell.detailTextLabel setText:subtitle];
         
         NSArray *itemArray = [NSArray arrayWithObjects: @"No", @"Yes", nil];
@@ -218,7 +223,7 @@
     }
 }
 
-- (void)addLaundry:(MBAddLaundryVC *)controller didFinishAddingException:(NSDictionary *)item
+- (void)addLaundry:(MBAddLaundryDVC *)controller didFinishAddingException:(NSDictionary *)item
 {
     [self.countarr addObject:item];
     

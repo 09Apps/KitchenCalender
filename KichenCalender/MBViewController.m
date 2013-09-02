@@ -36,7 +36,7 @@
 
     bannerView_ = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
 
-    bannerView_.adUnitID = @"a152204863d59fa";
+    bannerView_.adUnitID = @"9485df067fc5469e";
     bannerView_.rootViewController = self;
     bannerView_.hidden = YES;
     bannerView_.delegate = self;
@@ -44,7 +44,7 @@
     
     // Initiate a generic request to load it with an ad.
     GADRequest *request = [GADRequest request];
-    request.testDevices = [NSArray arrayWithObjects:@"188DC48180E85703AAEE011991E21436", nil];
+    request.testDevices = [NSArray arrayWithObjects:@"188DC48180E85703AAEE011991E21436", @"946efa89ffd0e71731193b8aba42422c", GAD_SIMULATOR_ID, nil];
     [bannerView_ loadRequest:request];
 
 }

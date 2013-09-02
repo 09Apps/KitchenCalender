@@ -151,7 +151,12 @@
                 NSString* defrmdt = [mlkobj objectForKey:@"fromDate"];
                 NSDate* dfrdt = [dformat dateFromString:defrmdt];
 
-                NSString* dftostr = [mlkobj objectForKey:@"toDate"]; 
+                NSString* dftostr = [mlkobj objectForKey:@"toDate"];
+                
+                if (dftostr == nil) {
+                    dftostr = @"Dec 31, 2100";
+                }
+                
                 NSDate* dftodt = [dformat dateFromString:dftostr];
             
                 if ([frmdt compare:dftodt] == NSOrderedDescending  ||
@@ -191,7 +196,7 @@
                     defaultdays = [MBKCModel getNumberOfDaysFrom:dfeffectivefrmdt Till:dfeffectivetodt];
                     
                     // find number of months, used to calculate delivery charge
-                    NSUInteger monthsct = (defaultdays/31);
+                    NSUInteger monthsct = (defaultdays/32);
                     monthsct++;
                     
                     NSString* dstr = [mlkobj objectForKey:@"deliveryCharge"];
@@ -446,6 +451,7 @@
     NSUInteger totwashct = 0;
     NSUInteger totdrycleanct = 0;
     NSUInteger totbleachct = 0;
+    NSUInteger totsareect = 0;
     NSUInteger totdelch = 0;
     NSUInteger notretct = 0;
     
@@ -455,11 +461,17 @@
         NSUInteger washct = 0;
         NSUInteger drycleanct = 0;
         NSUInteger bleachct = 0;
+        NSUInteger sareect = 0;
         
         NSString* defrmdt = [ratedict objectForKey:@"fromDate"];
         NSDate* dfrdt = [dformat dateFromString:defrmdt];
 
         NSString* dftostr = [ratedict objectForKey:@"toDate"];
+        
+        if (dftostr == nil) {
+            dftostr = @"Dec 31, 2100";
+        }
+        
         NSDate* dftodt = [dformat dateFromString:dftostr];
         
         if ([frmdt compare:dftodt] == NSOrderedDescending  ||
@@ -497,7 +509,7 @@
             }
             
             // find number of months, used to calculate delivery charge
-            NSUInteger monthsct = ([MBKCModel getNumberOfDaysFrom:dfeffectivefrmdt Till:dfeffectivetodt]/31);
+            NSUInteger monthsct = ([MBKCModel getNumberOfDaysFrom:dfeffectivefrmdt Till:dfeffectivetodt]/32);
             monthsct++;
             
             // Now get the laundry counts during this period
@@ -518,6 +530,7 @@
                     washct = washct + [[ctdict objectForKey:@"wash"] integerValue];
                     drycleanct = drycleanct + [[ctdict objectForKey:@"dryclean"] integerValue];
                     bleachct = bleachct + [[ctdict objectForKey:@"bleach"] integerValue];
+                    sareect = sareect + [[ctdict objectForKey:@"saree"] integerValue];
                     
                     if ( [[ctdict objectForKey:@"returned"] integerValue] == 0)
                     {
@@ -549,6 +562,12 @@
                 double bleachrt = [[ratedict objectForKey:@"bleach"] doubleValue];
                 laundrybill = laundrybill + (bleachct * bleachrt);          
             }
+
+            if (sareect > 0)
+            {
+                double sareert = [[ratedict objectForKey:@"saree"] doubleValue];
+                laundrybill = laundrybill + (sareect * sareert);
+            }
             
             NSUInteger delcharge = [[ratedict objectForKey:@"deliveryCharge"] integerValue] * monthsct;
             totdelch = totdelch + delcharge;
@@ -558,6 +577,7 @@
         totwashct = totwashct + washct;
         totdrycleanct = totdrycleanct + drycleanct;
         totbleachct = totbleachct + bleachct;
+        totsareect = totsareect + sareect;
     }
 
     double totalbill = laundrybill + totdelch;
@@ -568,6 +588,7 @@
     [returndict setValue:[NSString stringWithFormat:@"%d",totwashct] forKey:@"washcount"];
     [returndict setValue:[NSString stringWithFormat:@"%d",totdrycleanct] forKey:@"drycleancount"];
     [returndict setValue:[NSString stringWithFormat:@"%d",totbleachct] forKey:@"bleachcount"];
+    [returndict setValue:[NSString stringWithFormat:@"%d",totsareect] forKey:@"sareecount"];
     [returndict setValue:[NSString stringWithFormat:@"%d",notretct] forKey:@"notreturncount"];
     [returndict setValue:[NSString stringWithFormat:@"%.2f",laundrybill] forKey:@"laundrybill"];
     [returndict setValue:[NSString stringWithFormat:@"%.2f",totalbill] forKey:@"totalbill"];
@@ -591,23 +612,24 @@
     
     NSDateComponents *weekdayComponents = [gregorian components:NSWeekdayCalendarUnit fromDate:fromDt];
     
-    NSUInteger frmday = [weekdayComponents weekday];
+    NSUInteger frmday = [weekdayComponents weekday]; 
     
-    NSUInteger wk = interval/7;
+    NSUInteger wk = interval/7; 
     
-    NSUInteger xtradays = interval - (wk*7);
+    NSUInteger xtradays = interval - (wk*7); 
     
-    NSInteger diffdays = gregday - frmday;
-    
+    NSInteger diffdays = gregday - frmday;  
+       
     if (diffdays < 0)
     {
         diffdays = diffdays + 7;
     }
     
-    if (xtradays >= diffdays)
+    if (xtradays > diffdays)
     {
         wk++;
     }
+
     return wk;
 }
 
@@ -645,6 +667,11 @@
         NSDate* dfrdt = [dformat dateFromString:defrmdt];
                     
         NSString* dftostr = [dict objectForKey:@"todate"];
+        
+        if (dftostr == nil) {
+            dftostr = @"Dec 31, 2100";
+        }
+        
         NSDate* dftodt = [dformat dateFromString:dftostr];
         
         NSString* freqstr = [dict objectForKey:@"frequency"];
@@ -696,7 +723,7 @@
             defaultdays = [MBKCModel getNumberOfDaysFrom:dfeffectivefrmdt Till:dfeffectivetodt];
             
             // find number of months, used to calculate delivery charge
-            NSUInteger monthsct = (defaultdays/31);
+            NSUInteger monthsct = (defaultdays/32);
             monthsct++;
             
             devbill = [[dict objectForKey:@"deliverycharge"] integerValue] * monthsct;
@@ -718,7 +745,7 @@
                 dayind = [[dict objectForKey:@"sundayprice"] integerValue];
                 wkdays = [MBKCModel getNumberOf:dayind From:dfeffectivefrmdt Till:dfeffectivetodt];
             }
-
+            
             // Now get the exceptions data
             NSArray* exceptions = [dict objectForKey:@"exceptions"];
                         
@@ -771,7 +798,7 @@
                         // find saturdays
                         NSUInteger effsaturdays = [MBKCModel getNumberOf:7 From:effectivefrmdt Till:effectivetodt];
                         
-                        // find SUndays
+                        // find SUndays                     
                         NSUInteger effsundays = [MBKCModel getNumberOf:1 From:effectivefrmdt Till:effectivetodt];
                         
                         // Rest are weekdays
@@ -790,8 +817,7 @@
                     }
                 }
             }
-        }
-        
+        }    
         if (isdaily == YES)
         {
             double sunprice = [[dict objectForKey:@"sundayprice"] doubleValue];

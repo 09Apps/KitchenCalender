@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "MBKCModel.h"
-#import "MBAddLaundryVC.h"
+#import "MBAddLaundryDVC.h"
 
-@interface MBLaundryVC : UITableViewController <MBAddLaundryVCDelegate>
+@interface MBLaundryVC : UITableViewController <MBAddLaundryDVCDelegate>
 
 @property(nonatomic,retain) MBKCModel* model;
 //@property NSInteger sect;

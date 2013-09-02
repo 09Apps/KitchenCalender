@@ -140,7 +140,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 7;
+    return 8;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -265,8 +265,37 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             break;
         }
+
             
         case 4:
+        {
+            // Cell1 is re-usable cell for textfield based cells
+            static NSString *CellIdentifier = @"Cell1";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil)
+            {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+            }
+            
+            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 90, 20)];
+            self.txtField.delegate = self;
+            
+            self.txtField.placeholder = @"Rs. per saree";
+            self.txtField.keyboardType = UIKeyboardTypeDecimalPad;
+            self.txtField.returnKeyType = UIReturnKeyNext;
+            self.txtField.textAlignment = NSTextAlignmentRight;
+            self.txtField.tag = sectionCount + [indexPath row];
+            self.txtField.adjustsFontSizeToFitWidth = YES;
+            
+            self.txtField.text = [ratedict objectForKey:@"saree"];
+            
+            cell.textLabel.text = @"Saree                   : ";
+            [cell setAccessoryView:self.txtField];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            break;
+        }
+            
+        case 5:
         {
             // Cell1 is re-usable cell for textfield based cells
             static NSString *CellIdentifier = @"Cell1";
@@ -294,7 +323,7 @@
             break;
         }
             
-        case 5:
+        case 6:
         {
             // Cell1 is re-usable cell for textfield based cells
             static NSString *CellIdentifier = @"Cell2";
@@ -341,7 +370,7 @@
             break;
         }
             
-        case 6:
+        case 7:
         {
             // Cell1 is re-usable cell for textfield based cells
             static NSString *CellIdentifier = @"Cell2";
@@ -441,8 +470,21 @@
             break;
             
         case 4:
+            [[self.rates objectAtIndex:arrind] setValue:textField.text forKey:@"saree"];
+            self.ischangedflag = YES;
+            break;
+            
+        case 5:
             [[self.rates objectAtIndex:arrind] setValue:textField.text forKey:@"deliveryCharge"];
             self.ischangedflag = YES;
+            break;
+
+        case 6:
+            [self.tableView reloadData];
+            break;
+
+        case 7:
+            [self.tableView reloadData];
             break;
             
         default:
@@ -484,8 +526,6 @@
             self.ischangedflag = YES;
         } 
     }
- 
-    [self.tableView reloadData];
 }
 
 /*
