@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #define MILKCAT 3001
+#define PAPERCAT 4001
 
 @class MBAddExcepVC;
 

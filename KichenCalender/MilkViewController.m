@@ -240,7 +240,14 @@
             }
             else
             {
-                [datePicker setDate:date];
+                if ([self.txtField.text compare:@"Dec 31, 2100"] == NSOrderedSame)
+                {
+                    [datePicker setDate:[NSDate date]];
+                }
+                else
+                {
+                    [datePicker setDate:date];
+                }
             }            
             
             [datePicker setTag:self.txtField.tag];

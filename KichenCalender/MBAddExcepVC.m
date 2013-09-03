@@ -33,10 +33,20 @@
     
     self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"board_back.png"]];
     
-    [self.stepper setStepValue:0.25];
+    if (self.category == MILKCAT)
+    {
+        [self.stepper setStepValue:0.25];
+        [self.qtylbl setText:@"0.00"];
+    }
+    else
+    {
+        self.stepper.hidden = YES;
+        [self.qtylbl setText:@"None"];
+    }
+    
     [self.frmTxt setTag:FRMTXTTAG];
     [self.toTxt setTag:TOTXTTAG];
-    [self.qtylbl setText:@"0.00"];
+    
     
     UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped)] ;
     [self.view addGestureRecognizer:tap];
