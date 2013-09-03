@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBGADMasterVC.h"
 
 @class MBAddLaundryDVC;
 
@@ -20,6 +21,8 @@
 @property (nonatomic,strong) NSMutableDictionary* ctdict;
 
 @property (nonatomic, weak) id <MBAddLaundryDVCDelegate> delegate;
+@property (weak, nonatomic) MBGADMasterVC* shared;
+
 @property BOOL isaddedflag;
 @property BOOL isDateAddedFlag;
 

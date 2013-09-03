@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GADBannerView.h"
+#import "MBGADMasterVC.h"
+//#import "GADBannerView.h"
 
 @interface MBViewController : UIViewController <GADBannerViewDelegate>
 {
-    GADBannerView *bannerView_;
+//    GADBannerView *bannerView_;
 }
+
+@property (weak, nonatomic) MBGADMasterVC* shared;
 
 @end

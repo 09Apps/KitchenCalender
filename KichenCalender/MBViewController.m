@@ -33,7 +33,7 @@
 
     self.navigationItem.rightBarButtonItem = helpButton;
     
-
+/*  SPT use for mediation
     bannerView_ = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
 
     bannerView_.adUnitID = @"9485df067fc5469e";
@@ -46,7 +46,13 @@
     GADRequest *request = [GADRequest request];
     request.testDevices = [NSArray arrayWithObjects:@"188DC48180E85703AAEE011991E21436", @"946efa89ffd0e71731193b8aba42422c", GAD_SIMULATOR_ID, nil];
     [bannerView_ loadRequest:request];
+*/
+}
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.shared = [MBGADMasterVC singleton];
+    [self.shared resetAdView:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -61,6 +67,7 @@
     [self.navigationController pushViewController:infoVC animated:YES];
 }
 
+/*  SPT use for mediation
 - (void)adViewDidReceiveAd:(GADBannerView *)bannerView
 {
     bannerView_.frame = CGRectMake(0.0,
@@ -71,10 +78,12 @@
     bannerView_.hidden = NO;    
 }
 
+
 - (void)adView:(GADBannerView *)bannerView
 didFailToReceiveAdWithError:(GADRequestError *)error
 {
     NSLog(@"didFailToReceiveAdWithError %@",error);
 }
+*/
 
 @end

@@ -45,6 +45,12 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.shared = [MBGADMasterVC singleton];
+    [self.shared resetAdView:self];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -133,13 +139,15 @@
     MBAddExcepVC* addExceptionVC = [[MBAddExcepVC alloc]init];
     addExceptionVC.category = self.category;
     addExceptionVC.delegate = self;
-    [addExceptionVC setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-    [self presentViewController:addExceptionVC animated:YES completion:nil];
+    
+    [self.navigationController pushViewController:addExceptionVC animated:YES];
+    
+//    [addExceptionVC setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+//    [self presentViewController:addExceptionVC animated:YES completion:nil];
 }
 
 - (void)addExceptionVC:(MBAddExcepVC *)controller didFinishAddingException:(NSDictionary *)item
 {
-
     [self.exceptions addObject:item];
     [self.tableView reloadData];
 }

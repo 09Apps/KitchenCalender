@@ -47,11 +47,25 @@
     [self.frmTxt setTag:FRMTXTTAG];
     [self.toTxt setTag:TOTXTTAG];
     
-    
     UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped)] ;
     [self.view addGestureRecognizer:tap];
     
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(AddException)];
+    
+    self.navigationItem.leftBarButtonItem = addButton;
+
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cencelAdd)];
+    self.navigationItem.rightBarButtonItem = cancelButton;
+    
 }
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.shared = [MBGADMasterVC singleton];
+    [self.shared resetAdView:self];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -118,12 +132,12 @@
     }
 }
 
-- (IBAction)cencelAdd:(UIButton *)sender
+- (void)cencelAdd
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)AddException:(UIButton *)sender
+- (void)AddException
 {
     NSDateFormatter* dateformat = [[NSDateFormatter alloc] init];
     [dateformat setDateFormat:@"MMM dd, yyyy"];
@@ -146,7 +160,7 @@
                               nil];
         
         [self.delegate addExceptionVC:self didFinishAddingException:dict];
-        [self dismissViewControllerAnimated:YES completion:nil];        
+        [self.navigationController popViewControllerAnimated:YES];       
     }
 }
 

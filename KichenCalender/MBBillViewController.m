@@ -49,6 +49,12 @@
     self.segment = 0; // By default milk is selected on segment bar
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.shared = [MBGADMasterVC singleton];
+    [self.shared resetAdView:self];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

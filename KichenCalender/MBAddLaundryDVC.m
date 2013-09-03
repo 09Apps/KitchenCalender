@@ -62,6 +62,13 @@
     [self.segcontrol setTintColor:[UIColor redColor]];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.shared = [MBGADMasterVC singleton];
+    [self.shared resetAdView:self];
+}
+
 - (void)tapped
 {
     [self.view endEditing:YES];

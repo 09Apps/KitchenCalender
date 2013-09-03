@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "MBAddExcepVC.h"
+#import "MBGADMasterVC.h"
 
 @interface MBExceptionVC : UITableViewController <MBAddExcepVCDelegate>
 
 @property (strong,nonatomic) NSMutableArray* exceptions;
 @property NSUInteger category;
+@property (weak, nonatomic) MBGADMasterVC* shared;
 
 - (id)initWithException:(NSArray*) exceptions;
 
