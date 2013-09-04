@@ -197,7 +197,10 @@
                     
                     // find number of months, used to calculate delivery charge
                     NSUInteger monthsct = (defaultdays/32);
-                    monthsct++;
+                    
+                    if (monthsct == 0 && defaultdays > 15) {
+                        monthsct++;
+                    }
                     
                     NSString* dstr = [mlkobj objectForKey:@"deliveryCharge"];
                     
@@ -216,8 +219,8 @@
                         frstr = [exobj objectForKey:@"toDate"];
                         NSDate* extodt = [dformat dateFromString:frstr];
                 
-                        if ([frmdt compare:extodt] == NSOrderedDescending  ||
-                            [exfrdt compare:todt] == NSOrderedDescending )
+                        if ([dfeffectivefrmdt compare:extodt] == NSOrderedDescending  ||
+                            [exfrdt compare:dfeffectivetodt] == NSOrderedDescending )
                         {
                             // Exception from date is later than Todate of bill date OR
                             // Exception to date is before bill from date
@@ -228,7 +231,7 @@
                             NSDate* effectivefrmdt;
                             NSDate* effectivetodt;
                     
-                            if ([exfrdt compare:frmdt] == NSOrderedDescending)
+                            if ([exfrdt compare:dfeffectivefrmdt] == NSOrderedDescending)
                             {
                                 // Means exception from date is later than bill from date
                                 // so make it effective start date
@@ -238,12 +241,12 @@
                             {
                                 // Bill from date is later than exception start date
                                 // so make it effective start date
-                                effectivefrmdt = frmdt;
+                                effectivefrmdt = dfeffectivefrmdt;
                             }
            
-                            if ([extodt compare:todt] == NSOrderedDescending)
+                            if ([extodt compare:dfeffectivetodt] == NSOrderedDescending)
                             {
-                                effectivetodt = todt;
+                                effectivetodt = dfeffectivetodt;
                             }
                             else
                             {
@@ -452,6 +455,7 @@
     NSUInteger totdrycleanct = 0;
     NSUInteger totbleachct = 0;
     NSUInteger totsareect = 0;
+    NSUInteger totstarchct = 0;
     NSUInteger totdelch = 0;
     NSUInteger notretct = 0;
     
@@ -462,6 +466,7 @@
         NSUInteger drycleanct = 0;
         NSUInteger bleachct = 0;
         NSUInteger sareect = 0;
+        NSUInteger starchct = 0;
         
         NSString* defrmdt = [ratedict objectForKey:@"fromDate"];
         NSDate* dfrdt = [dformat dateFromString:defrmdt];
@@ -509,8 +514,12 @@
             }
             
             // find number of months, used to calculate delivery charge
-            NSUInteger monthsct = ([MBKCModel getNumberOfDaysFrom:dfeffectivefrmdt Till:dfeffectivetodt]/32);
-            monthsct++;
+            NSUInteger defaultdays = [MBKCModel getNumberOfDaysFrom:dfeffectivefrmdt Till:dfeffectivetodt];
+            NSUInteger monthsct = (defaultdays/32);
+
+            if (monthsct == 0 && defaultdays > 15) {
+                monthsct++;
+            }
             
             // Now get the laundry counts during this period
             NSArray *countarr = [ldict objectForKey:@"counts"];
@@ -531,6 +540,7 @@
                     drycleanct = drycleanct + [[ctdict objectForKey:@"dryclean"] integerValue];
                     bleachct = bleachct + [[ctdict objectForKey:@"bleach"] integerValue];
                     sareect = sareect + [[ctdict objectForKey:@"saree"] integerValue];
+                    starchct = starchct + [[ctdict objectForKey:@"starch"] integerValue];
                     
                     if ( [[ctdict objectForKey:@"returned"] integerValue] == 0)
                     {
@@ -568,6 +578,12 @@
                 double sareert = [[ratedict objectForKey:@"saree"] doubleValue];
                 laundrybill = laundrybill + (sareect * sareert);
             }
+
+            if (starchct > 0)
+            {
+                double starchrt = [[ratedict objectForKey:@"starch"] doubleValue];
+                laundrybill = laundrybill + (starchct * starchrt);
+            }
             
             NSUInteger delcharge = [[ratedict objectForKey:@"deliveryCharge"] integerValue] * monthsct;
             totdelch = totdelch + delcharge;
@@ -578,6 +594,7 @@
         totdrycleanct = totdrycleanct + drycleanct;
         totbleachct = totbleachct + bleachct;
         totsareect = totsareect + sareect;
+        totstarchct = totstarchct + starchct;
     }
 
     double totalbill = laundrybill + totdelch;
@@ -589,6 +606,7 @@
     [returndict setValue:[NSString stringWithFormat:@"%d",totdrycleanct] forKey:@"drycleancount"];
     [returndict setValue:[NSString stringWithFormat:@"%d",totbleachct] forKey:@"bleachcount"];
     [returndict setValue:[NSString stringWithFormat:@"%d",totsareect] forKey:@"sareecount"];
+    [returndict setValue:[NSString stringWithFormat:@"%d",totstarchct] forKey:@"starchcount"];
     [returndict setValue:[NSString stringWithFormat:@"%d",notretct] forKey:@"notreturncount"];
     [returndict setValue:[NSString stringWithFormat:@"%.2f",laundrybill] forKey:@"laundrybill"];
     [returndict setValue:[NSString stringWithFormat:@"%.2f",totalbill] forKey:@"totalbill"];
@@ -724,7 +742,10 @@
             
             // find number of months, used to calculate delivery charge
             NSUInteger monthsct = (defaultdays/32);
-            monthsct++;
+
+            if (monthsct == 0 && defaultdays > 15) {
+                monthsct++;
+            }
             
             devbill = [[dict objectForKey:@"deliverycharge"] integerValue] * monthsct;
             [returndict1 setValue:[NSString stringWithFormat:@"%d",devbill] forKey:@"deliveryCharge"];
@@ -757,8 +778,8 @@
                 frstr = [exobj objectForKey:@"toDate"];
                 NSDate* extodt = [dformat dateFromString:frstr];
                             
-                if ([frmdt compare:extodt] == NSOrderedDescending  ||
-                    [exfrdt compare:todt] == NSOrderedDescending )
+                if ([dfeffectivefrmdt compare:extodt] == NSOrderedDescending  ||
+                    [exfrdt compare:dfeffectivetodt] == NSOrderedDescending )
                 {
                     // Exception from date is later than Todate of bill date OR
                     // Exception to date is before bill from date
@@ -769,7 +790,7 @@
                     NSDate* effectivefrmdt;
                     NSDate* effectivetodt;
                                 
-                    if ([exfrdt compare:frmdt] == NSOrderedDescending)
+                    if ([exfrdt compare:dfeffectivefrmdt] == NSOrderedDescending)
                     {
                         // Means exception from date is later than bill from date
                         // so make it effective start date
@@ -779,12 +800,12 @@
                     {
                         // Bill from date is later than exception start date
                         // so make it effective start date
-                        effectivefrmdt = frmdt;
+                        effectivefrmdt = dfeffectivefrmdt;
                     }
                                 
-                    if ([extodt compare:todt] == NSOrderedDescending)
+                    if ([extodt compare:dfeffectivetodt] == NSOrderedDescending)
                     {
-                        effectivetodt = todt;
+                        effectivetodt = dfeffectivetodt;
                     }
                     else
                     {

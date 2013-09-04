@@ -172,6 +172,12 @@
             subtitle = [subtitle stringByAppendingString:[dict objectForKey:@"saree"]];
         }
         
+        if ([[dict objectForKey:@"starch"] integerValue] != 0)
+        {
+            subtitle = [subtitle stringByAppendingString:@" Starch:"];
+            subtitle = [subtitle stringByAppendingString:[dict objectForKey:@"starch"]];
+        }
+        
         [cell.detailTextLabel setNumberOfLines:2];
         [cell.detailTextLabel setText:subtitle];
         

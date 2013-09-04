@@ -140,7 +140,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 8;
+    return 9;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -289,13 +289,41 @@
             
             self.txtField.text = [ratedict objectForKey:@"saree"];
             
-            cell.textLabel.text = @"Saree                   : ";
+            cell.textLabel.text = @"Saree                    : ";
             [cell setAccessoryView:self.txtField];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             break;
         }
             
         case 5:
+        {
+            // Cell1 is re-usable cell for textfield based cells
+            static NSString *CellIdentifier = @"Cell1";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            if (cell == nil)
+            {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+            }
+            
+            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 90, 20)];
+            self.txtField.delegate = self;
+            
+            self.txtField.placeholder = @"Rs. per cloth";
+            self.txtField.keyboardType = UIKeyboardTypeDecimalPad;
+            self.txtField.returnKeyType = UIReturnKeyNext;
+            self.txtField.textAlignment = NSTextAlignmentRight;
+            self.txtField.tag = sectionCount + [indexPath row];
+            self.txtField.adjustsFontSizeToFitWidth = YES;
+            
+            self.txtField.text = [ratedict objectForKey:@"starch"];
+            
+            cell.textLabel.text = @"Starch                   : ";
+            [cell setAccessoryView:self.txtField];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            break;
+        }
+            
+        case 6:
         {
             // Cell1 is re-usable cell for textfield based cells
             static NSString *CellIdentifier = @"Cell1";
@@ -323,7 +351,7 @@
             break;
         }
             
-        case 6:
+        case 7:
         {
             // Cell1 is re-usable cell for textfield based cells
             static NSString *CellIdentifier = @"Cell2";
@@ -370,7 +398,7 @@
             break;
         }
             
-        case 7:
+        case 8:
         {
             // Cell1 is re-usable cell for textfield based cells
             static NSString *CellIdentifier = @"Cell2";
@@ -418,7 +446,7 @@
             [datePicker addTarget:self action:@selector(updateDateField:) forControlEvents:UIControlEventValueChanged];
             [self.txtField setInputView:datePicker];
             
-            cell.textLabel.text = @"Till Date               : ";
+            cell.textLabel.text = @"Till Date                : ";
             [cell setAccessoryView:self.txtField];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
@@ -482,15 +510,20 @@
             break;
             
         case 5:
+            [[self.rates objectAtIndex:arrind] setValue:textField.text forKey:@"starch"];
+            self.ischangedflag = YES;
+            break;
+            
+        case 6:
             [[self.rates objectAtIndex:arrind] setValue:textField.text forKey:@"deliveryCharge"];
             self.ischangedflag = YES;
             break;
 
-        case 6:
+        case 7:
             [self.tableView reloadData];
             break;
 
-        case 7:
+        case 8:
             [self.tableView reloadData];
             break;
             
@@ -509,7 +542,7 @@
     
     self.txtField.text = [NSString stringWithFormat:@"%@",[dformat stringFromDate:sender.date]];
     
-    if (tagind == 5)
+    if (tagind == 7)
     {
         [[self.rates objectAtIndex:arrind] setValue:self.txtField.text forKey:@"fromDate"];
         self.ischangedflag = YES;

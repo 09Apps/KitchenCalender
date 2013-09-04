@@ -117,9 +117,9 @@
         }
         else
         {
-            // Laundry has 7 rows
-            // count of press, wash, dryclean, bleach, saree, laundry cost, delivery charge & clothes not returned
-            return 8;
+            // Laundry has 9 rows
+            // count of press, wash, dryclean, bleach, saree, starch, laundry cost, delivery charge & clothes not returned
+            return 9;
         }
 
     }
@@ -209,7 +209,7 @@
         }
         else
         {
-            // Laundry has 8 rows
+            // Laundry has 9 rows
             
             switch (indexPath.row)
             {
@@ -239,16 +239,21 @@
                     break;
                     
                 case 5:
+                    cell.textLabel.text = @"Starch                               : ";
+                    label.text = [dict objectForKey:@"starchcount"];
+                    break;
+                    
+                case 6:
                     cell.textLabel.text = @"Laundry Bill                      : ";
                     label.text = [dict objectForKey:@"laundrybill"];
                     break;
                     
-                case 6:
+                case 7:
                     cell.textLabel.text = @"Delivery charge                : ";
                     label.text = [dict objectForKey:@"deliveryCharge"];
                     break;
 
-                case 7:
+                case 8:
                     cell.textLabel.text = @"Clothes Not Returned     : ";
                     label.text = [dict objectForKey:@"notreturncount"];
                     label.textColor = [UIColor redColor];

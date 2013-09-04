@@ -83,7 +83,8 @@
         NSUInteger totalcloth = [[self.ctdict objectForKey:@"press"] integerValue] +
         [[self.ctdict objectForKey:@"wash"] integerValue] +
         [[self.ctdict objectForKey:@"dryclean"] integerValue] +
-        [[self.ctdict objectForKey:@"saree"] integerValue] +        
+        [[self.ctdict objectForKey:@"saree"] integerValue] +
+        [[self.ctdict objectForKey:@"starch"] integerValue] +          
         [[self.ctdict objectForKey:@"bleach"] integerValue] ;
         
         [self.ctdict setValue:[NSString stringWithFormat:@"%d",totalcloth] forKey:@"totalcloth"];
@@ -126,7 +127,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 7;
+    return 8;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -172,7 +173,7 @@
         }
         case 1:
             self.txtfld.placeholder = @"0";
-            cell.textLabel.text = @"For Press               : ";
+            cell.textLabel.text = @"For Press                : ";
             [cell setAccessoryView:self.txtfld];
             self.txtfld.text = [self.ctdict objectForKey:@"press"];            
             self.txtfld.keyboardType = UIKeyboardTypeNumberPad;
@@ -211,6 +212,14 @@
             break;
             
         case 6:
+            self.txtfld.placeholder = @"0";
+            cell.textLabel.text = @"For Starch               : ";
+            [cell setAccessoryView:self.txtfld];
+            self.txtfld.text = [self.ctdict objectForKey:@"starch"];
+            self.txtfld.keyboardType = UIKeyboardTypeNumberPad;
+            break;
+            
+        case 7:
             cell.textLabel.text = @"Returned ?              : ";
             [cell setAccessoryView:self.segcontrol];
             [self.segcontrol setSelectedSegmentIndex:[[self.ctdict objectForKey:@"returned"] integerValue]];
@@ -282,6 +291,12 @@
             
         case 5:
             [self.ctdict setValue:textField.text forKey:@"saree"];
+            self.isaddedflag = YES;
+            [textField resignFirstResponder];
+            break;
+            
+        case 6:
+            [self.ctdict setValue:textField.text forKey:@"starch"];
             self.isaddedflag = YES;
             [textField resignFirstResponder];
             break;
