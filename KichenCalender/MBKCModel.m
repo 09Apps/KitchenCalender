@@ -517,7 +517,8 @@
             NSUInteger defaultdays = [MBKCModel getNumberOfDaysFrom:dfeffectivefrmdt Till:dfeffectivetodt];
             NSUInteger monthsct = (defaultdays/32);
 
-            if (monthsct == 0 && defaultdays > 15) {
+            if ((defaultdays - (monthsct*32)) > 15 )
+            {
                 monthsct++;
             }
             
@@ -743,7 +744,7 @@
             // find number of months, used to calculate delivery charge
             NSUInteger monthsct = (defaultdays/32);
 
-            if (monthsct == 0 && defaultdays > 15) {
+            if ((defaultdays - (monthsct*32)) > 15 ) {
                 monthsct++;
             }
             

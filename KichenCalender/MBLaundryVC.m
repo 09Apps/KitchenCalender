@@ -44,6 +44,8 @@
       
     self.navigationItem.rightBarButtonItems = @[settingsButton, addButton];
     
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];    
+    
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(saveData)];
     self.navigationItem.leftBarButtonItem = doneButton;
     
@@ -207,10 +209,12 @@
     return cell;
 }
 
+/*
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {    
     return @" Records ";
 }
+*/
 
 -(void)segmentChanged:(UISegmentedControl*)sender
 {

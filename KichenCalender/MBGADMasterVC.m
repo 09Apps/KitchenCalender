@@ -19,7 +19,7 @@
         adBanner_ = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
         adBanner_.frame = CGRectMake(0.0,
                                        self.view.frame.size.height -
-                                       (adBanner_.frame.size.height * 1.9),
+                                       (adBanner_.frame.size.height * 2),
                                        adBanner_.frame.size.width,
                                        adBanner_.frame.size.height);
         // Has an ad request already been made
@@ -77,8 +77,8 @@
         adBanner_.adUnitID = @"9485df067fc5469e";
 //        adBanner_.adUnitID = @"a152204863d59fa";
         GADRequest *request = [GADRequest request];
-        request.testDevices = [NSArray arrayWithObjects:@"946efa89ffd0e71731193b8aba42422c", GAD_SIMULATOR_ID, nil];
-//        request.testDevices = [NSArray arrayWithObjects:GAD_SIMULATOR_ID, nil];
+//        request.testDevices = [NSArray arrayWithObjects:@"946efa89ffd0e71731193b8aba42422c", GAD_SIMULATOR_ID, nil];
+        request.testDevices = [NSArray arrayWithObjects:GAD_SIMULATOR_ID, nil];
         [adBanner_ loadRequest:request];
         [rootViewController.view addSubview:adBanner_];
         isLoaded_ = YES;

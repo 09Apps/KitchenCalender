@@ -35,7 +35,8 @@
     UIImage *image = [UIImage imageNamed: @"NavBar-Wood.png"];
     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics: UIBarMetricsDefault];
 
-    self.navigationController.navigationBar.tintColor = [UIColor brownColor];
+//    self.navigationController.navigationBar.tintColor = [UIColor brownColor];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     
     self.model = [[MBKCModel alloc] init];
     

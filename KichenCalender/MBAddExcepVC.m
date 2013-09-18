@@ -57,6 +57,8 @@
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cencelAdd)];
     self.navigationItem.rightBarButtonItem = cancelButton;
     
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    
     self.title = @"Add Exception";    
 }
 

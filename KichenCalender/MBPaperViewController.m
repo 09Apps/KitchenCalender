@@ -54,6 +54,8 @@
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(saveCatData)];
     self.navigationItem.leftBarButtonItem = saveButton;
     
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    
     self.days = [[NSArray alloc] initWithObjects:@"Sunday", @"Monday", @"Tuesday",@"Wednesday",@"Thursday",@"Friday",@"Saturday",nil];
 
     // Uncomment the following line to preserve selection between presentations.
@@ -139,7 +141,7 @@
             if (isdaily == YES)
             {
                 self.txtField.delegate = self;
-                self.txtField.placeholder = @"Mon - Fri rate Rs.";
+                self.txtField.placeholder = @"Mon-Fri rate Rs.";
                 self.txtField.keyboardType = UIKeyboardTypeDecimalPad;
                 self.txtField.returnKeyType = UIReturnKeyNext;
                 [self.txtField setEnabled: YES];

@@ -45,6 +45,8 @@
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(saveData)];
     self.navigationItem.leftBarButtonItem = saveButton;
     
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    
     self.sect = [self.rates count];
     self.ischangedflag = NO;
 }
@@ -116,6 +118,7 @@
     }
 }
 
+/*
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     UIView *customTitleView = [ [UIView alloc] initWithFrame:CGRectMake(10, 0, 100, 44)];
@@ -124,7 +127,7 @@
     
     titleLabel.text = @"  Set Rates ";
     
-    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.textColor = [UIColor blackColor];
     
     titleLabel.backgroundColor = [UIColor clearColor];
     
@@ -132,6 +135,7 @@
     
     return customTitleView;
 }
+ */
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 44;
@@ -161,7 +165,7 @@
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil)
             {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             }
 
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 90, 20)];
@@ -189,7 +193,7 @@
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil)
             {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             }
             
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 90, 20)];
@@ -217,7 +221,7 @@
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil)
             {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             }
             
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 90, 20)];
@@ -245,7 +249,7 @@
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil)
             {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             }
             
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 90, 20)];
@@ -266,7 +270,6 @@
             break;
         }
 
-            
         case 4:
         {
             // Cell1 is re-usable cell for textfield based cells
@@ -274,7 +277,7 @@
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil)
             {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             }
             
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 90, 20)];
@@ -302,7 +305,7 @@
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil)
             {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             }
             
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 90, 20)];
@@ -330,7 +333,7 @@
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil)
             {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             }
             
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 90, 20)];
@@ -358,7 +361,7 @@
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil)
             {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             }
             
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 90, 20)];
@@ -406,7 +409,7 @@
             
             if (cell == nil)
             {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             }
             
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(180, 60, 90, 20)];
