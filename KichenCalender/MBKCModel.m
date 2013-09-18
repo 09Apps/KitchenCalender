@@ -701,6 +701,7 @@
             isdaily = NO;
         }
 
+        NSUInteger fridays = 0;
         NSUInteger saturdays = 0;
         NSUInteger sundays = 0;
         NSUInteger wkdays = 0;
@@ -753,6 +754,9 @@
             
             if (isdaily == YES)
             {
+                // find fridays
+                fridays = [MBKCModel getNumberOf:6 From:dfeffectivefrmdt Till:dfeffectivetodt];
+                
                 // find saturdays
                 saturdays = [MBKCModel getNumberOf:7 From:dfeffectivefrmdt Till:dfeffectivetodt];
                 
@@ -760,7 +764,7 @@
                 sundays = [MBKCModel getNumberOf:1 From:dfeffectivefrmdt Till:dfeffectivetodt];
                 
                 // Rest are weekdays
-                wkdays = defaultdays - saturdays - sundays;
+                wkdays = defaultdays - saturdays - sundays - fridays;
             }
             else
             {
@@ -817,6 +821,9 @@
                     {
                         NSInteger exdays = [MBKCModel getNumberOfDaysFrom:effectivefrmdt Till:effectivetodt];
 
+                        // find fridays
+                        NSUInteger efffridays = [MBKCModel getNumberOf:6 From:effectivefrmdt Till:effectivetodt];
+                        
                         // find saturdays
                         NSUInteger effsaturdays = [MBKCModel getNumberOf:7 From:effectivefrmdt Till:effectivetodt];
                         
@@ -824,11 +831,13 @@
                         NSUInteger effsundays = [MBKCModel getNumberOf:1 From:effectivefrmdt Till:effectivetodt];
                         
                         // Rest are weekdays
-                        NSUInteger effwkdays = exdays - effsaturdays - effsundays;
+                        NSUInteger effwkdays = exdays - effsaturdays - effsundays - efffridays;
                         
                         saturdays = saturdays - effsaturdays;
                     
                         sundays = sundays - effsundays;
+                        
+                        fridays = fridays - efffridays;
                     
                         wkdays = wkdays - effwkdays;
                     }
@@ -845,8 +854,9 @@
             double sunprice = [[dict objectForKey:@"sundayprice"] doubleValue];
             double wkprice = [[dict objectForKey:@"weekdayprice"] doubleValue];
             double satprice = [[dict objectForKey:@"saturdayprice"] doubleValue];
+            double friprice = [[dict objectForKey:@"fridayprice"] doubleValue];
             
-            billamt = (satprice * saturdays) + (sunprice * sundays) + (wkprice * wkdays) ;
+            billamt = (friprice * fridays) + (satprice * saturdays) + (sunprice * sundays) + (wkprice * wkdays) ;
         }
         else
         {

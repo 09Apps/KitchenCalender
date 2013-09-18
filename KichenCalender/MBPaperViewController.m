@@ -79,7 +79,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 8;
+    return 9;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -141,7 +141,7 @@
             if (isdaily == YES)
             {
                 self.txtField.delegate = self;
-                self.txtField.placeholder = @"Mon-Fri rate Rs.";
+                self.txtField.placeholder = @"Mon-Thu rate Rs.";
                 self.txtField.keyboardType = UIKeyboardTypeDecimalPad;
                 self.txtField.returnKeyType = UIReturnKeyNext;
                 [self.txtField setEnabled: YES];
@@ -161,6 +161,38 @@
             break;
 
         case 2:
+            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];
+            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(160, 60, 120, 20)];
+            self.txtField.textAlignment = NSTextAlignmentRight;
+            self.txtField.tag = sectionCount + [indexPath row];
+            
+            self.txtField.adjustsFontSizeToFitWidth = YES;
+            self.txtField.delegate = self;
+            self.txtField.keyboardType = UIKeyboardTypeDecimalPad;
+            self.txtField.returnKeyType = UIReturnKeyNext;
+            
+            if (isdaily == YES)
+            {
+                self.txtField.text = [paperdict objectForKey:@"fridayprice"];
+                [self.txtField setEnabled: YES];
+                self.txtField.placeholder = @"Friday rate Rs.";
+                cell.textLabel.text = @"Friday Rate Rs.";
+            }
+            else
+            {
+                // This is just to fill, we are showing publisher with title
+                self.txtField.text = [paperdict objectForKey:@"title"];
+                self.txtField.placeholder = @"Publisher";
+                [self.txtField setEnabled:NO];
+                cell.textLabel.text = @"Publisher";
+            }
+            
+            [cell setAccessoryView:self.txtField];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            break;
+            
+        case 3:
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(160, 60, 120, 20)];
             self.txtField.textAlignment = NSTextAlignmentRight;
@@ -189,7 +221,7 @@
             
             break;
 
-        case 3:
+        case 4:
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(160, 60, 120, 20)];
             self.txtField.delegate = self;
             self.txtField.textAlignment = NSTextAlignmentRight;
@@ -233,7 +265,7 @@
 
             break;
             
-        case 4:
+        case 5:
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1"];
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(160, 60, 120, 20)];
             self.txtField.delegate = self;
@@ -253,7 +285,7 @@
             
             break;
             
-        case 5:
+        case 6:
         {
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell2"];
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(160, 60, 120, 20)];
@@ -293,7 +325,7 @@
             break;
         }
             
-        case 6:
+        case 7:
         {
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell2"];
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(160, 60, 120, 20)];
@@ -340,7 +372,7 @@
             break;
         }
             
-        case 7:
+        case 8:
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell3"];
             cell.textLabel.text = @"No paper days ";
             [cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
@@ -427,11 +459,16 @@
             break;
             
         case 2:
+            [[self.papers objectAtIndex:arrind] setValue:textField.text forKey:@"fridayprice"];
+            self.ischangedflag = YES;
+            break;
+        
+        case 3:
             [[self.papers objectAtIndex:arrind] setValue:textField.text forKey:@"saturdayprice"];
             self.ischangedflag = YES;            
             break;
             
-        case 3:
+        case 4:
             if ([textField.text integerValue] != 0)
             {
                 // Do only for daily.Weekly is handled in pickerview
@@ -440,16 +477,16 @@
             }
             break;
             
-        case 4:
+        case 5:
             [[self.papers objectAtIndex:arrind] setValue:textField.text forKey:@"deliverycharge"];
             self.ischangedflag = YES;            
             break;
 
-        case 5:
+        case 6:
             [self.tableView reloadData];
             break;
 
-        case 6:
+        case 7:
             [self.tableView reloadData];
             break;
 
@@ -492,7 +529,7 @@
     
     self.txtField.text = [NSString stringWithFormat:@"%@",[dformat stringFromDate:sender.date]];
     
-    if (tagind == 5)
+    if (tagind == 6)
     {
         [[self.papers objectAtIndex:arrind] setValue:self.txtField.text forKey:@"fromdate"];
         self.ischangedflag = YES;        
@@ -582,7 +619,7 @@
 {
     [self.view endEditing:YES];
     
-    if (indexPath.row == 7)
+    if (indexPath.row == 8)
     {
         NSMutableArray* excparr = [[self.papers objectAtIndex:[indexPath section]] objectForKey:@"exceptions"];
         

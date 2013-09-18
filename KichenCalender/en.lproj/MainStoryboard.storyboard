@@ -247,7 +247,7 @@
                                     <segment title="Laundry"/>
                                     <segment title="Newspaper"/>
                                 </segments>
-                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="barSegmentChanged:" destination="DrO-Rn-t7W" eventType="valueChanged" id="NHh-hu-dVa"/>
                                 </connections>
@@ -296,7 +296,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xg4-tq-nr4">
-                                <rect key="frame" x="123" y="307" width="75" height="40"/>
+                                <rect key="frame" x="123" y="306" width="75" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" image="calculator.png">
