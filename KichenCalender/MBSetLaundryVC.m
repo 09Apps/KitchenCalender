@@ -45,7 +45,14 @@
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(saveData)];
     self.navigationItem.leftBarButtonItem = saveButton;
     
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+    {
+        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    }
+    else
+    {
+        self.navigationController.navigationBar.tintColor = [UIColor brownColor];
+    }
     
     self.sect = [self.rates count];
     self.ischangedflag = NO;
@@ -127,7 +134,7 @@
     
     titleLabel.text = @"  Set Rates ";
     
-    titleLabel.textColor = [UIColor blackColor];
+    titleLabel.textColor = [UIColor whiteColor];
     
     titleLabel.backgroundColor = [UIColor clearColor];
     

@@ -38,16 +38,27 @@
     self.title = @"Laundry";
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addLaundry)];
 
-    UIImage *confimg = [UIImage imageNamed:@"simple_gears.png"];
+    NSString* settingPng;
     
-    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:confimg style:UIBarButtonItemStyleBordered target:self action:@selector(setupLaundry)];
-      
-    self.navigationItem.rightBarButtonItems = @[settingsButton, addButton];
-    
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+    {
+        settingPng = @"tools1.png";
+        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    }
+    else
+    {
+        settingPng = @"simple_gears.png";
+        self.navigationController.navigationBar.tintColor = [UIColor brownColor];
+    }
     
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(saveData)];
     self.navigationItem.leftBarButtonItem = doneButton;
+    
+    UIImage *confimg = [UIImage imageNamed:settingPng];
+    
+    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:confimg style:UIBarButtonItemStyleBordered target:self action:@selector(setupLaundry)];
+    
+    self.navigationItem.rightBarButtonItems = @[settingsButton, addButton];
     
     // Get Currency, array count and laundry data
     
@@ -192,7 +203,7 @@
         
         if (segmentedControl.selectedSegmentIndex == 0)
         {
-            [segmentedControl setTintColor:[UIColor redColor]];
+            [segmentedControl setTintColor:[UIColor brownColor]];
         }
         else
         {
@@ -223,7 +234,7 @@
     
     if (sender.selectedSegmentIndex == 0)
     {
-        [sender setTintColor:[UIColor redColor]];
+        [sender setTintColor:[UIColor brownColor]];
         [dict setValue:@"0" forKey:@"returned"];
     }
     else

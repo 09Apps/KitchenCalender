@@ -82,6 +82,7 @@
     }
 }
 
+/*
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (section > 0)
@@ -93,6 +94,34 @@
     {
         return @"Bill Summary";
     }
+}
+
+*/
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    UIView *customTitleView = [ [UIView alloc] initWithFrame:CGRectMake(10, 0, 300, 44)];
+    
+    UILabel *titleLabel = [ [UILabel alloc] initWithFrame:CGRectMake(10, 0, 300, 44)];
+    
+    if (section > 0)
+    {
+        NSDictionary* dict = [self.element objectAtIndex:(section-1)];
+        titleLabel.text =  [dict objectForKey:@"title"];
+    }
+    else
+    {
+        titleLabel.text =  @"Bill Summary";
+    }
+    
+    titleLabel.textColor = [UIColor whiteColor];
+    
+    titleLabel.backgroundColor = [UIColor clearColor];
+    
+    [customTitleView addSubview:titleLabel];
+    
+    return customTitleView;
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -270,6 +299,11 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 44;
 }
 
 /*

@@ -54,7 +54,14 @@
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(saveCatData)];
     self.navigationItem.leftBarButtonItem = saveButton;
     
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+    {
+        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    }
+    else
+    {
+        self.navigationController.navigationBar.tintColor = [UIColor brownColor];
+    }
     
     self.days = [[NSArray alloc] initWithObjects:@"Sunday", @"Monday", @"Tuesday",@"Wednesday",@"Thursday",@"Friday",@"Saturday",nil];
 
@@ -67,8 +74,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-#pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -184,7 +189,7 @@
                 self.txtField.text = [paperdict objectForKey:@"title"];
                 self.txtField.placeholder = @"Publisher";
                 [self.txtField setEnabled:NO];
-                cell.textLabel.text = @"Publisher";
+                cell.textLabel.text = @"Updating...";
             }
             
             [cell setAccessoryView:self.txtField];
@@ -553,6 +558,7 @@
             self.ischangedflag = YES;            
         }
     }
+//    [self.tableView reloadData];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

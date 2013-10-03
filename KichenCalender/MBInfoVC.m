@@ -32,13 +32,66 @@
     UIImage *image = [UIImage imageNamed: @"NavBar-Wood.png"];
     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics: UIBarMetricsDefault];
     
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+    {
+        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    }
+    else
+    {
+        self.navigationController.navigationBar.tintColor = [UIColor brownColor];
+    }
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (IBAction)FBClicked:(UIButton *)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/KitchenCalendar"]]; 
+}
+- (IBAction)LinkedInClicked:(UIButton *)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.linkedin.com/pub/swapnil-09apps/80/947/817"]];
+}
+- (IBAction)WWWpressed:(UIButton *)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.09apps.com/"]];
+}
+- (IBAction)AppStoreClicked:(UIButton *)sender
+{    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+    {
+        NSString *templateReviewURLiOS7 = @"itms-apps://itunes.apple.com/app/id699394136";
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:templateReviewURLiOS7]];
+    }
+    else
+    {
+        NSString *templateReviewURL = @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=699394136";
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:templateReviewURL]];
+    }
+}
+
+- (IBAction)EmailClicked:(UIButton *)sender
+{
+    MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
+    
+    mailComposer.mailComposeDelegate = self;
+    
+    [mailComposer setToRecipients:[NSArray arrayWithObjects: @"contact@09apps.com",nil]];
+    
+    [mailComposer setSubject:[NSString stringWithFormat: @"Kitchen Calender iOS"]];
+    
+    [self presentViewController:mailComposer animated:YES completion:nil];
+
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
 }
 
 @end

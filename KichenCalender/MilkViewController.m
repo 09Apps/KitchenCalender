@@ -35,8 +35,14 @@
     UIImage *image = [UIImage imageNamed: @"NavBar-Wood.png"];
     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics: UIBarMetricsDefault];
 
-//    self.navigationController.navigationBar.tintColor = [UIColor brownColor];
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+    {
+        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    }
+    else
+    {
+        self.navigationController.navigationBar.tintColor = [UIColor brownColor];
+    }
     
     self.model = [[MBKCModel alloc] init];
     
@@ -54,6 +60,7 @@
     self.milk = [[NSMutableArray alloc] initWithArray:[milkarr objectAtIndex:2]];
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSection)];
+    
     self.navigationItem.rightBarButtonItem = addButton;
     
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(saveData)];
@@ -145,7 +152,7 @@
             stepper.tag = indexPath.section;
             
             quantitylbl = [[UILabel alloc] initWithFrame:CGRectMake(160, 12, 40, 20)];
-            //quantitylbl.backgroundColor = [UIColor clearColor];
+            quantitylbl.backgroundColor = [UIColor whiteColor];
             
             quantitylbl.text = [milkdict objectForKey:@"quantity"];
 
@@ -455,7 +462,6 @@
     }
     
 //    [self.tableView reloadData];
-   
 }
 
 

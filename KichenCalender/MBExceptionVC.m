@@ -33,7 +33,14 @@
     UIImage *image = [UIImage imageNamed: @"NavBar-Wood.png"];
     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics: UIBarMetricsDefault];
 
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+    {
+        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    }
+    else
+    {
+        self.navigationController.navigationBar.tintColor = [UIColor brownColor];
+    }
     
     self.title = @"Exceptions";
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addExceptionCell)];
@@ -46,12 +53,14 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+/*
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.shared = [MBGADMasterVC singleton];
     [self.shared resetAdView:self];
 }
-
+*/
+ 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

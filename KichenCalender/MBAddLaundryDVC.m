@@ -46,7 +46,14 @@
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cencelAdd)];
     self.navigationItem.rightBarButtonItem = cancelButton;
     
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+    {
+        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    }
+    else
+    {
+        self.navigationController.navigationBar.tintColor = [UIColor brownColor];
+    }
     
     self.ctdict = [[NSMutableDictionary alloc] init];
     
@@ -61,15 +68,18 @@
     [self.segcontrol setSegmentedControlStyle:UISegmentedControlStyleBar];
     [self.segcontrol setFrame:CGRectMake(170, 60, 70, 25)];
     [self.ctdict setValue:@"0" forKey:@"returned"];
-    [self.segcontrol setTintColor:[UIColor redColor]];
+    [self.segcontrol setTintColor:[UIColor brownColor]];
 }
 
+/*
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     self.shared = [MBGADMasterVC singleton];
     [self.shared resetAdView:self];
 }
+*/
+ 
 
 - (void)tapped
 {
@@ -240,7 +250,7 @@
     NSString* str = [NSString stringWithFormat:@"%d",sender.selectedSegmentIndex];
     if (sender.selectedSegmentIndex == 0)
     {
-        [sender setTintColor:[UIColor redColor]];
+        [sender setTintColor:[UIColor brownColor]];
     }
     else
     {

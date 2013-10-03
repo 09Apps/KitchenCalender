@@ -7,8 +7,22 @@
 //
 
 #import "MBAppDelegate.h"
+#import "iRate.h"
 
 @implementation MBAppDelegate
+
++ (void)initialize
+{
+    //configure iRate
+    [iRate sharedInstance].appStoreID = 699394136;
+    
+    [iRate sharedInstance].appStoreCountry = @"in";
+    [iRate sharedInstance].daysUntilPrompt = 5;
+    [iRate sharedInstance].usesUntilPrompt = 5;
+    
+    //enable preview mode
+//    [iRate sharedInstance].previewMode = YES;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

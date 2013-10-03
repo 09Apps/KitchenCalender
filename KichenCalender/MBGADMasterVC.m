@@ -19,7 +19,7 @@
         adBanner_ = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
         adBanner_.frame = CGRectMake(0.0,
                                        self.view.frame.size.height -
-                                       (adBanner_.frame.size.height * 2),
+                                       (adBanner_.frame.size.height * 1.9),
                                        adBanner_.frame.size.width,
                                        adBanner_.frame.size.height);
         // Has an ad request already been made
