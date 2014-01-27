@@ -27,6 +27,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.scrollview.contentSize = CGSizeMake(self.scrollview.frame.size.width, 600);
     self.navigationItem.title = @"Info";
     self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"board_back.png"]];
     UIImage *image = [UIImage imageNamed: @"NavBar-Wood.png"];
@@ -49,7 +50,14 @@
 }
 - (IBAction)FBClicked:(UIButton *)sender
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/KitchenCalendar"]]; 
+/*    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/KitchenCalendar"]]; */
+    
+    NSURL *facebookURL = [NSURL URLWithString:@"fb://profile/618157821568008"];
+    if ([[UIApplication sharedApplication] canOpenURL:facebookURL]) {
+        [[UIApplication sharedApplication] openURL:facebookURL];
+    } else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://facebook.com"]];
+    }
 }
 - (IBAction)LinkedInClicked:(UIButton *)sender
 {

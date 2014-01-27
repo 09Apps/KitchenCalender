@@ -10,5 +10,6 @@
 #import <MessageUI/MessageUI.h>
 
 @interface MBInfoVC : UIViewController <MFMailComposeViewControllerDelegate>
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollview;
 
 @end

@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBGADMasterVC.h"
 
 @interface MBSetLaundryVC : UITableViewController <UITextFieldDelegate>
 @property(nonatomic,retain) UITextField* txtField;
 @property BOOL ischangedflag;
 @property NSInteger sect;
 @property(nonatomic,retain) NSMutableArray* rates;
+
+@property (weak, nonatomic) MBGADMasterVC* shared;
 
 - (id)initWithRates:(NSMutableArray*) ratearr;
 

@@ -71,14 +71,14 @@
     [self.segcontrol setTintColor:[UIColor brownColor]];
 }
 
-/*
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     self.shared = [MBGADMasterVC singleton];
     [self.shared resetAdView:self];
 }
-*/
+
  
 
 - (void)tapped
