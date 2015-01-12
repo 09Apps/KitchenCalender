@@ -86,7 +86,7 @@
 {
     if ([[self.ratearr objectAtIndex:0] objectForKey:@"fromDate"] == nil)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Set Rates" message:@"Please set laundry rates before adding details." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Set Rates" message:@"Please set laundry rates using settings icon before adding details." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
     else
@@ -197,7 +197,7 @@
         NSArray *itemArray = [NSArray arrayWithObjects: @"No", @"Yes", nil];
         UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:itemArray];
 
-        segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
+        //segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
         segmentedControl.tag = indexPath.row;
         segmentedControl.selectedSegmentIndex = [[dict objectForKey:@"returned"] integerValue];
         

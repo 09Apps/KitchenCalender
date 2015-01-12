@@ -65,7 +65,7 @@
   
                        
     self.segcontrol =[[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"No",@"Yes", nil]];
-    [self.segcontrol setSegmentedControlStyle:UISegmentedControlStyleBar];
+    //[self.segcontrol setSegmentedControlStyle:UISegmentedControlStyleBar];
     [self.segcontrol setFrame:CGRectMake(170, 60, 70, 25)];
     [self.ctdict setValue:@"0" forKey:@"returned"];
     [self.segcontrol setTintColor:[UIColor brownColor]];
@@ -99,7 +99,7 @@
         [[self.ctdict objectForKey:@"starch"] integerValue] +          
         [[self.ctdict objectForKey:@"bleach"] integerValue] ;
         
-        [self.ctdict setValue:[NSString stringWithFormat:@"%d",totalcloth] forKey:@"totalcloth"];
+        [self.ctdict setValue:[NSString stringWithFormat:@"%lu",(unsigned long)totalcloth] forKey:@"totalcloth"];
         
         [self.delegate addLaundry:self didFinishAddingException:self.ctdict];
         [self.navigationController popViewControllerAnimated:YES];
@@ -247,7 +247,7 @@
 
 - (void)isReturned:(UISegmentedControl *)sender
 {
-    NSString* str = [NSString stringWithFormat:@"%d",sender.selectedSegmentIndex];
+    NSString* str = [NSString stringWithFormat:@"%ld",(long)sender.selectedSegmentIndex];
     if (sender.selectedSegmentIndex == 0)
     {
         [sender setTintColor:[UIColor brownColor]];

@@ -61,12 +61,29 @@
 }
 - (IBAction)LinkedInClicked:(UIButton *)sender
 {
+/* It is actually Twitter button
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.linkedin.com/pub/swapnil-09apps/80/947/817"]];
+  updated code */
+ //   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"twitter:///user?screen_name=09Apps"]];
+    
+    NSURL *twitterURL = [NSURL URLWithString:@"twitter:///user?screen_name=09Apps"];
+    
+    if ([[UIApplication sharedApplication] canOpenURL:twitterURL])
+    {
+        [[UIApplication sharedApplication] openURL:twitterURL];
+    }
+    else
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://twitter.com"]];
+    }
+
+    
 }
 - (IBAction)WWWpressed:(UIButton *)sender
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.09apps.com/"]];
 }
+
 - (IBAction)AppStoreClicked:(UIButton *)sender
 {    
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)

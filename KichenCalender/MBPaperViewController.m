@@ -103,7 +103,7 @@
         isdaily = NO;
     }
 
-    int sectionCount = [indexPath section] *10; // This is to manage tags of the textfields
+    long sectionCount = [indexPath section] *10; // This is to manage tags of the textfields
     // Configure the cell...
 
     switch ([indexPath row])
@@ -435,7 +435,7 @@
     {
         if ([daystr compare:self.txtField.text] == NSOrderedSame)
         {
-            [[self.papers objectAtIndex:arrind] setValue:[NSString stringWithFormat:@"%d",count] forKey:@"sundayprice"];
+            [[self.papers objectAtIndex:arrind] setValue:[NSString stringWithFormat:@"%lu",(unsigned long)count] forKey:@"sundayprice"];
             break;
         }
         count++;
@@ -600,7 +600,7 @@
         // User is saving data {currency, paper={sections,papers}}
         if (buttonIndex == 1)
         {
-            NSArray* savearr = [[NSArray alloc] initWithObjects:[NSString stringWithFormat:@"%d",self.sect],
+            NSArray* savearr = [[NSArray alloc] initWithObjects:[NSString stringWithFormat:@"%ld",(long)self.sect],
                                 self.papers,
                                 nil];
             

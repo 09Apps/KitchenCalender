@@ -161,7 +161,7 @@
     
     ratedict = [self.rates objectAtIndex:[indexPath section]];
     
-    int sectionCount = [indexPath section] *10; // This is to manage tags of the textfields
+    long sectionCount = [indexPath section] *10; // This is to manage tags of the textfields
     
     switch ([indexPath row])
     {

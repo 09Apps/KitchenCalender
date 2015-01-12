@@ -97,7 +97,7 @@
 
     milkdict = [self.milk objectAtIndex:[indexPath section]];
     
-    int sectionCount = [indexPath section] *10; // This is to manage tags of the textfields
+    long sectionCount = [indexPath section] *10; // This is to manage tags of the textfields
     
     switch ([indexPath row])
     {
@@ -392,7 +392,7 @@
         // User is saving data
         if (buttonIndex == 1)
         {
-            NSArray* savearr = [[NSArray alloc] initWithObjects:[NSString stringWithFormat:@"%d",self.sect],
+            NSArray* savearr = [[NSArray alloc] initWithObjects:[NSString stringWithFormat:@"%ld",(long)self.sect],
                                                                 self.currency,
                                                                 self.milk,
                                                                 nil];

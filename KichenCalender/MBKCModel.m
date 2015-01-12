@@ -24,7 +24,7 @@
     
     if (!temp)
     {
-        NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
+        NSLog(@"Error reading plist: %@, format: %u", errorDesc, format);
     }
     
     NSMutableArray* milkarray = [[NSMutableArray alloc] init];
@@ -271,7 +271,7 @@
                 [dict1 setValue:[NSString stringWithFormat:@"%.2f",totalQuantity] forKey:@"quantity"];
                 [dict1 setValue:[NSString stringWithFormat:@"%.2f",billamt] forKey:@"billamt"];
 
-                NSString* delchgstr = [NSString stringWithFormat:@"%d",totdelcharge];
+                NSString* delchgstr = [NSString stringWithFormat:@"%ld",(long)totdelcharge];
                 [dict1 setValue:delchgstr forKey:@"deliveryCharge"];
 
                 [eachmilk addObject:dict1];
@@ -322,7 +322,7 @@
     
     if (!temp)
     {
-        NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
+        NSLog(@"Error reading plist: %@, format: %u", errorDesc, format);
     }
     
     NSMutableArray* catarray = [[NSMutableArray alloc] init];
@@ -358,7 +358,7 @@
     
     if (!temp)
     {
-        NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
+        NSLog(@"Error reading plist: %@, format: %u", errorDesc, format);
     }
     
     NSMutableArray* catarray = [[NSMutableArray alloc] init];
@@ -374,7 +374,7 @@
         
     self.sections = [counts count];
         
-    [catarray addObject:[NSString stringWithFormat:@"%d",self.sections]];
+    [catarray addObject:[NSString stringWithFormat:@"%ld",(long)self.sections]];
         
     [catarray addObject:dict];
 
@@ -601,14 +601,14 @@
     double totalbill = laundrybill + totdelch;
     
     [returndict setValue:@"Bill Details" forKey:@"title"];
-    [returndict setValue:[NSString stringWithFormat:@"%d",totdelch] forKey:@"deliveryCharge"];
-    [returndict setValue:[NSString stringWithFormat:@"%d",totpressct] forKey:@"presscount"];
-    [returndict setValue:[NSString stringWithFormat:@"%d",totwashct] forKey:@"washcount"];
-    [returndict setValue:[NSString stringWithFormat:@"%d",totdrycleanct] forKey:@"drycleancount"];
-    [returndict setValue:[NSString stringWithFormat:@"%d",totbleachct] forKey:@"bleachcount"];
-    [returndict setValue:[NSString stringWithFormat:@"%d",totsareect] forKey:@"sareecount"];
-    [returndict setValue:[NSString stringWithFormat:@"%d",totstarchct] forKey:@"starchcount"];
-    [returndict setValue:[NSString stringWithFormat:@"%d",notretct] forKey:@"notreturncount"];
+    [returndict setValue:[NSString stringWithFormat:@"%lu",(unsigned long)totdelch] forKey:@"deliveryCharge"];
+    [returndict setValue:[NSString stringWithFormat:@"%lu",(unsigned long)totpressct] forKey:@"presscount"];
+    [returndict setValue:[NSString stringWithFormat:@"%lu",(unsigned long)totwashct] forKey:@"washcount"];
+    [returndict setValue:[NSString stringWithFormat:@"%lu",(unsigned long)totdrycleanct] forKey:@"drycleancount"];
+    [returndict setValue:[NSString stringWithFormat:@"%lu",(unsigned long)totbleachct] forKey:@"bleachcount"];
+    [returndict setValue:[NSString stringWithFormat:@"%lu",(unsigned long)totsareect] forKey:@"sareecount"];
+    [returndict setValue:[NSString stringWithFormat:@"%lu",(unsigned long)totstarchct] forKey:@"starchcount"];
+    [returndict setValue:[NSString stringWithFormat:@"%lu",(unsigned long)notretct] forKey:@"notreturncount"];
     [returndict setValue:[NSString stringWithFormat:@"%.2f",laundrybill] forKey:@"laundrybill"];
     [returndict setValue:[NSString stringWithFormat:@"%.2f",totalbill] forKey:@"totalbill"];
     
@@ -750,7 +750,7 @@
             }
             
             devbill = [[dict objectForKey:@"deliverycharge"] integerValue] * monthsct;
-            [returndict1 setValue:[NSString stringWithFormat:@"%d",devbill] forKey:@"deliveryCharge"];
+            [returndict1 setValue:[NSString stringWithFormat:@"%ld",(long)devbill] forKey:@"deliveryCharge"];
             
             if (isdaily == YES)
             {
