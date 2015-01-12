@@ -8,7 +8,7 @@
 
 #import "MBAppDelegate.h"
 #import "iRate.h"
-#import "Flurry.h"
+//#import "Flurry.h"
 
 @implementation MBAppDelegate
 
@@ -28,8 +28,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    [Flurry setCrashReportingEnabled:YES];
-    [Flurry startSession:@"NGRNQBGPFQK28TMBFZYX"];
+//    [Flurry setCrashReportingEnabled:YES];
+//    [Flurry startSession:@"NGRNQBGPFQK28TMBFZYX"];
     return YES;
 }
 							
