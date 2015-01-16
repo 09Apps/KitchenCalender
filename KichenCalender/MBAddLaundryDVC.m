@@ -68,7 +68,7 @@
     //[self.segcontrol setSegmentedControlStyle:UISegmentedControlStyleBar];
     [self.segcontrol setFrame:CGRectMake(170, 60, 70, 25)];
     [self.ctdict setValue:@"0" forKey:@"returned"];
-    [self.segcontrol setTintColor:[UIColor brownColor]];
+    [self.segcontrol setTintColor:[UIColor whiteColor]];
 }
 
 
@@ -178,7 +178,7 @@
             
             [datePicker setTag:self.txtfld.tag];
             [datePicker addTarget:self action:@selector(getDate:) forControlEvents:UIControlEventValueChanged];
-             [self.txtfld setInputView:datePicker];
+            [self.txtfld setInputView:datePicker];
             self.txtfld.placeholder = @"On Date";            
             self.txtfld.text = [self.ctdict objectForKey:@"ondate"];
             break;
@@ -241,7 +241,15 @@
         default:
             break;
     }
-
+    
+    // Set backgroundcolor
+    cell.backgroundColor = [UIColor colorWithRed:.1 green:.1 blue:.1 alpha:.2];
+    cell.textLabel.backgroundColor = [UIColor clearColor];
+    cell.opaque = NO;
+    // Set placeholder color
+    [self.txtfld setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
+    self.txtfld.textColor = [UIColor whiteColor];
+    
     return cell;
 }
 
@@ -250,7 +258,7 @@
     NSString* str = [NSString stringWithFormat:@"%ld",(long)sender.selectedSegmentIndex];
     if (sender.selectedSegmentIndex == 0)
     {
-        [sender setTintColor:[UIColor brownColor]];
+        [sender setTintColor:[UIColor whiteColor]];
     }
     else
     {

@@ -34,7 +34,7 @@
     UIImage *image = [UIImage imageNamed: @"NavBar-Wood.png"];
     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics: UIBarMetricsDefault];
 
-    self.navigationItem.title = @"Laundry Setup";
+    self.navigationItem.title = @"Laundry Rates";
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -467,6 +467,14 @@
             break;
     }
     
+    // Set backgroundcolor
+    cell.backgroundColor = [UIColor colorWithRed:.1 green:.1 blue:.1 alpha:.2];
+    cell.textLabel.backgroundColor = [UIColor clearColor];
+    cell.opaque = NO;
+    // Set placeholder color
+    [self.txtField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
+    self.txtField.textColor = [UIColor whiteColor];
+    
     return cell;
 }
 
@@ -626,8 +634,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.shared = [MBGADMasterVC singleton];
-    [self.shared resetAdView:self];
+//    self.shared = [MBGADMasterVC singleton];
+//    [self.shared resetAdView:self];
 }
     
 

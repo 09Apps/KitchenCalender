@@ -122,7 +122,7 @@
             break;
         
         case 1:
-            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];            
+            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
             self.txtField.delegate = self;
             
@@ -138,7 +138,6 @@
             cell.textLabel.text = @"Rate per ltr";
             [cell setAccessoryView:self.txtField];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
             break;
 
         case 2:
@@ -150,9 +149,10 @@
             [stepper setStepValue:0.25];
             [stepper addTarget:self action:@selector(stepperPressed:) forControlEvents:UIControlEventValueChanged];
             stepper.tag = indexPath.section;
+            stepper.tintColor = [UIColor whiteColor];
             
             quantitylbl = [[UILabel alloc] initWithFrame:CGRectMake(160, 12, 40, 20)];
-            quantitylbl.backgroundColor = [UIColor whiteColor];
+            quantitylbl.backgroundColor = [UIColor clearColor];
             
             quantitylbl.text = [milkdict objectForKey:@"quantity"];
 
@@ -160,11 +160,10 @@
 
             [cell addSubview:quantitylbl];            
             [cell setAccessoryView:stepper];
-            
             break;
 
         case 3:
-            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];            
+            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];
             self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
             self.txtField.delegate = self;
             
@@ -179,7 +178,6 @@
             cell.textLabel.text = @"Delivery Charges";
             [cell setAccessoryView:self.txtField];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
             break;
 
         case 4:
@@ -218,7 +216,6 @@
             cell.textLabel.text = @"From Date ";
             [cell setAccessoryView:self.txtField];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
             break;
         }
         case 5:
@@ -265,12 +262,11 @@
             cell.textLabel.text = @"Till Date ";
             [cell setAccessoryView:self.txtField];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
             break;
         }
             
         case 6:
-            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell3" forIndexPath:indexPath];            
+            cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell3" forIndexPath:indexPath];
             cell.textLabel.text = @"Exceptions ";
             [cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
             cell.selectionStyle = UITableViewCellSelectionStyleGray;
@@ -279,6 +275,14 @@
         default:
             break;
     }
+    
+    // Set backgroundcolor
+    cell.backgroundColor = [UIColor colorWithRed:.1 green:.1 blue:.1 alpha:.2];
+    cell.textLabel.backgroundColor = [UIColor clearColor];
+    cell.opaque = NO;
+    // Set placeholder color
+    [self.txtField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
+    self.txtField.textColor = [UIColor whiteColor];
     
     return cell;
 }

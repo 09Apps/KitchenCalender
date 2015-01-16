@@ -388,6 +388,14 @@
             break;
     }
 
+    // Set backgroundcolor
+    cell.backgroundColor = [UIColor colorWithRed:.1 green:.1 blue:.1 alpha:.2];
+    cell.textLabel.backgroundColor = [UIColor clearColor];
+    cell.opaque = NO;
+    // Set placeholder color
+    [self.txtField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
+    self.txtField.textColor = [UIColor whiteColor];
+    
     return cell;
 }
 

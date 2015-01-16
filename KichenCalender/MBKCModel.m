@@ -15,6 +15,8 @@
 {
     NSString* plistPath = [self getPlistPath:@"KCMilkPList"];
     
+    //NSLog(@"plistPath %@",plistPath);
+    
     // read property list into memory as an NSData object
     NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
     NSString *errorDesc = nil;

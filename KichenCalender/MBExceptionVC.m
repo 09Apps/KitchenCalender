@@ -117,6 +117,11 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;        
     }
     
+    // Set backgroundcolor
+    cell.backgroundColor = [UIColor colorWithRed:.1 green:.1 blue:.1 alpha:.2];
+    cell.textLabel.backgroundColor = [UIColor clearColor];
+    cell.opaque = NO;
+    
     return cell;
 }
 

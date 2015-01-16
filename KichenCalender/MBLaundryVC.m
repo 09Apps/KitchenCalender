@@ -139,6 +139,7 @@
         [cell.detailTextLabel setText:@"Laundry details"];
         UILabel* returnlbl = [[UILabel alloc] initWithFrame:CGRectMake(135, 60, 130, 20)];
         [returnlbl setTextAlignment:NSTextAlignmentRight];
+        
         returnlbl.backgroundColor = [UIColor clearColor];
         
         returnlbl.text = @"Got it back?";
@@ -203,7 +204,7 @@
         
         if (segmentedControl.selectedSegmentIndex == 0)
         {
-            [segmentedControl setTintColor:[UIColor brownColor]];
+            [segmentedControl setTintColor:[UIColor whiteColor]];
         }
         else
         {
@@ -216,6 +217,11 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
  
     }
+    
+    // Set backgroundcolor
+    cell.backgroundColor = [UIColor colorWithRed:.1 green:.1 blue:.1 alpha:.2];
+    cell.textLabel.backgroundColor = [UIColor clearColor];
+    cell.opaque = NO;
     
     return cell;
 }
@@ -234,7 +240,7 @@
     
     if (sender.selectedSegmentIndex == 0)
     {
-        [sender setTintColor:[UIColor brownColor]];
+        [sender setTintColor:[UIColor whiteColor]];
         [dict setValue:@"0" forKey:@"returned"];
     }
     else
