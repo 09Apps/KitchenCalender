@@ -1,13 +1,7 @@
 ============================
-Google AdMob Ads SDK for iOS
+Kitchen Calendaer iOS app
 ============================
 
-This is the Google AdMob Ads SDK for iOS.
+Kitchen Calendar makes it easy to manage subscriptions of milk, Newspaper, magazines or Laundry and calculates the bill amounts, leaving out the pain.
 
-Requirements:
-- An AdMob site ID or DoubleClick for Publishers account.
-- Xcode 4.5 or later.
-- Runtime of iOS 4.3 or later.
-
-The latest documentation and code samples are available at:
-https://developers.google.com/mobile-ads-sdk/docs/
+https://09apps.wordpress.com/
